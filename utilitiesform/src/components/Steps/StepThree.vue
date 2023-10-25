@@ -322,6 +322,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="internetInstallTime"
                 label="Internet Install Time Window"
                 ></v-text-field>
             </v-col>
@@ -331,6 +332,7 @@
                 <v-select
                     label="Security Question (Internet)"
                     :items="groupChoiceATT"
+                    v-model="securityQuestion"
                     outlined>
                 </v-select>
             </v-col>
@@ -340,6 +342,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="securityAnswer"
                 label="Security Answer (Internet)"
                 ></v-text-field>
             </v-col>
@@ -349,6 +352,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="securityPin"
                 label="Security Pin (Internet)"
                 ></v-text-field>
             </v-col>
@@ -358,6 +362,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="internetAccountWorkorder"
                 label="Internet Account/Workorder Number"
                 ></v-text-field>
             </v-col>
@@ -369,6 +374,7 @@
                 <v-select
                     label="Mobile Phone Provider"
                     :items="['Spectrum']"
+                    v-model="mobilePhoneProvider"
                     hint="If activating Spectrum Mobile You'll need to complete the Internetr/TV order with customer, then call ( 855) 392-9910 to add the FREE Mobile line. Be sure to give them our SAID# (22778) to receive credit for the sale."
                     persistent-hint
                     outlined>
@@ -379,6 +385,7 @@
             <v-col cols="6">
                 <v-text-field
                 dense
+                v-model="noMobileLines"
                 outlined
                 label="Number of Mobile Lines Purchased"
                 ></v-text-field>
@@ -426,6 +433,7 @@
                     <v-textarea
                     label="Mobile Notes"
                     outlined
+                    v-model="mobileNotes"
                     dense
                     ></v-textarea>
                 </v-col>
@@ -441,6 +449,7 @@
                 </v-select>
                 <v-text-field
                     dense
+                    v-model="otherTV"
                     outlined
                     v-if="(selectedTV == 'Other')"
                 ></v-text-field>
@@ -451,6 +460,7 @@
                 <v-select
                     label="Who's Name will TV be in?"
                     :items="['Primary', 'Secondary']"
+                    v-model="whosNameWillTv"
                     hint="Select Primary or Secondary"
                     persistent-hint
                     outlined>
@@ -460,6 +470,7 @@
         <v-row dense class="mt-0 mb-2">
             <v-col cols="6">
                 <v-checkbox
+                    v-model="tvEssentials"
                     label="TV ESSENTIALS (not counted as an RGU)"
                     hint="Check this box if customer selects TV Essentials."
                     persistent-hint></v-checkbox>
@@ -468,6 +479,7 @@
         <v-row dense class="mt-0 mb-2">
             <v-col cols="6">
                 <v-text-field
+                    v-model="tvPlanEquipment"
                     dense
                     outlined
                     label="TV PLAN and Equipment"
@@ -479,6 +491,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    v-model="installationTypeSelected"
                     label="Installation Type(TV) (IF SAME AS INTERNET, SKIP THIS STEP)"
                     :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
@@ -527,6 +540,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="tvInstallTime"
                 label="TV Install Time Window"
                 ></v-text-field>
             </v-col>
@@ -534,7 +548,9 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
-                outlined
+                    dense
+                    outlined
+                    v-model="securityQuestionTV"
                     label="Security Question (TV)"
                     :items="groupChoiceCox"
                     >
@@ -546,6 +562,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="securityAnswerTv"
                 label="Security Answer (TV)"
                 ></v-text-field>
             </v-col>
@@ -554,6 +571,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                v-model="securityPinTv"
                 outlined
                 label="Security Pin (TV)"
                 ></v-text-field>
@@ -562,6 +580,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
+                v-model="tvAccountWorkorder"
                 dense
                 outlined
                 label="TV Account/Workorder Number"
@@ -581,6 +600,7 @@
                 <v-text-field
                     v-if="(selectedPhone=='Other')"
                     dense
+                    v-model="otherPhone"
                     outlined>
                 </v-text-field>
             </v-col>
@@ -591,6 +611,7 @@
                     label="Who's Name will Phone be in?"
                     :items="['Primary', 'Secondary']"
                     hint="Select Primary or Secondary"
+                    v-model="whosNameWillPhone"
                     persistent-hint
                     outlined>
                 </v-select>
@@ -601,6 +622,7 @@
                 <v-text-field
                     dense
                     outlined
+                    v-model="phonePlanEquipment"
                     label="Phone Plan and Equipment"
                     hint="Enter all data pertinent to the package selection and equipment that you'd like displayed in the confirmation email. (ie: Unlimited calling to US, Canada, Mexico)"
                     persistent-hint>
@@ -610,6 +632,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    v-model="installationTypePhone"
                     label="Installatin Type (Phone) (IF SAME AS INTERNET, SKIP THIS STEP)"
                     :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
@@ -658,6 +681,7 @@
                 <v-text-field
                     dense
                     outlined
+                    v-model="phoneInstallTime"
                     label="Phone Install Time Window">
                 </v-text-field>
             </v-col>
@@ -666,9 +690,10 @@
             <v-col cols="6">
                 <v-select
                 outlined
-                    label="Security Question (Phone)"
-                    :items="groupChoiceCox"
-                    >
+                label="Security Question (Phone)"
+                :items="groupChoiceCox"
+                v-model="securityQuestionPhone"
+                >
                 </v-select>
             </v-col>
         </v-row>
@@ -677,6 +702,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="securityAnswerPhone"
                 label="Security Answer (Phone)"
                 ></v-text-field>
             </v-col>
@@ -685,6 +711,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                v-model="securityPinPhone"
                 outlined
                 label="Security Pin (Phone)"
                 ></v-text-field>
@@ -692,7 +719,8 @@
         </v-row>
         <v-row dense class="mt-0">
             <v-col cols="6">
-                <v-text-field 
+                <v-text-field
+                v-model="phoneAccountNumber"
                 dense
                 outlined
                 label="Phone Account/Workorder Number"
@@ -744,6 +772,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="primarySSN"
                 label="Primary SSN for Cable (No Dashes)"
                 ></v-text-field>
             </v-col>
@@ -752,6 +781,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                v-model="last4ofSSN"
                 outlined
                 label="Last 4 of SSN"
                 ></v-text-field>
@@ -798,6 +828,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                v-model="secondarySSNforcable"
                 outlined
                 label="Secondary SSN for Cable (No Dashes)"
                 ></v-text-field>
@@ -806,6 +837,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    v-model="collectCCInfo"
                     label="Collect CC Info for AutoPay or Initial Payment"
                     :items="['Yes']"
                     outlined>
@@ -818,6 +850,7 @@
             <v-col cols="6">
                 <v-select
                     label="Card Type"
+                    v-model="cardType"
                     :items="['Visa', 'Mastercard', 'Discover', 'American Express']"
                     outlined>
                 </v-select>
@@ -826,6 +859,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
+                v-model="CCNumber"
                 dense
                 outlined
                 label="Credit Card Number"
@@ -836,6 +870,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                v-model="expiration"
                 outlined
                 label="Expiration"
                 hint="MM/YY"
@@ -847,6 +882,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                v-model="NameonCard"
                 outlined
                 label="Name on Card"
                 ></v-text-field>
@@ -856,6 +892,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                v-model="billingZipCode"
                 outlined
                 label="Billing Zip Code"
                 ></v-text-field>
@@ -866,6 +903,7 @@
                 <v-text-field 
                 dense
                 outlined
+                v-model="cardVerificationCode"
                 label="Card Verification Code"
                 hint="3 or 4 Digit Code on the Back of the Card. (May be embossed on the front of some cards)"
                 persistent-hint
@@ -876,6 +914,7 @@
             <v-col cols="6">
                 <v-select
                     label="Create Ticket? (Internet)"
+                    v-model="createTicketInternet"
                     :items="['Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
                     outlined>
                 </v-select>
@@ -884,6 +923,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    v-model="createTicketTV"
                     label="Create Ticket? (TV)"
                     :items="['Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
                     outlined>
@@ -894,6 +934,7 @@
                 <v-col cols="">
                     <v-textarea
                     label="Ticket Notes"
+                    v-model="ticketNotes"
                     outlined
                     dense
                     hint="Provide any details that will help Support with handlind the tickets."
@@ -904,6 +945,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-checkbox
+                v-model="ihaveReviewed"
                 label="I have reviewed all fees associated with the customer"
                 hint="(ie: Installation, Equipment, DVR Fees, Broadcast Fees)"
                 persistent-hint></v-checkbox>
@@ -944,11 +986,9 @@ export default {
         mobileActivationMenu: false,
         mobileActivationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         mobileActivationDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        selectedTV: "",
         tvInstallMenu: false,
         tvInstallDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         tvInstallDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        selectedPhone: "",
         phoneInstallMenu: false,
         phoneInstallDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         phoneInstallDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
@@ -967,7 +1007,7 @@ export default {
         }
     },
     computed: {
-        templateInstructions: {
+        availableInternetProviders: {
             get() {
                 return this.$store.state.stepThree.availableInternetProviders;
             },
@@ -1135,6 +1175,351 @@ export default {
                 this.$store.state.stepThree.anyPets = value;
             },
         },
+        internetInstallTime: {
+            get() {
+                return this.$store.state.stepThree.internetInstallTime;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetInstallTime = value;
+            },
+        },
+        securityQuestion: {
+            get() {
+                return this.$store.state.stepThree.securityQuestion;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityQuestion = value;
+            },
+        },
+        securityAnswer: {
+            get() {
+                return this.$store.state.stepThree.securityAnswer;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityAnswer = value;
+            },
+        },
+        securityPin: {
+            get() {
+                return this.$store.state.stepThree.securityPin;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityPin = value;
+            },
+        },
+        internetAccountWorkorder: {
+            get() {
+                return this.$store.state.stepThree.internetAccountWorkorder;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetAccountWorkorder = value;
+            },
+        },
+        mobilePhoneProvider: {
+            get() {
+                return this.$store.state.stepThree.mobilePhoneProvider;
+            },
+            set(value) {
+                this.$store.state.stepThree.mobilePhoneProvider = value;
+            },
+        },
+        noMobileLines: {
+            get() {
+                return this.$store.state.stepThree.noMobileLines;
+            },
+            set(value) {
+                this.$store.state.stepThree.noMobileLines = value;
+            },
+        },
+        mobileNotes: {
+            get() {
+                return this.$store.state.stepThree.mobileNotes;
+            },
+            set(value) {
+                this.$store.state.stepThree.mobileNotes = value;
+            },
+        },
+        selectedTV: {
+            get() {
+                return this.$store.state.stepThree.selectedTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.selectedTV = value;
+            },
+        },
+        otherTV: {
+            get() {
+                return this.$store.state.stepThree.otherTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.otherTV = value;
+            },
+        },
+        whosNameWillTv: {
+            get() {
+                return this.$store.state.stepThree.whosNameWillTv;
+            },
+            set(value) {
+                this.$store.state.stepThree.whosNameWillTv = value;
+            },
+        },
+        tvEssentials: {
+            get() {
+                return this.$store.state.stepThree.tvEssentials;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvEssentials = value;
+            },
+        },
+        tvPlanEquipment: {
+            get() {
+                return this.$store.state.stepThree.tvPlanEquipment;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvPlanEquipment = value;
+            },
+        },
+        installationTypeSelected: {
+            get() {
+                return this.$store.state.stepThree.installationTypeSelected;
+            },
+            set(value) {
+                this.$store.state.stepThree.installationTypeSelected = value;
+            },
+        },
+        tvInstallTime: {
+            get() {
+                return this.$store.state.stepThree.tvInstallTime;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvInstallTime = value;
+            },
+        },
+        securityQuestionTV: {
+            get() {
+                return this.$store.state.stepThree.securityQuestionTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityQuestionTV = value;
+            },
+        },
+        securityAnswerTv: {
+            get() {
+                return this.$store.state.stepThree.securityAnswerTv;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityAnswerTv = value;
+            },
+        },
+        securityPinTv: {
+            get() {
+                return this.$store.state.stepThree.securityPinTv;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityPinTv = value;
+            },
+        },
+        tvAccountWorkorder: {
+            get() {
+                return this.$store.state.stepThree.tvAccountWorkorder;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvAccountWorkorder = value;
+            },
+        },
+        selectedPhone: {
+            get() {
+                return this.$store.state.stepThree.selectedPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.selectedPhone = value;
+            },
+        },
+        otherPhone: {
+            get() {
+                return this.$store.state.stepThree.otherPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.otherPhone = value;
+            },
+        },
+        whosNameWillPhone: {
+            get() {
+                return this.$store.state.stepThree.whosNameWillPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.whosNameWillPhone = value;
+            },
+        },
+        phonePlanEquipment: {
+            get() {
+                return this.$store.state.stepThree.phonePlanEquipment;
+            },
+            set(value) {
+                this.$store.state.stepThree.phonePlanEquipment = value;
+            },
+        },
+        installationTypePhone: {
+            get() {
+                return this.$store.state.stepThree.installationTypePhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.installationTypePhone = value;
+            },
+        },
+        phoneInstallTime: {
+            get() {
+                return this.$store.state.stepThree.phoneInstallTime;
+            },
+            set(value) {
+                this.$store.state.stepThree.phoneInstallTime = value;
+            },
+        },
+        securityQuestionPhone: {
+            get() {
+                return this.$store.state.stepThree.securityQuestionPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityQuestionPhone = value;
+            },
+        },
+        securityAnswerPhone: {
+            get() {
+                return this.$store.state.stepThree.securityAnswerPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityAnswerPhone = value;
+            },
+        },
+        securityPinPhone: {
+            get() {
+                return this.$store.state.stepThree.securityPinPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.securityPinPhone = value;
+            },
+        },
+        phoneAccountNumber: {
+            get() {
+                return this.$store.state.stepThree.phoneAccountNumber;
+            },
+            set(value) {
+                this.$store.state.stepThree.phoneAccountNumber = value;
+            },
+        },
+        primarySSN: {
+            get() {
+                return this.$store.state.stepThree.primarySSN;
+            },
+            set(value) {
+                this.$store.state.stepThree.primarySSN = value;
+            },
+        },
+        last4ofSSN: {
+            get() {
+                return this.$store.state.stepThree.last4ofSSN;
+            },
+            set(value) {
+                this.$store.state.stepThree.last4ofSSN = value;
+            },
+        },
+        secondarySSNforcable: {
+            get() {
+                return this.$store.state.stepThree.secondarySSNforcable;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondarySSNforcable = value;
+            },
+        },
+        collectCCInfo: {
+            get() {
+                return this.$store.state.stepThree.collectCCInfo;
+            },
+            set(value) {
+                this.$store.state.stepThree.collectCCInfo = value;
+            },
+        },
+        cardType: {
+            get() {
+                return this.$store.state.stepThree.cardType;
+            },
+            set(value) {
+                this.$store.state.stepThree.cardType = value;
+            },
+        },
+        CCNumber: {
+            get() {
+                return this.$store.state.stepThree.CCNumber;
+            },
+            set(value) {
+                this.$store.state.stepThree.CCNumber = value;
+            },
+        },
+        expiration: {
+            get() {
+                return this.$store.state.stepThree.expiration;
+            },
+            set(value) {
+                this.$store.state.stepThree.expiration = value;
+            },
+        },
+        NameonCard: {
+            get() {
+                return this.$store.state.stepThree.NameonCard;
+            },
+            set(value) {
+                this.$store.state.stepThree.NameonCard = value;
+            },
+        },
+        billingZipCode: {
+            get() {
+                return this.$store.state.stepThree.billingZipCode;
+            },
+            set(value) {
+                this.$store.state.stepThree.billingZipCode = value;
+            },
+        },
+        cardVerificationCode: {
+            get() {
+                return this.$store.state.stepThree.cardVerificationCode;
+            },
+            set(value) {
+                this.$store.state.stepThree.cardVerificationCode = value;
+            },
+        },
+        createTicketInternet: {
+            get() {
+                return this.$store.state.stepThree.createTicketInternet;
+            },
+            set(value) {
+                this.$store.state.stepThree.createTicketInternet = value;
+            },
+        },
+        createTicketTV: {
+            get() {
+                return this.$store.state.stepThree.createTicketTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.createTicketTV = value;
+            },
+        },
+        ticketNotes: {
+            get() {
+                return this.$store.state.stepThree.ticketNotes;
+            },
+            set(value) {
+                this.$store.state.stepThree.ticketNotes = value;
+            },
+        },
+        ihaveReviewed: {
+            get() {
+                return this.$store.state.stepThree.ihaveReviewed;
+            },
+            set(value) {
+                this.$store.state.stepThree.ihaveReviewed = value;
+            },
+        },
+
     },
     methods: {
       formatDate (date) {

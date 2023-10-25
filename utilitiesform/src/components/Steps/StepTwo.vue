@@ -11,6 +11,7 @@
                 <v-col cols="">
                     <v-textarea
                     label="Research Notes:"
+                    v-model="researchNotes"
                     outlined
                     dense
                     ></v-textarea>
@@ -20,6 +21,7 @@
                 <v-col cols="6">
                     <v-text-field
                     outlined
+                    v-model="availablePower"
                     dense
                     label="1. Available Power Provider(s)"
                     ></v-text-field>
@@ -30,6 +32,7 @@
                     <v-text-field
                     outlined
                     dense
+                    v-model="availableGas"
                     label="2. Available Gas Provider"
                     ></v-text-field>
                 </v-col>
@@ -38,6 +41,7 @@
                 <v-col cols="6">
                     <v-text-field
                     outlined
+                    v-model="availableWater"
                     dense
                     label="3. Available Water/Sewer Service"
                     ></v-text-field>
@@ -47,6 +51,7 @@
                 <v-col cols="6">
                     <v-text-field
                     outlined
+                    v-model="availableTrash"
                     dense
                     label="4. Available Trash Provider"
                     ></v-text-field>
@@ -56,6 +61,7 @@
                 <v-col cols="6">
                     <v-text-field
                     outlined
+                    v-model="trashDays"
                     dense
                     label="Trash Days"
                     ></v-text-field>
@@ -67,6 +73,7 @@
                     outlined
                     dense
                     label="Recycle Days"
+                    v-model="recycleDays"
                     ></v-text-field>
                 </v-col>
             </v-row>
@@ -74,6 +81,7 @@
                 <v-col cols="6">
                     <v-text-field
                     outlined
+                    v-model="recycleIsCollected"
                     dense
                     persistent-hint
                     hint="if blank (EVERY WEEK)"
@@ -85,6 +93,7 @@
                 <v-col cols="6">
                     <v-text-field
                     outlined
+                    v-model="yardDays"
                     dense
                     label="Yard Days"
                     ></v-text-field>
@@ -96,6 +105,7 @@
                     outlined
                     dense
                     persistent-hint
+                    v-model="yardDaysIsCollected"
                     hint="if blank (EVERY WEEK)"
                     label="Yard is collected"
                     ></v-text-field>
@@ -123,7 +133,86 @@ export default {
         }
     },
     computed: {
-       
+        researchNotes: {
+            get() {
+                return this.$store.state.stepTwo.researchNotes;
+            },
+            set(value) {
+                this.$store.state.stepTwo.researchNotes = value;
+            },
+        },
+        availablePower: {
+            get() {
+                return this.$store.state.stepTwo.availablePower;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availablePower = value;
+            },
+        },
+        availableGas: {
+            get() {
+                return this.$store.state.stepTwo.availableGas;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availableGas = value;
+            },
+        },
+        availableWater: {
+            get() {
+                return this.$store.state.stepTwo.availableWater;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availableWater = value;
+            },
+        },
+        availableTrash: {
+            get() {
+                return this.$store.state.stepTwo.availableTrash;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availableTrash = value;
+            },
+        },
+        trashDays: {
+            get() {
+                return this.$store.state.stepTwo.trashDays;
+            },
+            set(value) {
+                this.$store.state.stepTwo.trashDays = value;
+            },
+        },
+        recycleDays: {
+            get() {
+                return this.$store.state.stepTwo.recycleDays;
+            },
+            set(value) {
+                this.$store.state.stepTwo.recycleDays = value;
+            },
+        },
+        recycleIsCollected: {
+            get() {
+                return this.$store.state.stepTwo.recycleIsCollected;
+            },
+            set(value) {
+                this.$store.state.stepTwo.recycleIsCollected = value;
+            },
+        },
+        yardDays: {
+            get() {
+                return this.$store.state.stepTwo.yardDays;
+            },
+            set(value) {
+                this.$store.state.stepTwo.yardDays = value;
+            },
+        },
+        yardDaysIsCollected: {
+            get() {
+                return this.$store.state.stepTwo.yardDaysIsCollected;
+            },
+            set(value) {
+                this.$store.state.stepTwo.yardDaysIsCollected = value;
+            },
+        },
         computedDateFormatted () {
             return this.formatDate(this.date)
         },

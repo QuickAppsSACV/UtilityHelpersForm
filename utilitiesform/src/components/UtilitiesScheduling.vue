@@ -28,27 +28,38 @@
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step step="3">
+                        <v-stepper-step step="3"
+                        :complete="e1 > 3"
+                        >
                             <small>Cable/Internet/Phone</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="4">
+                        <v-stepper-step step="4"
+                        :complete="e1 > 4"
+                        >
                             <small>Home Security</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="5">
+                        <v-stepper-step step="5"
+                        :complete="e1 > 5"
+                        >
                             <small>Homeowners Insurance</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="6">
+                        <v-stepper-step step="6"
+                        :complete="e1 > 6"
+                        >
                             <small>PODS / Pro Movers</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="7">
+                        <v-stepper-step step="7"
+                        :complete="e1 > 7">
                             <small>Electric</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="8">
+                        <v-stepper-step step="8"
+                        :complete="e1 > 8"
+                        >
                             <small>Water/Sewer/Trash</small>
                         </v-stepper-step>
                     </v-stepper-header>
@@ -173,10 +184,14 @@
                         </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn
+                        dense
+                        color="primary"
+                        >Review Recap</v-btn>
+                        <v-btn
                         color="primary"
                         @click="e1 = 1"
                         >
-                        Next
+                        Submit
                         </v-btn>
                     </v-card-actions>
                     </v-stepper-content>
@@ -208,7 +223,7 @@ export default {
         StepEight
      },
     data: vm=>( {
-        e1: 1,
+        e1: 3,
     }),
     watch: {
     },
