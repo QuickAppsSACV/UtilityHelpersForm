@@ -3,7 +3,6 @@
         <v-card
         class="mb-12"
         flat
-        
         >
     <v-card-title class="bluelight-text">
         Cable Activation Info:
@@ -25,6 +24,7 @@
                 dense
                 outlined
                 label="Available Internet Provider(s)"
+                v-model="availableInternetProviders"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -34,6 +34,7 @@
                 dense
                 outlined
                 label="Available TV Provider(s)"
+                v-model="availableTVProviders"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -43,6 +44,7 @@
                 dense
                 outlined
                 label="Available Phone Provider(s)"
+                v-model="availablePhoneProviders"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -53,6 +55,7 @@
                 dense
                 outlined
                 label="Street Address"
+                v-model="newStreetAddress"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -62,6 +65,7 @@
                 dense
                 outlined
                 label="City"
+                v-model="newCity"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -71,6 +75,7 @@
                 dense
                 outlined
                 label="State/Region/Province"
+                v-model="newState"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -80,11 +85,11 @@
                 dense
                 outlined
                 label="Postal/Zip Code"
+                v-model="newZipCode"
                 ></v-text-field>
             </v-col>
         </v-row>
-        <br>
-        <v-row dense class="mt-0">
+        <v-row dense class="mt-2">
             <v-col>
                 <v-img
                     :src="require('../../assets/Imagen1.png')"
@@ -92,13 +97,13 @@
                     class="mx-auto"
                 ></v-img>
                 <h3 class="red--text text-center">CURRENT PROMOTIONS</h3>
-                <v-list >
-                    <v-list-item-title>$100 Visa Gift Card with 2 Gig</v-list-item-title>
-                    <v-list-item-title>$10 Off per month with AutoPay</v-list-item-title>
-                    <v-list-item-title>FREE PRO INSTALL!!!</v-list-item-title>
-                    <v-list-item-title>1 EERO WiFi Router Included Free! ($10 per mo each additional)</v-list-item-title>
-                    <v-list-item-title>Unlimited Digital Voice Only $20</v-list-item-title>
-                </v-list>
+                <ul>
+                    <li class="black--text font-weight-bold">$100 Visa Gift Card with <span class="yellow">2 Gig</span></li>
+                    <li class="black--text font-weight-bold">$10 Off per month with AutoPay</li>
+                    <li class="black--text font-weight-bold">FREE PRO INSTALL!!!</li>
+                    <li ><span class="black--text font-weight-bold">1 EERO WiFi Router Included Free!</span> ($10 per mo each additional)</li>
+                    <li class="black--text font-weight-bold">Unlimited Digital Voice Only $20</li>
+                </ul>
             </v-col>
         </v-row>
         <br>
@@ -107,25 +112,29 @@
             <v-col>
                 <v-checkbox
                     dense
-                    label="Internet">
+                    label="Internet"
+                    v-model="internetCheckbox">
                 </v-checkbox>
             </v-col>
             <v-col>
                 <v-checkbox
                     dense
-                    label="TV">
+                    label="TV"
+                    v-model="tvCheckbox">
                 </v-checkbox>
             </v-col>
             <v-col>
                 <v-checkbox
                     dense
-                    label="Phone">
+                    label="Phone"
+                    v-model="phoneCheckbox">
                 </v-checkbox>
             </v-col>
             <v-col>
                 <v-checkbox
                     dense
-                    label="(None)">
+                    label="(None)"
+                    v-model="noneCheckbox">
                 </v-checkbox>
             </v-col>
         </v-row>
@@ -139,7 +148,8 @@
                     :items="['Primary', 'Secondary']"
                     hint="Select Primary or Secondary"
                     persistent-hint
-                    outlined>
+                    outlined
+                    v-model="internetName">
                 </v-select>
             </v-col>
         </v-row>
@@ -148,8 +158,40 @@
                 <v-select
                     outlined
                     label="Selected Internet Provider"
-                    :items="['AT&amp;T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'HughesNet', 'Kinetic - Windstream', 'Mediacom', 'Metronet', 'Optimum', 'Rise Broadband', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'Viasat', 'WOW', 'Xfinity']">
+                    :items="['AT&amp;T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'HughesNet', 'Kinetic - Windstream', 'Mediacom', 'Metronet', 'Optimum', 'Rise Broadband', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'Viasat', 'WOW', 'Xfinity']"
+                    v-model="selectedInternetProvider">
                 </v-select>
+            </v-col>
+        </v-row>
+        <v-row dense class="mt-0">
+            <v-col>
+                <p class="red--text text-center font-weight-bold text-h6 ma-0 pb-0">
+                    <span class="light-green accent-3 black--text text-h5 font-weight-bold pa-0 ma-0">IF ACTIVATION IS WITHIN 4 BUSINESS DAYS</span>
+                    COMPLETE CABLE ACTIVATION
+                    <br class="">
+                    W/ CUSTOMER ON PHONE
+                </p>
+            </v-col>
+        </v-row>
+        <v-row dense class="mt-0">
+            <v-col>
+                <p class="red--text text-center font-weight-bold text-h6">
+                    <span class="yellow pa-0">COMPLETE CABLE ACTIVATION</span>
+                    <br><span class="yellow pa-0">W/ CUSTOMER ON PHONE</span>
+                </p>
+                <p class="text-center text-h6">
+                    <span class="yellow black--text">
+                        Select 
+                        <span class="font-weight-bold text-decoration-underline">ONLY:</span>
+                        <span class="font-weight-bold"> TEXT</span>
+                        or
+                        <span class="font-weight-bold">EMAIL</span>
+                        for consent
+                    </span>
+                    <br>
+                    <span class="red--text font-weight-bold">DO NOT SELECT <span class="text-decoration-underline">VERBAL CONSENT</span>!</span>
+                    
+                </p>
             </v-col>
         </v-row>
         <v-row dense class="mt-0">
@@ -160,6 +202,7 @@
                 label="Internet Plan, Speed, and Equipment"
                 hint="Enter all data pertinet to the package selection and equipment that you'd like displayed in the confirmation email. (ie: 400Mbps Ultra High- Speed Internet with Modem and Routert)"
                 persistent-hint
+                v-model="internetPlan"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -170,6 +213,7 @@
                 dense
                 outlined
                 label="Street Address"
+                v-model="previousStreet"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -179,6 +223,7 @@
                 dense
                 outlined
                 label="City"
+                v-model="previousCity"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -188,6 +233,7 @@
                 dense
                 outlined
                 label="State/Region/Province"
+                v-model="previousState"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -197,6 +243,7 @@
                 dense
                 outlined
                 label="Postal/Zip Code"
+                v-model="previousZipCode"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -206,7 +253,7 @@
                 dense
                 outlined
                 label="Country"
-                value="United States"
+                v-model="previousCountry"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -215,7 +262,8 @@
                 <v-select
                     label="Installation Type (Internet)"
                     :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
-                    outlined>
+                    outlined
+                    v-model="InstallationTypeInternet">
                 </v-select>
             </v-col>
         </v-row>
@@ -227,7 +275,8 @@
                     hint="If yes, read below to Customer:
                             That's great, we love pets! Frontier asks that your pets be secured while their technician is on premises and inside your home, so they can move about freely to perform their job, and keep your pets safe."
                     persistent-hint
-                    outlined>
+                    outlined
+                    v-model="anyPets">
                 </v-select>
             </v-col>
         </v-row>
@@ -869,11 +918,6 @@
 
 export default {
     data: vm=>( {
-     
-       
-        date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        menu2: false,
         groupChoiceATT : [
             "What's your favorite Restaurant?", 
             "Who is your favorite actor?", 
@@ -888,7 +932,6 @@ export default {
         internetInstallMenu: false,
         internetInstallDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         internetInstallDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-       
         groupChoiceUC: [
             "What is the Last 4 of Your SSN or EIN number?", 
             "What is the name of your first school teacher?", 
@@ -924,11 +967,174 @@ export default {
         }
     },
     computed: {
-       
-        computedDateFormatted () {
-            return this.formatDate(this.date)
+        templateInstructions: {
+            get() {
+                return this.$store.state.stepThree.availableInternetProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availableInternetProviders = value;
+            },
         },
-       
+        availableTVProviders: {
+            get() {
+                return this.$store.state.stepThree.availableTVProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availableTVProviders = value;
+            },
+        },
+        availablePhoneProviders: {
+            get() {
+                return this.$store.state.stepThree.availablePhoneProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availablePhoneProviders = value;
+            },
+        },
+        newStreetAddress: {
+            get() {
+                return this.$store.state.stepThree.newStreetAddress;
+            },
+            set(value) {
+                this.$store.state.stepThree.newStreetAddress = value;
+            },
+        },
+        newCity: {
+            get() {
+                return this.$store.state.stepThree.newCity;
+            },
+            set(value) {
+                this.$store.state.stepThree.newCity = value;
+            },
+        },
+        newState: {
+            get() {
+                return this.$store.state.stepThree.newState;
+            },
+            set(value) {
+                this.$store.state.stepThree.newState = value;
+            },
+        },
+        newZipCode: {
+            get() {
+                return this.$store.state.stepThree.newZipCode;
+            },
+            set(value) {
+                this.$store.state.stepThree.newZipCode = value;
+            },
+        },
+        internetCheckbox: {
+            get() {
+                return this.$store.state.stepThree.internetCheckbox;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetCheckbox = value;
+            },
+        },
+        tvCheckbox: {
+            get() {
+                return this.$store.state.stepThree.tvCheckbox;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvCheckbox = value;
+            },
+        },
+        phoneCheckbox: {
+            get() {
+                return this.$store.state.stepThree.phoneCheckbox;
+            },
+            set(value) {
+                this.$store.state.stepThree.phoneCheckbox = value;
+            },
+        },
+        noneCheckbox: {
+            get() {
+                return this.$store.state.stepThree.noneCheckbox;
+            },
+            set(value) {
+                this.$store.state.stepThree.noneCheckbox = value;
+            },
+        },
+        internetName: {
+            get() {
+                return this.$store.state.stepThree.internetName;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetName = value;
+            },
+        },
+        selectedInternetProvider: {
+            get() {
+                return this.$store.state.stepThree.selectedInternetProvider;
+            },
+            set(value) {
+                this.$store.state.stepThree.selectedInternetProvider = value;
+            },
+        },
+        internetPlan: {
+            get() {
+                return this.$store.state.stepThree.internetPlan;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetPlan = value;
+            },
+        },
+        previousStreet: {
+            get() {
+                return this.$store.state.stepThree.previousStreet;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousStreet = value;
+            },
+        },
+        previousCity: {
+            get() {
+                return this.$store.state.stepThree.previousCity;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousCity = value;
+            },
+        },
+        previousState: {
+            get() {
+                return this.$store.state.stepThree.previousState;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousState = value;
+            },
+        },
+        previousZipCode: {
+            get() {
+                return this.$store.state.stepThree.previousZipCode;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousZipCode = value;
+            },
+        },
+        previousCountry: {
+            get() {
+                return this.$store.state.stepThree.previousCountry;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousCountry = value;
+            },
+        },
+        InstallationTypeInternet: {
+            get() {
+                return this.$store.state.stepThree.InstallationTypeInternet;
+            },
+            set(value) {
+                this.$store.state.stepThree.InstallationTypeInternet = value;
+            },
+        },
+        anyPets: {
+            get() {
+                return this.$store.state.stepThree.anyPets;
+            },
+            set(value) {
+                this.$store.state.stepThree.anyPets = value;
+            },
+        },
     },
     methods: {
       formatDate (date) {
