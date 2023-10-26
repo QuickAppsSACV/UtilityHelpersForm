@@ -460,54 +460,7 @@ export default {
                 this.$store.state.stepFive.NotesForInsurceQuote = value;
             },
         },
-        dateOfBirthMenu: {
-            get() {
-                return this.$store.state.stepFive.dateOfBirthMenu;
-            },
-            set(value) {
-                this.$store.state.stepFive.dateOfBirthMenu = value;
-            },
-        },
-        dateOfBirthFormated: {
-            get() {
-                return this.$store.state.stepFive.dateOfBirthFormated;
-            },
-            set(value) {
-                this.$store.state.stepFive.dateOfBirthFormated = value;
-            },
-        },
-        dateOfBirthDate: {
-            get() {
-                return this.$store.state.stepFive.dateOfBirthDate;
-            },
-            set(value) {
-                this.$store.state.stepFive.dateOfBirthDate = value;
-            },
-        },
-        secondaryDateOfBirthMenu: {
-            get() {
-                return this.$store.state.stepFive.secondaryDateOfBirthMenu;
-            },
-            set(value) {
-                this.$store.state.stepFive.secondaryDateOfBirthMenu = value;
-            },
-        },
-        secondaryDateOfBirthFormated: {
-            get() {
-                return this.$store.state.stepFive.secondaryDateOfBirthFormated;
-            },
-            set(value) {
-                this.$store.state.stepFive.secondaryDateOfBirthFormated = value;
-            },
-        },
-        secondaryDateOfBirthDate: {
-            get() {
-                return this.$store.state.stepFive.secondaryDateOfBirthDate;
-            },
-            set(value) {
-                this.$store.state.stepFive.secondaryDateOfBirthDate = value;
-            },
-        },
+        
     },
     methods: {
         formatDate (date) {

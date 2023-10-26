@@ -272,30 +272,7 @@ export default {
             this.$store.state.stepFour.alreadyRequestedThroughIntroEmail=value;
             },
         },
-        alarmInstallMenu:{
-            get(){
-                return this.$store.state.stepFour.alarmInstallMenu;
-            },
-            set(value){
-            this.$store.state.stepFour.alarmInstallMenu=value;
-            },
-        },
-        alarmInstallFormated:{
-            get(){
-                return this.$store.state.stepFour.alarmInstallFormated;
-            },
-            set(value){
-            this.$store.state.stepFour.alarmInstallFormated=value;
-            },
-        },
-        alarmInstallDate:{
-            get(){
-                return this.$store.state.stepFour.alarmInstallDate;
-            },
-            set(value){
-            this.$store.state.stepFour.alarmInstallDate=value;
-            },
-        },
+        
     },
     methods: {
         formatDate (date) {

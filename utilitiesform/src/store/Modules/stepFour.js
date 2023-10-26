@@ -5,15 +5,18 @@ const stepFour = {
         alarmCompany:'',
         las4OfSSN:'',
         ADTPackageChosen:'',
-        alarmInstallMenu:'',
-        alarmInstallFormated:'',
-        alarmInstallDate:'',
         alarmInstalTimeWindows:'',
         needToBeScheduleBySupport:'',
         traxID:'',
         alarmNotes:'',
         uhCompletedWelcomCall:'',
         alreadyRequestedThroughIntroEmail:'',
+
+        /*
+        alarmInstallMenu:'',
+        alarmInstallFormated:'',
+        alarmInstallDate:'',
+        */
     },
     mutations: {
 

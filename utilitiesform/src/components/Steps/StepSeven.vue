@@ -718,42 +718,42 @@ export default {
     computed: {
         availablePowerProviders: {
             get() {
-                return this.$store.state.stepThree.availablePowerProviders;
+                return this.$store.state.stepSeven.availablePowerProviders;
             },
             set(value) {
-                this.$store.state.stepThree.availablePowerProviders = value;
+                this.$store.state.stepSeven.availablePowerProviders = value;
             },
         },
         whoIsNameWillElectric: {
             get() {
-                return this.$store.state.stepThree.whoIsNameWillElectric;
+                return this.$store.state.stepSeven.whoIsNameWillElectric;
             },
             set(value) {
-                this.$store.state.stepThree.whoIsNameWillElectric = value;
+                this.$store.state.stepSeven.whoIsNameWillElectric = value;
             },
         },
         electricProviderActived: {
             get() {
-                return this.$store.state.stepThree.electricProviderActived;
+                return this.$store.state.stepSeven.electricProviderActived;
             },
             set(value) {
-                this.$store.state.stepThree.electricProviderActived = value;
+                this.$store.state.stepSeven.electricProviderActived = value;
             },
         },
         activationOeTransfer: {
             get() {
-                return this.$store.state.stepThree.activationOeTransfer;
+                return this.$store.state.stepSeven.activationOeTransfer;
             },
             set(value) {
-                this.$store.state.stepThree.activationOeTransfer = value;
+                this.$store.state.stepSeven.activationOeTransfer = value;
             },
         },
         primarySSN: {
             get() {
-                return this.$store.state.stepThree.primarySSN;
+                return this.$store.state.stepSeven.primarySSN;
             },
             set(value) {
-                this.$store.state.stepThree.primarySSN = value;
+                this.$store.state.stepSeven.primarySSN = value;
             },
         },
         secondarySSNForPower: {
@@ -860,174 +860,7 @@ export default {
                 this.$store.state.stepThree.ticketNotes2 = value;
             },
         },
-        primaryDOBMenu: {
-            get() {
-                return this.$store.state.stepThree.primaryDOBMenu;
-            },
-            set(value) {
-                this.$store.state.stepThree.primaryDOBMenu = value;
-            },
-        },
-        primaryDOBFormated: {
-            get() {
-                return this.$store.state.stepThree.primaryDOBFormated;
-            },
-            set(value) {
-                this.$store.state.stepThree.primaryDOBFormated = value;
-            },
-        },
-        primaryDOBDate: {
-            get() {
-                return this.$store.state.stepThree.primaryDOBDate;
-            },
-            set(value) {
-                this.$store.state.stepThree.primaryDOBDate = value;
-            },
-        },
-        secondaryDOBMenu: {
-            get() {
-                return this.$store.state.stepThree.secondaryDOBMenu;
-            },
-            set(value) {
-                this.$store.state.stepThree.secondaryDOBMenu = value;
-            },
-        },
-        secondaryDOBFormated: {
-            get() {
-                return this.$store.state.stepThree.secondaryDOBFormated;
-            },
-            set(value) {
-                this.$store.state.stepThree.secondaryDOBFormated = value;
-            },
-        },
-        secondaryDOBDate: {
-            get() {
-                return this.$store.state.stepThree.secondaryDOBDate;
-            },
-            set(value) {
-                this.$store.state.stepThree.secondaryDOBDate = value;
-            },
-        },
-        electricActivationMenu: {
-            get() {
-                return this.$store.state.stepThree.electricActivationMenu;
-            },
-            set(value) {
-                this.$store.state.stepThree.electricActivationMenu = value;
-            },
-        },
-        electricActivationFormated: {
-            get() {
-                return this.$store.state.stepThree.electricActivationFormated;
-            },
-            set(value) {
-                this.$store.state.stepThree.electricActivationFormated = value;
-            },
-        },
-        electricActivationDate: {
-            get() {
-                return this.$store.state.stepThree.electricActivationDate;
-            },
-            set(value) {
-                this.$store.state.stepThree.electricActivationDate = value;
-            },
-        },
-        electricCancellationMenu: {
-            get() {
-                return this.$store.state.stepThree.electricCancellationMenu;
-            },
-            set(value) {
-                this.$store.state.stepThree.electricCancellationMenu = value;
-            },
-        },
-        electricCancellationFormated: {
-            get() {
-                return this.$store.state.stepThree.electricCancellationFormated;
-            },
-            set(value) {
-                this.$store.state.stepThree.electricCancellationFormated = value;
-            },
-        },
-        electricCancellationDate: {
-            get() {
-                return this.$store.state.stepThree.electricCancellationDate;
-            },
-            set(value) {
-                this.$store.state.stepThree.electricCancellationDate = value;
-            },
-        },
-        gasActivationMenu: {
-            get() {
-                return this.$store.state.stepThree.gasActivationMenu;
-            },
-            set(value) {
-                this.$store.state.stepThree.gasActivationMenu = value;
-            },
-        },
-        gasActivationFormated: {
-            get() {
-                return this.$store.state.stepThree.gasActivationFormated;
-            },
-            set(value) {
-                this.$store.state.stepThree.gasActivationFormated = value;
-            },
-        },
-        gasActivationDate: {
-            get() {
-                return this.$store.state.stepThree.gasActivationDate;
-            },
-            set(value) {
-                this.$store.state.stepThree.gasActivationDate = value;
-            },
-        },
-        primaryDOBMenu2: {
-            get() {
-                return this.$store.state.stepThree.primaryDOBMenu2;
-            },
-            set(value) {
-                this.$store.state.stepThree.primaryDOBMenu2 = value;
-            },
-        },
-        primaryDOBFormated2: {
-            get() {
-                return this.$store.state.stepThree.primaryDOBFormated2;
-            },
-            set(value) {
-                this.$store.state.stepThree.primaryDOBFormated2 = value;
-            },
-        },
-        primaryDOBDate2: {
-            get() {
-                return this.$store.state.stepThree.primaryDOBDate2;
-            },
-            set(value) {
-                this.$store.state.stepThree.primaryDOBDate2 = value;
-            },
-        },
-        secondDOBMenu2: {
-            get() {
-                return this.$store.state.stepThree.secondDOBMenu2;
-            },
-            set(value) {
-                this.$store.state.stepThree.secondDOBMenu2 = value;
-            },
-        },
-        secondDOBFormated2: {
-            get() {
-                return this.$store.state.stepThree.secondDOBFormated2;
-            },
-            set(value) {
-                this.$store.state.stepThree.secondDOBFormated2 = value;
-            },
-        },
-        secondDOBDate2: {
-            get() {
-                return this.$store.state.stepThree.secondDOBDate2;
-            },
-            set(value) {
-                this.$store.state.stepThree.secondDOBDate2 = value;
-            },
-        },
+        
     },
     methods: {
         formatDate (date) {

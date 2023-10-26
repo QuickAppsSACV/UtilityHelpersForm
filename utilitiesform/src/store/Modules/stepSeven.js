@@ -20,7 +20,7 @@ const stepSeven = {
         haveSupportKeyGas:'',
         ticketNotes2:'',
         
-        
+        /*
         primaryDOBMenu:'',
         primaryDOBFormated:'',
         primaryDOBDate:'',
@@ -42,6 +42,7 @@ const stepSeven = {
         secondDOBMenu2:'',
         secondDOBFormated2:'',
         secondDOBDate2:'',
+        */
     },
     mutations: {
 

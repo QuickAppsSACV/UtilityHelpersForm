@@ -20,12 +20,14 @@ const stepFive = {
         secondaryPhone:'',
         secondaryEmail:'',
         NotesForInsurceQuote:'',
+        /*
         dateOfBirthMenu:'',
         dateOfBirthFormated:'',
         dateOfBirthDate:'',
         secondaryDateOfBirthMenu:'',
         secondaryDateOfBirthFormated:'',
         secondaryDateOfBirthDate:'',
+        */
     },
     mutations: {
 
