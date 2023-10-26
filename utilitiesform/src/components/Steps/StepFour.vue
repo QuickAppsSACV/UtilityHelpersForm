@@ -24,6 +24,7 @@
                        <v-select
                        dense
                        outlined
+                       v-model="whoIsNameWillSecurityBeIn"
                        label="Who's Name will Security be in?"
                        :items="['Primary','Secondary']"
                        hint="Select Primary or Secondary"
@@ -36,6 +37,7 @@
                        <v-select
                        dense
                        outlined
+                       v-model="alarmCompany"
                        label="Alarm Company"
                        :items="['ADT','SimpliSafe']"
                        ></v-select>
@@ -46,6 +48,7 @@
                        <v-text-field
                        dense
                        outlined
+                       v-model="las4OfSSN"
                        label="Last 4 of SSN"
                        >
                    </v-text-field>
@@ -56,6 +59,7 @@
                        <v-select
                        dense
                        outlined
+                       v-model="ADTPackageChosen"
                        label="ADT Package Chosen"
                        :items="['Basic','Command - Traditional','Command - Traditional w/ Life Safety','Command - Control','Command - Remote','Command - Video Lite','Command - Video & Home Automation']"
                        
@@ -103,6 +107,7 @@
                        <v-select
                        dense
                        outlined
+                       v-model="alarmInstalTimeWindows"
                        label="Alarm Install Time Window"
                        :items="['8am-12pm','12pm-4pm','4pm-8pm']"
                        hint="** 4pm-8pm is not available on Saturdays **
@@ -115,6 +120,7 @@
                <v-row dense>
                    <v-col cols="6">
                        <v-checkbox 
+                       v-model="needToBeScheduleBySupport"
                        label="Needs to be scheduled by Support (date too far out)"
                        hint="(Must have entered the order and supplied TraxID)"
                        persistent-hint
@@ -126,6 +132,7 @@
                        <v-text-field
                        dense
                        outlined
+                       v-model="traxID"
                        label="TraxID / Order#"
                        >
                    </v-text-field>
@@ -134,6 +141,7 @@
                <v-row class="pt-0">
                    <v-col cols="">
                        <v-textarea
+                       v-model="alarmNotes"
                        label=" Alarm Notes "
                        outlined
                        dense
@@ -143,6 +151,7 @@
                <v-row dense>
                    <v-col cols="6">
                        <v-checkbox 
+                       v-model="uhCompletedWelcomCall"
                        label="UH Completed Welcome Call"              
                        hint="(Click once you have read the entire Welcome Call Script)"
                        persistent-hint
@@ -154,6 +163,7 @@
                        <v-text-field
                        dense
                        outlined
+                       v-model="alreadyRequestedThroughIntroEmail"
                        label="Already Requested through Intro Email?"
                        hint="If yes, no need to ask"
                        persistent-hint
@@ -182,7 +192,110 @@ export default {
         },
     },
     computed: {
-      
+        whoIsNameWillSecurityBeIn:{
+            get(){
+                return this.$store.state.stepFour.whoIsNameWillSecurityBeIn;
+            },
+            set(value){
+            this.$store.state.stepFour.whoIsNameWillSecurityBeIn=value;
+            },
+        },
+        alarmCompany:{
+            get(){
+                return this.$store.state.stepFour.alarmCompany;
+            },
+            set(value){
+            this.$store.state.stepFour.alarmCompany=value;
+            },
+        },
+        las4OfSSN:{
+            get(){
+                return this.$store.state.stepFour.las4OfSSN;
+            },
+            set(value){
+            this.$store.state.stepFour.las4OfSSN=value;
+            },
+        },
+        ADTPackageChosen:{
+            get(){
+                return this.$store.state.stepFour.ADTPackageChosen;
+            },
+            set(value){
+            this.$store.state.stepFour.ADTPackageChosen=value;
+            },
+        },
+        alarmInstalTimeWindows:{
+            get(){
+                return this.$store.state.stepFour.alarmInstalTimeWindows;
+            },
+            set(value){
+            this.$store.state.stepFour.alarmInstalTimeWindows=value;
+            },
+        },
+        needToBeScheduleBySupport:{
+            get(){
+                return this.$store.state.stepFour.needToBeScheduleBySupport;
+            },
+            set(value){
+            this.$store.state.stepFour.needToBeScheduleBySupport=value;
+            },
+        },
+        traxID:{
+            get(){
+                return this.$store.state.stepFour.traxID;
+            },
+            set(value){
+            this.$store.state.stepFour.traxID=value;
+            },
+        },
+        alarmNotes:{
+            get(){
+                return this.$store.state.stepFour.alarmNotes;
+            },
+            set(value){
+            this.$store.state.stepFour.alarmNotes=value;
+            },
+        },
+        uhCompletedWelcomCall:{
+            get(){
+                return this.$store.state.stepFour.uhCompletedWelcomCall;
+            },
+            set(value){
+            this.$store.state.stepFour.uhCompletedWelcomCall=value;
+            },
+        },
+        alreadyRequestedThroughIntroEmail:{
+            get(){
+                return this.$store.state.stepFour.alreadyRequestedThroughIntroEmail;
+            },
+            set(value){
+            this.$store.state.stepFour.alreadyRequestedThroughIntroEmail=value;
+            },
+        },
+        alarmInstallMenu:{
+            get(){
+                return this.$store.state.stepFour.alarmInstallMenu;
+            },
+            set(value){
+            this.$store.state.stepFour.alarmInstallMenu=value;
+            },
+        },
+        alarmInstallFormated:{
+            get(){
+                return this.$store.state.stepFour.alarmInstallFormated;
+            },
+            set(value){
+            this.$store.state.stepFour.alarmInstallFormated=value;
+            },
+        },
+        alarmInstallDate:{
+            get(){
+                return this.$store.state.stepFour.alarmInstallDate;
+            },
+            set(value){
+            this.$store.state.stepFour.alarmInstallDate=value;
+            },
+        },
     },
     methods: {
         formatDate (date) {

@@ -14,6 +14,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="newState"
                         label="New State"
                         >
                     </v-text-field>
@@ -24,6 +25,7 @@
                         <v-select
                         dense
                         outlined
+                        v-model="insuranceQuoteRequested"
                         label="Insurance quote requested?"
                         :items="['Yes','No']"
                         ></v-select>
@@ -70,6 +72,7 @@
                         <v-select
                         dense
                         outlined
+                        v-model="whoIsTheHomeGoing"
                         label="Who is the home going to be occupied by?"
                         :items="['Owner','Renter','Unoccupied']"                     
                         ></v-select>
@@ -80,6 +83,7 @@
                         <v-select
                         dense
                         outlined
+                        v-model="howIsThisResidendeGoing"
                         label="​How is this residence going to be used?"
                         :items="['Primary','Secondary','Seasonal']"
                         ></v-select>
@@ -90,7 +94,8 @@
                         <v-select
                         dense
                         outlined
-                        label="​How is this residence going to be used?"
+                        v-model="howManyMonth"
+                        label="​How many months to be occupied?"
                         :items="['9 Months or More','0-3 Months','4-8 Months']"
                         ></v-select>
                     </v-col>
@@ -100,6 +105,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="doYouKnowRoughly"
                         label="Do you know roughly when the roof was last replaced?"
                         >
                     </v-text-field>
@@ -110,6 +116,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="whatYearWasTheAir"
                         label="What year was the air conditioning/heater installed or replaced?"
                         >
                     </v-text-field>
@@ -120,6 +127,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="ifTheWaterHeaterHasBeenReplaced"
                         label="If the water heater has been replaced, what year was that done?"
                         >
                     </v-text-field>
@@ -130,6 +138,7 @@
                         <v-select
                         dense
                         outlined
+                        v-model="willYouHaveAMonitored"
                         label="​Will you have a monitored home security system?"
                         :items="['Yes','No','Not sure yet']"
                         ></v-select>
@@ -140,6 +149,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="whatAlarmCompany"
                         label="What alarm company will you use?"
                         >
                     </v-text-field>
@@ -150,6 +160,7 @@
                         <v-select
                         dense
                         outlined
+                        v-model="howManyDogs"
                         label="How many dogs do you have?"
                         :items="['1','2','3','4','5','6','7','8','9','10+']"
                         ></v-select>
@@ -160,6 +171,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="whatBrands"
                         label="What breed(s)?"
                         hint="Enter the breeds. Separate by comma if more than one."
                         persistent-hint
@@ -172,6 +184,7 @@
                         <v-select
                         dense
                         outlined
+                        v-model="haveTheyEverBittenSomeone"
                         label="Have they ever bitten someone?"
                         :items="['Yes','No']"
                         ></v-select>
@@ -180,6 +193,7 @@
                 <v-row dense>
                     <v-col cols="6">
                         <v-checkbox 
+                        v-model="willThereBeAnotherAdult"
                         label="Will there be another adult living in the home with you?"
                         hint="Check for Yes"
                         persistent-hint
@@ -191,6 +205,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="secondaryFirstName"
                         label="Secondary First Name"
                         >
                     </v-text-field>
@@ -201,6 +216,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="secondaryLastName"
                         label="Secondary Last Name"
                         >
                     </v-text-field>
@@ -247,6 +263,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="secondaryPhone"
                         label="Secondary Phone"
                         >
                     </v-text-field>
@@ -257,6 +274,7 @@
                         <v-text-field
                         dense
                         outlined
+                        v-model="secondaryEmail"
                         label="Secondary Email"
                         >
                     </v-text-field>
@@ -265,6 +283,7 @@
                 <v-row class="pt-0">
                     <v-col cols="">
                         <v-textarea
+                        v-model="NotesForInsurceQuote"
                         label="Notes for Insurance Quote"
                         outlined
                         dense
@@ -297,7 +316,198 @@ export default {
         },
     },
     computed: {
-      
+        newState: {
+            get() {
+                return this.$store.state.stepFive.newState;
+            },
+            set(value) {
+                this.$store.state.stepFive.newState = value;
+            },
+        },
+        insuranceQuoteRequested: {
+            get() {
+                return this.$store.state.stepFive.insuranceQuoteRequested;
+            },
+            set(value) {
+                this.$store.state.stepFive.insuranceQuoteRequested = value;
+            },
+        },
+        whoIsTheHomeGoing: {
+            get() {
+                return this.$store.state.stepFive.whoIsTheHomeGoing;
+            },
+            set(value) {
+                this.$store.state.stepFive.whoIsTheHomeGoing = value;
+            },
+        },
+        howIsThisResidendeGoing: {
+            get() {
+                return this.$store.state.stepFive.howIsThisResidendeGoing;
+            },
+            set(value) {
+                this.$store.state.stepFive.howIsThisResidendeGoing = value;
+            },
+        },
+        howManyMonth: {
+            get() {
+                return this.$store.state.stepFive.howManyMonth;
+            },
+            set(value) {
+                this.$store.state.stepFive.howManyMonth = value;
+            },
+        },
+        doYouKnowRoughly: {
+            get() {
+                return this.$store.state.stepFive.doYouKnowRoughly;
+            },
+            set(value) {
+                this.$store.state.stepFive.doYouKnowRoughly = value;
+            },
+        },
+        whatYearWasTheAir: {
+            get() {
+                return this.$store.state.stepFive.whatYearWasTheAir;
+            },
+            set(value) {
+                this.$store.state.stepFive.whatYearWasTheAir = value;
+            },
+        },
+        ifTheWaterHeaterHasBeenReplaced: {
+            get() {
+                return this.$store.state.stepFive.ifTheWaterHeaterHasBeenReplaced;
+            },
+            set(value) {
+                this.$store.state.stepFive.ifTheWaterHeaterHasBeenReplaced = value;
+            },
+        },
+        willYouHaveAMonitored: {
+            get() {
+                return this.$store.state.stepFive.willYouHaveAMonitored;
+            },
+            set(value) {
+                this.$store.state.stepFive.willYouHaveAMonitored = value;
+            },
+        },
+        whatAlarmCompany: {
+            get() {
+                return this.$store.state.stepFive.whatAlarmCompany;
+            },
+            set(value) {
+                this.$store.state.stepFive.whatAlarmCompany = value;
+            },
+        },
+        howManyDogs: {
+            get() {
+                return this.$store.state.stepFive.howManyDogs;
+            },
+            set(value) {
+                this.$store.state.stepFive.howManyDogs = value;
+            },
+        },
+        whatBrands: {
+            get() {
+                return this.$store.state.stepFive.whatBrands;
+            },
+            set(value) {
+                this.$store.state.stepFive.whatBrands = value;
+            },
+        },
+        haveTheyEverBittenSomeone: {
+            get() {
+                return this.$store.state.stepFive.haveTheyEverBittenSomeone;
+            },
+            set(value) {
+                this.$store.state.stepFive.haveTheyEverBittenSomeone = value;
+            },
+        },
+        willThereBeAnotherAdult: {
+            get() {
+                return this.$store.state.stepFive.willThereBeAnotherAdult;
+            },
+            set(value) {
+                this.$store.state.stepFive.willThereBeAnotherAdult = value;
+            },
+        },
+        secondaryFirstName: {
+            get() {
+                return this.$store.state.stepFive.secondaryFirstName;
+            },
+            set(value) {
+                this.$store.state.stepFive.secondaryFirstName = value;
+            },
+        },
+        secondaryPhone: {
+            get() {
+                return this.$store.state.stepFive.secondaryPhone;
+            },
+            set(value) {
+                this.$store.state.stepFive.secondaryPhone = value;
+            },
+        },
+        secondaryEmail: {
+            get() {
+                return this.$store.state.stepFive.secondaryEmail;
+            },
+            set(value) {
+                this.$store.state.stepFive.secondaryEmail = value;
+            },
+        },
+        NotesForInsurceQuote: {
+            get() {
+                return this.$store.state.stepFive.NotesForInsurceQuote;
+            },
+            set(value) {
+                this.$store.state.stepFive.NotesForInsurceQuote = value;
+            },
+        },
+        dateOfBirthMenu: {
+            get() {
+                return this.$store.state.stepFive.dateOfBirthMenu;
+            },
+            set(value) {
+                this.$store.state.stepFive.dateOfBirthMenu = value;
+            },
+        },
+        dateOfBirthFormated: {
+            get() {
+                return this.$store.state.stepFive.dateOfBirthFormated;
+            },
+            set(value) {
+                this.$store.state.stepFive.dateOfBirthFormated = value;
+            },
+        },
+        dateOfBirthDate: {
+            get() {
+                return this.$store.state.stepFive.dateOfBirthDate;
+            },
+            set(value) {
+                this.$store.state.stepFive.dateOfBirthDate = value;
+            },
+        },
+        secondaryDateOfBirthMenu: {
+            get() {
+                return this.$store.state.stepFive.secondaryDateOfBirthMenu;
+            },
+            set(value) {
+                this.$store.state.stepFive.secondaryDateOfBirthMenu = value;
+            },
+        },
+        secondaryDateOfBirthFormated: {
+            get() {
+                return this.$store.state.stepFive.secondaryDateOfBirthFormated;
+            },
+            set(value) {
+                this.$store.state.stepFive.secondaryDateOfBirthFormated = value;
+            },
+        },
+        secondaryDateOfBirthDate: {
+            get() {
+                return this.$store.state.stepFive.secondaryDateOfBirthDate;
+            },
+            set(value) {
+                this.$store.state.stepFive.secondaryDateOfBirthDate = value;
+            },
+        },
     },
     methods: {
         formatDate (date) {

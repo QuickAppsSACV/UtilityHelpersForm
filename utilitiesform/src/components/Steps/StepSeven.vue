@@ -14,6 +14,7 @@
                                     <v-text-field
                                     dense
                                     outlined
+                                    v-model="availablePowerProviders"
                                     label="Available Power Provider(s)"
                                     >
                                 </v-text-field>
@@ -24,6 +25,7 @@
                                     <v-select
                                     dense
                                     outlined
+                                    v-model="whoIsNameWillElectric"
                                     label="Who's Name will Electric be in?"
                                     :items="['Primary','Secondary']"
                                     hint="Select Primary or Secondary"
@@ -36,8 +38,468 @@
                                     <v-select
                                     dense
                                     outlined
+                                    v-model="electricProviderActived"
                                     label="Electric Provider Activated"
-                                    :items="['AEP - Ohio',
+                                    :items="groupElectricProviderActived"
+                                    ></v-select>
+                                </v-col>
+                            </v-row>
+                            <v-row dense class="">
+                                <v-col cols="6">
+                                    <v-select
+                                    dense
+                                    outlined
+                                    v-model="activationOeTransfer"
+                                    label="Activation or Transfer"
+                                    :items="['New Activation','Transfer']"
+                                    ></v-select>
+                                </v-col>
+                            </v-row>
+                            <v-row dense class="mt-0">
+                                <v-col
+                                cols="6"
+                                lg="6"
+                                >
+                                    <v-menu
+                                    ref="primaryDOBMenu"
+                                    v-model="primaryDOBMenu"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                        v-model="primaryDOBFormated"
+                                        label="Primary DOB"
+                                        dense
+                                        outlined
+                                        hint="MM/DD/YYYY"
+                                        persistent-hint
+                                        append-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        @blur="primaryDOBDate = parseDate(primaryDOBFormated)"
+                                        v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="primaryDOBDate"
+                                        no-title
+                                        @input="primaryDOBMenu = false"
+                                    ></v-date-picker>
+                                    </v-menu>
+                            </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col class="" cols="6">
+                                    <v-text-field
+                                    dense
+                                    outlined
+                                    v-model="primarySSN"
+                                    label="Primary SSN"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                            <v-row dense class="mt-0">
+                                <v-col
+                                cols="6"
+                                lg="6"
+                                >
+                                    <v-menu
+                                    ref="secondaryDOBMenu"
+                                    v-model="secondaryDOBMenu"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                        v-model="secondaryDOBFormated"
+                                        label="Secondary DOB for Power"
+                                        dense
+                                        outlined
+                                        hint="MM/DD/YYYY"
+                                        persistent-hint
+                                        append-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        @blur="secondaryDOBDate = parseDate(secondaryDOBFormated)"
+                                        v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="secondaryDOBDate"
+                                        no-title
+                                        @input="secondaryDOBMenu = false"
+                                    ></v-date-picker>
+                                    </v-menu>
+                            </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col class="" cols="6">
+                                    <v-text-field
+                                    dense
+                                    outlined
+                                    v-model="secondarySSNForPower"
+                                    label="Secondary SSN for Power"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col class="" cols="6">
+                                    <v-text-field
+                                    dense
+                                    outlined
+                                    v-model="dlForPower"
+                                    label="DL# for Power"
+                                    hint="Enter number and State"
+                                    persistent-hint
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col class="" cols="6">
+                                    <v-text-field
+                                    dense
+                                    outlined
+                                    v-model="employerNameBussines"
+                                    label="Employer or Name of Business"
+                                    hint="Required for account setup. If not employed just enter 'Retired'"
+                                    persistent-hint
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                            <v-row dense class="mt-0">
+                                <v-col
+                                cols="6"
+                                lg="6"
+                                >
+                                    <v-menu
+                                    ref="electricActivationMenu"
+                                    v-model="electricActivationMenu"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                        v-model="electricActivationFormated"
+                                        label="Electric Activation Date"
+                                        dense
+                                        outlined
+                                        hint="MM/DD/YYYY"
+                                        persistent-hint
+                                        append-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        @blur="electricActivationDate = parseDate(electricActivationFormated)"
+                                        v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="electricActivationDate"
+                                        no-title
+                                        @input="electricActivationMenu = false"
+                                    ></v-date-picker>
+                                    </v-menu>
+                            </v-col>
+                            </v-row>
+                            <v-row dense class="mt-0">
+                                <v-col
+                                cols="6"
+                                lg="6"
+                                >
+                                    <v-menu
+                                    ref="electricCancellationMenu"
+                                    v-model="electricCancellationMenu"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                        v-model="electricCancellationFormated"
+                                        label="Electric Cancellation Date"
+                                        dense
+                                        outlined
+                                        hint="MM/DD/YYYY"
+                                        persistent-hint
+                                        append-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        @blur="electricCancellationDate = parseDate(electricCancellationFormated)"
+                                        v-on="on"
+                                        >
+                                        <template v-slot:message>
+                                            <p>MM/DD/YYYY <br>(for Transfers Only)</p>
+                                        </template>
+                                    </v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="electricCancellationDate"
+                                        no-title
+                                        @input="electricCancellationMenu = false"
+                                    ></v-date-picker>
+                                    </v-menu>
+                            </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col cols="6">
+                                    <v-checkbox 
+                                    v-model="haveSupportKeyElectric"
+                                    label="Have Support Key the Electric Order?"
+                                    ></v-checkbox>
+                                </v-col>
+                            </v-row>
+                            <v-row class="pt-0">
+                                <v-col cols="">
+                                    <v-textarea
+                                    v-model="ticketNotes"
+                                    label="Ticket Notes"
+                                    outlined
+                                    dense
+                                    ></v-textarea>
+                                </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col cols="6">
+                                    <p>Activated Power Add-Ons</p>
+                                    <v-checkbox 
+                                    v-model="fplSurgesShield"
+                                    label="FPL SurgeShield"
+                                    hint="Make this selection ONLY after completing activation above."
+                                    persistent-hint
+                                    ></v-checkbox>
+                                </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col class="mt-2" cols="6">
+                                    <v-text-field
+                                    dense
+                                    outlined
+                                    v-model="availableGasProviders"
+                                    label="Available Gas Provider(s)"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                            <v-card-title class="bluelight-text">
+                                Gas Activation:
+                            </v-card-title>
+                            <v-row dense class="">
+                                <v-col cols="6">
+                                    <v-select
+                                    dense
+                                    outlined
+                                    v-model="whosNameWillGas"
+                                    label="​Who's name will the Gas be in?"
+                                    :items="['Primary','Secondary']"
+                                    hint="Select Primary or Secondary"
+                                    persistent-hint
+                                    ></v-select>
+                                </v-col>
+                            </v-row>
+                            <v-row dense class="">
+                                <v-col cols="6">
+                                    <v-select
+                                    dense
+                                    outlined
+                                    v-model="gasProviderActivated"
+                                    label="​Gas Provider Activated"
+                                    :items="groupGasProviderActivated"
+
+                                    ></v-select>
+                                </v-col>
+                            </v-row>
+                            <v-row dense class="mt-0">
+                                <v-col
+                                cols="6"
+                                lg="6"
+                                >
+                                    <v-menu
+                                    ref="gasActivationMenu"
+                                    v-model="gasActivationMenu"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                        v-model="gasActivationFormated"
+                                        label="Gas Activation Date"
+                                        dense
+                                        outlined
+                                        hint="MM/DD/YYYY"
+                                        persistent-hint
+                                        append-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        @blur="gasActivationDate = parseDate(gasActivationFormated)"
+                                        v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="gasActivationDate"
+                                        no-title
+                                        @input="gasActivationMenu = false"
+                                    ></v-date-picker>
+                                    </v-menu>
+                            </v-col>
+                            </v-row>
+                            <v-row dense class="mt-0">
+                                <v-col
+                                cols="6"
+                                lg="6"
+                                >
+                                    <v-menu
+                                    ref="primaryDOBMenu2"
+                                    v-model="primaryDOBMenu2"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                        v-model="primaryDOBFormated2"
+                                        label="Primary DOB"
+                                        dense
+                                        outlined
+                                        hint="MM/DD/YYYY"
+                                        persistent-hint
+                                        append-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        @blur="primaryDOBDate2 = parseDate(primaryDOBFormated2)"
+                                        v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="primaryDOBDate2"
+                                        no-title
+                                        @input="primaryDOBMenu2 = false"
+                                    ></v-date-picker>
+                                    </v-menu>
+                            </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col class="" cols="6">
+                                    <v-text-field
+                                    dense
+                                    outlined
+                                    v-model="primarySSN2"
+                                    label="Primary SSN"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                            <v-row dense class="mt-0">
+                                <v-col
+                                cols="6"
+                                lg="6"
+                                >
+                                    <v-menu
+                                    ref="secondDOBMenu2"
+                                    v-model="secondDOBMenu2"
+                                    :close-on-content-click="false"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                                    >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                        v-model="secondDOBFormated2"
+                                        label="secondary DOB"
+                                        dense
+                                        outlined
+                                        hint="MM/DD/YYYY"
+                                        persistent-hint
+                                        append-icon="mdi-calendar"
+                                        v-bind="attrs"
+                                        @blur="secondDOBDate2 = parseDate(secondDOBFormated2)"
+                                        v-on="on"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="secondDOBDate2"
+                                        no-title
+                                        @input="secondDOBMenu2 = false"
+                                    ></v-date-picker>
+                                    </v-menu>
+                            </v-col>
+                            </v-row>
+                            
+                            <v-row dense>
+                                <v-col class="" cols="6">
+                                    <v-text-field
+                                    dense
+                                    outlined
+                                    v-model="secondarySSN"
+                                    label="Secondary SSN"
+                                    >
+                                </v-text-field>
+                            </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col cols="6">
+                                    <v-checkbox 
+                                    v-model="haveSupportKeyGas"
+                                    label="Have Support Key the Gas Order?"
+                                    ></v-checkbox>
+                                </v-col>
+                            </v-row>
+                            <v-row class="pt-0">
+                                <v-col cols="">
+                                    <v-textarea
+                                    v-model="ticketNotes2"
+                                    label="Ticket Notes"
+                                    outlined
+                                    dense
+                                    ></v-textarea>
+                                </v-col>
+                            </v-row>
+                    </v-card-text>
+                </v-card>
+                7/8
+    </div>
+</template>
+<script>
+
+export default {
+    data: vm=>( {
+        e1: 7,
+        primaryDOBMenu:false,
+        primaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        primaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        SecondaryDOBMenu:false,
+        SecondaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        SecondaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        electricActivationMenu: false,
+        electricActivationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        electricActivationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        electricCancellationMenu: false,
+        electricCancellationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        electricCancellationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        gasActivationMenu:false,
+        gasActivationDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        gasActivationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        primaryDOBMenu2:false,
+        primaryDOBDate2:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        primaryDOBFormated2:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        secondDOBMenu2:false,
+        secondDOBDate2:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        secondDOBFormated2:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        groupElectricProviderActived:       ['AEP - Ohio',
                                             'Alabama Power',
                                             'Ameren',
                                             'Appalachian Power - AEP',
@@ -201,270 +663,8 @@
                                             'West Penn Power - FirstEnergy',
                                             'White River Electric Cooperative',
                                             'Xcel Energy',
-                                            'your HOA']"
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row dense class="">
-                                <v-col cols="6">
-                                    <v-select
-                                    dense
-                                    outlined
-                                    label="Activation or Transfer"
-                                    :items="['New Activation','Transfer']"
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row dense class="mt-0">
-                                <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                    <v-menu
-                                    ref="primaryDOBMenu"
-                                    v-model="primaryDOBMenu"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="primaryDOBFormated"
-                                        label="Primary DOB"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY"
-                                        persistent-hint
-                                        append-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="primaryDOBDate = parseDate(primaryDOBFormated)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="primaryDOBDate"
-                                        no-title
-                                        @input="primaryDOBMenu = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                            </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col class="" cols="6">
-                                    <v-text-field
-                                    dense
-                                    outlined
-                                    label="Primary SSN"
-                                    >
-                                </v-text-field>
-                            </v-col>
-                            </v-row>
-                            <v-row dense class="mt-0">
-                                <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                    <v-menu
-                                    ref="secondaryDOBMenu"
-                                    v-model="secondaryDOBMenu"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="secondaryDOBFormated"
-                                        label="Secondary DOB for Power"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY"
-                                        persistent-hint
-                                        append-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="secondaryDOBDate = parseDate(secondaryDOBFormated)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="secondaryDOBDate"
-                                        no-title
-                                        @input="secondaryDOBMenu = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                            </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col class="" cols="6">
-                                    <v-text-field
-                                    dense
-                                    outlined
-                                    label="Secondary SSN for Power"
-                                    >
-                                </v-text-field>
-                            </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col class="" cols="6">
-                                    <v-text-field
-                                    dense
-                                    outlined
-                                    label="DL# for Power"
-                                    hint="Enter number and State"
-                                    persistent-hint
-                                    >
-                                </v-text-field>
-                            </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col class="" cols="6">
-                                    <v-text-field
-                                    dense
-                                    outlined
-                                    label="Employer or Name of Business"
-                                    hint="Required for account setup. If not employed just enter 'Retired'"
-                                    persistent-hint
-                                    >
-                                </v-text-field>
-                            </v-col>
-                            </v-row>
-                            <v-row dense class="mt-0">
-                                <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                    <v-menu
-                                    ref="electricActivationMenu"
-                                    v-model="electricActivationMenu"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="electricActivationFormated"
-                                        label="Electric Activation Date"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY"
-                                        persistent-hint
-                                        append-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="electricActivationDate = parseDate(electricActivationFormated)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="electricActivationDate"
-                                        no-title
-                                        @input="electricActivationMenu = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                            </v-col>
-                            </v-row>
-                            <v-row dense class="mt-0">
-                                <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                    <v-menu
-                                    ref="electricCancellationMenu"
-                                    v-model="electricCancellationMenu"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="electricCancellationFormated"
-                                        label="Electric Cancellation Date"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY"
-                                        persistent-hint
-                                        append-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="electricCancellationDate = parseDate(electricCancellationFormated)"
-                                        v-on="on"
-                                        >
-                                        <template v-slot:message>
-                                            <p>MM/DD/YYYY <br>(for Transfers Only)</p>
-                                        </template>
-                                    </v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="electricCancellationDate"
-                                        no-title
-                                        @input="electricCancellationMenu = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                            </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col cols="6">
-                                    <v-checkbox 
-                                    label="Have Support Key the Electric Order?"
-                                    ></v-checkbox>
-                                </v-col>
-                            </v-row>
-                            <v-row class="pt-0">
-                                <v-col cols="">
-                                    <v-textarea
-                                    label="Ticket Notes"
-                                    outlined
-                                    dense
-                                    ></v-textarea>
-                                </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col cols="6">
-                                    <p>Activated Power Add-Ons</p>
-                                    <v-checkbox 
-                                    label="FPL SurgeShield"
-                                    hint="Make this selection ONLY after completing activation above."
-                                    persistent-hint
-                                    ></v-checkbox>
-                                </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col class="mt-2" cols="6">
-                                    <v-text-field
-                                    dense
-                                    outlined
-                                    label="Available Gas Provider(s)"
-                                    >
-                                </v-text-field>
-                            </v-col>
-                            </v-row>
-                            <v-card-title class="bluelight-text">
-                                Gas Activation:
-                            </v-card-title>
-                            <v-row dense class="">
-                                <v-col cols="6">
-                                    <v-select
-                                    dense
-                                    outlined
-                                    label="​Who's name will the Gas be in?"
-                                    :items="['Primary','Secondary']"
-                                    hint="Select Primary or Secondary"
-                                    persistent-hint
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row dense class="">
-                                <v-col cols="6">
-                                    <v-select
-                                    dense
-                                    outlined
-                                    label="​Gas Provider Activated"
-                                    :items="['Avista',
+                                            'your HOA'],
+        groupGasProviderActivated:  ['Avista',
                                     'Baltimore Gas and Electric',
                                     'Center Point Energy',
                                     'Chattanooga Gas - TN',
@@ -489,188 +689,7 @@
                                     'TECO - Peoples Gas',
                                     'Unitil',
                                     'Washington Gas',
-                                    'Xcel Energy',]"
-
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row dense class="mt-0">
-                                <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                    <v-menu
-                                    ref="gasActivationMenu"
-                                    v-model="gasActivationMenu"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="gasActivationFormated"
-                                        label="Gas Activation Date"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY"
-                                        persistent-hint
-                                        append-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="gasActivationDate = parseDate(gasActivationFormated)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="gasActivationDate"
-                                        no-title
-                                        @input="gasActivationMenu = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                            </v-col>
-                            </v-row>
-                            <v-row dense class="mt-0">
-                                <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                    <v-menu
-                                    ref="primaryDOBMenu2"
-                                    v-model="primaryDOBMenu2"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="primaryDOBFormated2"
-                                        label="Primary DOB"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY"
-                                        persistent-hint
-                                        append-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="primaryDOBDate2 = parseDate(primaryDOBFormated2)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="primaryDOBDate2"
-                                        no-title
-                                        @input="primaryDOBMenu2 = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                            </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col class="" cols="6">
-                                    <v-text-field
-                                    dense
-                                    outlined
-                                    label="Primary SSN"
-                                    >
-                                </v-text-field>
-                            </v-col>
-                            </v-row>
-                            <v-row dense class="mt-0">
-                                <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                    <v-menu
-                                    ref="secondDOBMenu2"
-                                    v-model="secondDOBMenu2"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="secondDOBFormated2"
-                                        label="secondary DOB"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY"
-                                        persistent-hint
-                                        append-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="secondDOBDate2 = parseDate(secondDOBFormated2)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="secondDOBDate2"
-                                        no-title
-                                        @input="secondDOBMenu2 = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                            </v-col>
-                            </v-row>
-                            
-                            <v-row dense>
-                                <v-col class="" cols="6">
-                                    <v-text-field
-                                    dense
-                                    outlined
-                                    label="Secondary SSN"
-                                    >
-                                </v-text-field>
-                            </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col cols="6">
-                                    <v-checkbox 
-                                    label="Have Support Key the Gas Order?"
-                                    ></v-checkbox>
-                                </v-col>
-                            </v-row>
-                            <v-row class="pt-0">
-                                <v-col cols="">
-                                    <v-textarea
-                                    label="Ticket Notes"
-                                    outlined
-                                    dense
-                                    ></v-textarea>
-                                </v-col>
-                            </v-row>
-                    </v-card-text>
-                </v-card>
-                7/8
-    </div>
-</template>
-<script>
-
-export default {
-    data: vm=>( {
-        e1: 7,
-        primaryDOBMenu:false,
-        primaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        primaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        SecondaryDOBMenu:false,
-        SecondaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        SecondaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        electricActivationMenu: false,
-        electricActivationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        electricActivationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        electricCancellationMenu: false,
-        electricCancellationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        electricCancellationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        gasActivationMenu:false,
-        gasActivationDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        gasActivationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        primaryDOBMenu2:false,
-        primaryDOBDate2:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        primaryDOBFormated2:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        secondDOBMenu2:false,
-        secondDOBDate2:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        secondDOBFormated2:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        
+                                    'Xcel Energy',]
     }),
     watch: {
         primaryDOBDate (val) {
@@ -697,7 +716,318 @@ export default {
         
     },
     computed: {
-      
+        availablePowerProviders: {
+            get() {
+                return this.$store.state.stepThree.availablePowerProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availablePowerProviders = value;
+            },
+        },
+        whoIsNameWillElectric: {
+            get() {
+                return this.$store.state.stepThree.whoIsNameWillElectric;
+            },
+            set(value) {
+                this.$store.state.stepThree.whoIsNameWillElectric = value;
+            },
+        },
+        electricProviderActived: {
+            get() {
+                return this.$store.state.stepThree.electricProviderActived;
+            },
+            set(value) {
+                this.$store.state.stepThree.electricProviderActived = value;
+            },
+        },
+        activationOeTransfer: {
+            get() {
+                return this.$store.state.stepThree.activationOeTransfer;
+            },
+            set(value) {
+                this.$store.state.stepThree.activationOeTransfer = value;
+            },
+        },
+        primarySSN: {
+            get() {
+                return this.$store.state.stepThree.primarySSN;
+            },
+            set(value) {
+                this.$store.state.stepThree.primarySSN = value;
+            },
+        },
+        secondarySSNForPower: {
+            get() {
+                return this.$store.state.stepThree.secondarySSNForPower;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondarySSNForPower = value;
+            },
+        },
+        dlForPower: {
+            get() {
+                return this.$store.state.stepThree.dlForPower;
+            },
+            set(value) {
+                this.$store.state.stepThree.dlForPower = value;
+            },
+        },
+        employerNameBusiness: {
+            get() {
+                return this.$store.state.stepThree.employerNameBusiness;
+            },
+            set(value) {
+                this.$store.state.stepThree.employerNameBusiness = value;
+            },
+        },
+        haveSupportKeyElectric: {
+            get() {
+                return this.$store.state.stepThree.haveSupportKeyElectric;
+            },
+            set(value) {
+                this.$store.state.stepThree.haveSupportKeyElectric = value;
+            },
+        },
+        ticketNotes: {
+            get() {
+                return this.$store.state.stepThree.ticketNotes;
+            },
+            set(value) {
+                this.$store.state.stepThree.ticketNotes = value;
+            },
+        },
+        fplSurgesShield: {
+            get() {
+                return this.$store.state.stepThree.fplSurgesShield;
+            },
+            set(value) {
+                this.$store.state.stepThree.fplSurgesShield = value;
+            },
+        },
+        availableGasProviders: {
+            get() {
+                return this.$store.state.stepThree.availableGasProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availableGasProviders = value;
+            },
+        },
+        whosNameWillGas: {
+            get() {
+                return this.$store.state.stepThree.whosNameWillGas;
+            },
+            set(value) {
+                this.$store.state.stepThree.whosNameWillGas = value;
+            },
+        },
+        gasProviderActivated: {
+            get() {
+                return this.$store.state.stepThree.gasProviderActivated;
+            },
+            set(value) {
+                this.$store.state.stepThree.gasProviderActivated = value;
+            },
+        },
+        primarySSN2: {
+            get() {
+                return this.$store.state.stepThree.primarySSN2;
+            },
+            set(value) {
+                this.$store.state.stepThree.primarySSN2 = value;
+            },
+        },
+        secondarySSN: {
+            get() {
+                return this.$store.state.stepThree.secondarySSN;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondarySSN = value;
+            },
+        },
+        haveSupportKeyGas: {
+            get() {
+                return this.$store.state.stepThree.haveSupportKeyGas;
+            },
+            set(value) {
+                this.$store.state.stepThree.haveSupportKeyGas = value;
+            },
+        },
+        ticketNotes2: {
+            get() {
+                return this.$store.state.stepThree.ticketNotes2;
+            },
+            set(value) {
+                this.$store.state.stepThree.ticketNotes2 = value;
+            },
+        },
+        primaryDOBMenu: {
+            get() {
+                return this.$store.state.stepThree.primaryDOBMenu;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryDOBMenu = value;
+            },
+        },
+        primaryDOBFormated: {
+            get() {
+                return this.$store.state.stepThree.primaryDOBFormated;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryDOBFormated = value;
+            },
+        },
+        primaryDOBDate: {
+            get() {
+                return this.$store.state.stepThree.primaryDOBDate;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryDOBDate = value;
+            },
+        },
+        secondaryDOBMenu: {
+            get() {
+                return this.$store.state.stepThree.secondaryDOBMenu;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondaryDOBMenu = value;
+            },
+        },
+        secondaryDOBFormated: {
+            get() {
+                return this.$store.state.stepThree.secondaryDOBFormated;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondaryDOBFormated = value;
+            },
+        },
+        secondaryDOBDate: {
+            get() {
+                return this.$store.state.stepThree.secondaryDOBDate;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondaryDOBDate = value;
+            },
+        },
+        electricActivationMenu: {
+            get() {
+                return this.$store.state.stepThree.electricActivationMenu;
+            },
+            set(value) {
+                this.$store.state.stepThree.electricActivationMenu = value;
+            },
+        },
+        electricActivationFormated: {
+            get() {
+                return this.$store.state.stepThree.electricActivationFormated;
+            },
+            set(value) {
+                this.$store.state.stepThree.electricActivationFormated = value;
+            },
+        },
+        electricActivationDate: {
+            get() {
+                return this.$store.state.stepThree.electricActivationDate;
+            },
+            set(value) {
+                this.$store.state.stepThree.electricActivationDate = value;
+            },
+        },
+        electricCancellationMenu: {
+            get() {
+                return this.$store.state.stepThree.electricCancellationMenu;
+            },
+            set(value) {
+                this.$store.state.stepThree.electricCancellationMenu = value;
+            },
+        },
+        electricCancellationFormated: {
+            get() {
+                return this.$store.state.stepThree.electricCancellationFormated;
+            },
+            set(value) {
+                this.$store.state.stepThree.electricCancellationFormated = value;
+            },
+        },
+        electricCancellationDate: {
+            get() {
+                return this.$store.state.stepThree.electricCancellationDate;
+            },
+            set(value) {
+                this.$store.state.stepThree.electricCancellationDate = value;
+            },
+        },
+        gasActivationMenu: {
+            get() {
+                return this.$store.state.stepThree.gasActivationMenu;
+            },
+            set(value) {
+                this.$store.state.stepThree.gasActivationMenu = value;
+            },
+        },
+        gasActivationFormated: {
+            get() {
+                return this.$store.state.stepThree.gasActivationFormated;
+            },
+            set(value) {
+                this.$store.state.stepThree.gasActivationFormated = value;
+            },
+        },
+        gasActivationDate: {
+            get() {
+                return this.$store.state.stepThree.gasActivationDate;
+            },
+            set(value) {
+                this.$store.state.stepThree.gasActivationDate = value;
+            },
+        },
+        primaryDOBMenu2: {
+            get() {
+                return this.$store.state.stepThree.primaryDOBMenu2;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryDOBMenu2 = value;
+            },
+        },
+        primaryDOBFormated2: {
+            get() {
+                return this.$store.state.stepThree.primaryDOBFormated2;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryDOBFormated2 = value;
+            },
+        },
+        primaryDOBDate2: {
+            get() {
+                return this.$store.state.stepThree.primaryDOBDate2;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryDOBDate2 = value;
+            },
+        },
+        secondDOBMenu2: {
+            get() {
+                return this.$store.state.stepThree.secondDOBMenu2;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondDOBMenu2 = value;
+            },
+        },
+        secondDOBFormated2: {
+            get() {
+                return this.$store.state.stepThree.secondDOBFormated2;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondDOBFormated2 = value;
+            },
+        },
+        secondDOBDate2: {
+            get() {
+                return this.$store.state.stepThree.secondDOBDate2;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondDOBDate2 = value;
+            },
+        },
     },
     methods: {
         formatDate (date) {
