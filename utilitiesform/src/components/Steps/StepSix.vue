@@ -11,6 +11,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                v-model="podsOrProMover"
                     label="PODS or Pro Mover?"
                     :items="['PODS','Pro Mover','Both']"
                     outlined
@@ -28,6 +29,7 @@
             <v-col cols="6">
                 <v-text-field
                     label="Unloading Zip Code"
+                    v-model="verifyWantUnloadPod"
                     hint="Verify this is where they want to UNLOAD their POD"
                     persistent-hint
                     outlined></v-text-field>
@@ -43,6 +45,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
+                v-model="podsQuoteNumber"
                     label="PODS Quote Number"
                     hint="Example: #P10050872"
                     persistent-hint
@@ -52,6 +55,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                v-model="rentalTruckCompany"
                     label="Rental Truck Company"
                     :items="['Uhaul']"
                     outlined
@@ -61,6 +65,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    v-model="typeOfMove"
                     label="Type of Move"
                     :items="['One-Way','In-Town']"
                     outlined
@@ -70,6 +75,7 @@
         <v-row dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
+                v-model="sizeEquipment"
                     label="Size & Equipment"
                     hint="(ie: 15' Truck, Pickup Truck, or Tow Dolly)(Also add-ons like Appliance Dolly, etc.)"
                     persistent-hint
@@ -153,6 +159,7 @@
                         <v-row dense class="mt-0">
                             <v-col cols="6">
                                 <v-text-field
+                                v-model="RentalTrukConfirmationNumber"
                                     label="Rental Truck Confirmation Number (Required)"
                                     outlined></v-text-field>
                             </v-col>
@@ -162,6 +169,7 @@
                         <v-row dense class="mt-4">
                             <v-col cols="6">
                                 <v-select
+                                    v-model="proMovingCompany"
                                     label="Pro Moving Company"
                                     :items="['Bekins (National)', 'Rocks Moving (Tampa Bay Area)']"
                                     outlined
@@ -194,6 +202,7 @@
                         <v-row class="mt-0">
                                 <v-col cols="">
                                     <v-textarea
+                                    v-model="proMoverNotes"
                                     label="Pro Mover Notes"
                                     outlined
                                     dense
@@ -205,6 +214,7 @@
                         <v-row dense class="mt-0">
                             <v-col cols="6">
                                 <v-select
+                                    v-model="howSentProMover"
                                     label="How Sent to Pro Mover?"
                                     :items="['Warm Transfer', 'Request Call Back']"
                                     outlined
@@ -232,6 +242,7 @@
                                 <v-col>
                                     <v-checkbox
                                     class="blue--text"
+                                    v-model="wouldLikeSolarConsulation"
                                     >
                                     <template v-slot:label><div class="indigo--text text-lighten-1">Customer would like a Solar Consultation</div></template>
                                 </v-checkbox>
@@ -277,6 +288,7 @@
                         <v-row dense class="mt-0">
                             <v-col cols="6">
                                 <v-select
+                                v-model="solarConsulationTime"
                                     label="Solar Consultation Time Window"
                                     :items="[
                                         '11am - 1pm', 
@@ -334,7 +346,102 @@ export default {
         },
     },
     computed: {
-      
+      podsOrProMover: {
+            get() {
+                return this.$store.state.stepSix.podsOrProMover;
+            },
+            set(value) {
+                this.$store.state.stepSix.podsOrProMover = value;
+            },
+        },
+        verifyWantUnloadPod: {
+            get() {
+                return this.$store.state.stepSix.verifyWantUnloadPod;
+            },
+            set(value) {
+                this.$store.state.stepSix.verifyWantUnloadPod = value;
+            },
+        },
+        podsQuoteNumber: {
+            get() {
+                return this.$store.state.stepSix.podsQuoteNumber;
+            },
+            set(value) {
+                this.$store.state.stepSix.podsQuoteNumber = value;
+            },
+        },
+        rentalTruckCompany: {
+            get() {
+                return this.$store.state.stepSix.rentalTruckCompany;
+            },
+            set(value) {
+                this.$store.state.stepSix.rentalTruckCompany = value;
+            },
+        },
+        typeOfMove: {
+            get() {
+                return this.$store.state.stepSix.typeOfMove;
+            },
+            set(value) {
+                this.$store.state.stepSix.typeOfMove = value;
+            },
+        },
+        sizeEquipment: {
+            get() {
+                return this.$store.state.stepSix.sizeEquipment;
+            },
+            set(value) {
+                this.$store.state.stepSix.sizeEquipment = value;
+            },
+        },
+        RentalTrukConfirmationNumber: {
+            get() {
+                return this.$store.state.stepSix.RentalTrukConfirmationNumber;
+            },
+            set(value) {
+                this.$store.state.stepSix.RentalTrukConfirmationNumber = value;
+            },
+        },
+        proMovingCompany: {
+            get() {
+                return this.$store.state.stepSix.proMovingCompany;
+            },
+            set(value) {
+                this.$store.state.stepSix.proMovingCompany = value;
+            },
+        },
+        proMoverNotes: {
+            get() {
+                return this.$store.state.stepSix.proMoverNotes;
+            },
+            set(value) {
+                this.$store.state.stepSix.proMoverNotes = value;
+            },
+        },
+        howSentProMover: {
+            get() {
+                return this.$store.state.stepSix.howSentProMover;
+            },
+            set(value) {
+                this.$store.state.stepSix.howSentProMover = value;
+            },
+        },
+        wouldLikeSolarConsulation: {
+            get() {
+                return this.$store.state.stepSix.wouldLikeSolarConsulation;
+            },
+            set(value) {
+                this.$store.state.stepSix.wouldLikeSolarConsulation = value;
+            },
+        },
+        solarConsulationTime: {
+            get() {
+                return this.$store.state.stepSix.solarConsulationTime;
+            },
+            set(value) {
+                this.$store.state.stepSix.solarConsulationTime = value;
+            },
+        },
     },
     methods: {
       formatDate (date) {
