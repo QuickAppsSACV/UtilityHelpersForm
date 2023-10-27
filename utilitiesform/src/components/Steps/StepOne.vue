@@ -22,13 +22,38 @@
             v-model="templateInstructions"
             label="Template Instructions"
             ></v-text-field>
-            <v-text-field
+            <!-- <v-text-field
             dense
             v-model="zohoCRM"
             label="Zoho CRM *"
             outlined
-            ></v-text-field>
-
+            ></v-text-field> -->
+            <v-text-field
+            v-model="zohoCRM"
+            dense
+            outlined
+            clearable
+            label="Zoho CRM *"
+            type="text"
+          >
+            <template v-slot:append>
+              <v-fade-transition leave-absolute>
+                <v-progress-circular
+                  v-if="loading"
+                  size="24"
+                  color="info"
+                  indeterminate
+                ></v-progress-circular>
+                <v-icon
+                @click="clickMe"
+                v-else
+                color="green darken-2"
+                >
+                    mdi-magnify
+                </v-icon>
+              </v-fade-transition>
+            </template>
+          </v-text-field>
             <h2 color="blue" class="blue-text">--Primary--</h2>
             <v-divider class="mt-2 mb-7"></v-divider>
             
@@ -393,6 +418,7 @@
     </div>
 </template>
 <script>
+const axios = require('axios');
 
 export default {
     data: vm=>( {
@@ -401,6 +427,8 @@ export default {
         date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         menu2: false,
+        loading:false,
+        message: 'Hey!',
         
     }),
     watch: {
@@ -654,7 +682,57 @@ export default {
         },
        
     },
+    async mounted(){
+    // const that = this;
+    //  await ZOHO.embeddedApp.on("PageLoad",function(data){         
+    //     // ZOHO.CRM.UI.Resize({height:"596.5",width:"1100"})
+    //     console.log(data.EntityId);
+  
+     
+    //     //   ZOHO.CRM.API.getRecord({Entity:"Deals",RecordID:that.dealID})
+    // //   .then(function(data){
+    // //     console.log("alexis")
+    // //     console.log(data);
+    // //   })
+    // })
+    // ZOHO.embeddedApp.init();
+  },
     methods: {
+     async  clickMe () {
+        this.loading = true
+        setTimeout(() => {
+           this.loading = false
+        }, 2000)
+
+        // const resp=  await axios({
+        //     url:`https://www.zohoapis.com/crm/v2/Leads/search?criteria=(Email:starts_with:`+this.zohoCRM+`)`, 
+        //     method:"GET",
+        //     headers:{
+        //       "Content-type":"application/json",
+        //       "Authorization": "bearer 1000.e32058a05cfff0df4221170640edde71.09fd24e01f152959d7016a07b7c17dbe"
+        //     },
+        //   })
+        const data = {
+        'crmAPIRequest': this.zohoCRM,
+         }
+         //headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        //  console.log(data);
+        //  console.log();
+        //  console.log(JSON.parse(data));
+        // url:`https://www.zohoapis.com/crm/v2/functions/FormServerless/actions/execute?auth_type=apikey&zapikey=1003.9bfee056482b123ed4c7a478d7eb4683.513ec5f354e37a03742b210e05a5a9b1`,
+        // const resp = await axios({
+        //     url:'https://webhook.site/ef62294c-9312-4213-b2ad-07a1702d0044',
+        //      method: 'POST',
+        //      headers: {'Content-Type':'application/json'},
+        //      data: JSON.stringify({"data":data})
+        // })
+        //   console.log(resp);
+        // console.log(JSON.parse(data));
+
+
+
+
+      },
       formatDate (date) {
         if (!date) return null
 

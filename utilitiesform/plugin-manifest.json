@@ -1,7 +1,11 @@
 {
   "service": "CREATOR",
   "cspDomains": {
-    "connect-src": []
+    "connect-src": [
+      "https://webhook.site/ef62294c-9312-4213-b2ad-07a1702d0044",
+      "https://www.zohoapis.com/crm/v2/functions/FormServerless/actions/execute?auth_type=apikey&zapikey=1003.9bfee056482b123ed4c7a478d7eb4683.513ec5f354e37a03742b210e05a5a9b1"
+    ]
   },
   "config": []
 }
+
