@@ -19,6 +19,7 @@ const stepSeven = {
         secondarySSN:'',
         haveSupportKeyGas:'',
         ticketNotes2:'',
+        employerNameBussines:''
         
         /*
         primaryDOBMenu:'',

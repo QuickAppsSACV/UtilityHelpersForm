@@ -436,6 +436,14 @@ export default {
                 this.$store.state.stepFive.secondaryFirstName = value;
             },
         },
+        secondaryLastName: {
+            get() {
+                return this.$store.state.stepFive.secondaryLastName;
+            },
+            set(value) {
+                this.$store.state.stepFive.secondaryLastName = value;
+            },
+        },
         secondaryPhone: {
             get() {
                 return this.$store.state.stepFive.secondaryPhone;

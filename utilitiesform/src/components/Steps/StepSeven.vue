@@ -481,9 +481,9 @@ export default {
         primaryDOBMenu:false,
         primaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         primaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
-        SecondaryDOBMenu:false,
-        SecondaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        SecondaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        secondaryDOBMenu:false,
+        secondaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        secondaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         electricActivationMenu: false,
         electricActivationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         electricActivationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
@@ -758,106 +758,114 @@ export default {
         },
         secondarySSNForPower: {
             get() {
-                return this.$store.state.stepThree.secondarySSNForPower;
+                return this.$store.state.stepSeven.secondarySSNForPower;
             },
             set(value) {
-                this.$store.state.stepThree.secondarySSNForPower = value;
+                this.$store.state.stepSeven.secondarySSNForPower = value;
             },
         },
         dlForPower: {
             get() {
-                return this.$store.state.stepThree.dlForPower;
+                return this.$store.state.stepSeven.dlForPower;
             },
             set(value) {
-                this.$store.state.stepThree.dlForPower = value;
+                this.$store.state.stepSeven.dlForPower = value;
             },
         },
         employerNameBusiness: {
             get() {
-                return this.$store.state.stepThree.employerNameBusiness;
+                return this.$store.state.stepSeven.employerNameBusiness;
             },
             set(value) {
-                this.$store.state.stepThree.employerNameBusiness = value;
+                this.$store.state.stepSeven.employerNameBusiness = value;
             },
         },
         haveSupportKeyElectric: {
             get() {
-                return this.$store.state.stepThree.haveSupportKeyElectric;
+                return this.$store.state.stepSeven.haveSupportKeyElectric;
             },
             set(value) {
-                this.$store.state.stepThree.haveSupportKeyElectric = value;
+                this.$store.state.stepSeven.haveSupportKeyElectric = value;
             },
         },
         ticketNotes: {
             get() {
-                return this.$store.state.stepThree.ticketNotes;
+                return this.$store.state.stepSeven.ticketNotes;
             },
             set(value) {
-                this.$store.state.stepThree.ticketNotes = value;
+                this.$store.state.stepSeven.ticketNotes = value;
             },
         },
         fplSurgesShield: {
             get() {
-                return this.$store.state.stepThree.fplSurgesShield;
+                return this.$store.state.stepSeven.fplSurgesShield;
             },
             set(value) {
-                this.$store.state.stepThree.fplSurgesShield = value;
+                this.$store.state.stepSeven.fplSurgesShield = value;
             },
         },
         availableGasProviders: {
             get() {
-                return this.$store.state.stepThree.availableGasProviders;
+                return this.$store.state.stepSeven.availableGasProviders;
             },
             set(value) {
-                this.$store.state.stepThree.availableGasProviders = value;
+                this.$store.state.stepSeven.availableGasProviders = value;
             },
         },
         whosNameWillGas: {
             get() {
-                return this.$store.state.stepThree.whosNameWillGas;
+                return this.$store.state.stepSeven.whosNameWillGas;
             },
             set(value) {
-                this.$store.state.stepThree.whosNameWillGas = value;
+                this.$store.state.stepSeven.whosNameWillGas = value;
             },
         },
         gasProviderActivated: {
             get() {
-                return this.$store.state.stepThree.gasProviderActivated;
+                return this.$store.state.stepSeven.gasProviderActivated;
             },
             set(value) {
-                this.$store.state.stepThree.gasProviderActivated = value;
+                this.$store.state.stepSeven.gasProviderActivated = value;
             },
         },
         primarySSN2: {
             get() {
-                return this.$store.state.stepThree.primarySSN2;
+                return this.$store.state.stepSeven.primarySSN2;
             },
             set(value) {
-                this.$store.state.stepThree.primarySSN2 = value;
+                this.$store.state.stepSeven.primarySSN2 = value;
             },
         },
         secondarySSN: {
             get() {
-                return this.$store.state.stepThree.secondarySSN;
+                return this.$store.state.stepSeven.secondarySSN;
             },
             set(value) {
-                this.$store.state.stepThree.secondarySSN = value;
+                this.$store.state.stepSeven.secondarySSN = value;
             },
         },
         haveSupportKeyGas: {
             get() {
-                return this.$store.state.stepThree.haveSupportKeyGas;
+                return this.$store.state.stepSeven.haveSupportKeyGas;
             },
             set(value) {
-                this.$store.state.stepThree.haveSupportKeyGas = value;
+                this.$store.state.stepSeven.haveSupportKeyGas = value;
             },
         },
         ticketNotes2: {
             get() {
-                return this.$store.state.stepThree.ticketNotes2;
+                return this.$store.state.stepSeven.ticketNotes2;
             },
             set(value) {
-                this.$store.state.stepThree.ticketNotes2 = value;
+                this.$store.state.stepSeven.ticketNotes2 = value;
+            },
+        },
+        employerNameBussines: {
+            get() {
+                return this.$store.state.stepSeven.employerNameBussines;
+            },
+            set(value) {
+                this.$store.state.stepSeven.employerNameBussines = value;
             },
         },
         
