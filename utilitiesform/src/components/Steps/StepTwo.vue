@@ -13,6 +13,7 @@
                     label="Research Notes:"
                     v-model="researchNotes"
                     outlined
+                    disabled
                     dense
                     ></v-textarea>
                 </v-col>
@@ -23,6 +24,7 @@
                     outlined
                     v-model="availablePower"
                     dense
+                    disabled
                     label="1. Available Power Provider(s)"
                     ></v-text-field>
                 </v-col>
@@ -32,6 +34,7 @@
                     <v-text-field
                     outlined
                     dense
+                    disabled
                     v-model="availableGas"
                     label="2. Available Gas Provider"
                     ></v-text-field>
@@ -43,6 +46,7 @@
                     outlined
                     v-model="availableWater"
                     dense
+                    disabled
                     label="3. Available Water/Sewer Service"
                     ></v-text-field>
                 </v-col>
@@ -53,6 +57,7 @@
                     outlined
                     v-model="availableTrash"
                     dense
+                    disabled
                     label="4. Available Trash Provider"
                     ></v-text-field>
                 </v-col>
@@ -63,6 +68,7 @@
                     outlined
                     v-model="trashDays"
                     dense
+                    disabled
                     label="Trash Days"
                     ></v-text-field>
                 </v-col>
@@ -72,6 +78,7 @@
                     <v-text-field
                     outlined
                     dense
+                    disabled
                     label="Recycle Days"
                     v-model="recycleDays"
                     ></v-text-field>
@@ -83,6 +90,7 @@
                     outlined
                     v-model="recycleIsCollected"
                     dense
+                    disabled
                     persistent-hint
                     hint="if blank (EVERY WEEK)"
                     label="Recycle is collected:"
@@ -95,6 +103,7 @@
                     outlined
                     v-model="yardDays"
                     dense
+                    disabled
                     label="Yard Days"
                     ></v-text-field>
                 </v-col>
@@ -104,6 +113,7 @@
                     <v-text-field
                     outlined
                     dense
+                    disabled
                     persistent-hint
                     v-model="yardDaysIsCollected"
                     hint="if blank (EVERY WEEK)"
@@ -120,17 +130,10 @@
 
 export default {
     data: vm=>( {
-     
-       
-        date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         menu2: false,
         
     }),
     watch: {
-        date (val) {
-            this.dateFormatted = this.formatDate(this.date)
-        }
     },
     computed: {
         researchNotes: {
@@ -213,24 +216,10 @@ export default {
                 this.$store.state.stepTwo.yardDaysIsCollected = value;
             },
         },
-        computedDateFormatted () {
-            return this.formatDate(this.date)
-        },
        
     },
     methods: {
-      formatDate (date) {
-        if (!date) return null
-
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
-      },
-      parseDate (date) {
-        if (!date) return null
-
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      }
+    
     }
 }
 </script>

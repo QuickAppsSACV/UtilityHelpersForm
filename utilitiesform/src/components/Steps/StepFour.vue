@@ -43,7 +43,7 @@
                        ></v-select>
                    </v-col>
                </v-row>
-               <v-row dense>
+               <v-row v-if="alarmCompany == 'ADT'" dense>
                    <v-col class="" cols="6">
                        <v-text-field
                        dense
@@ -54,11 +54,12 @@
                    </v-text-field>
                </v-col>
                </v-row>
-               <v-row dense class="mt-2">
+               <v-row v-if="alarmCompany == 'ADT'" dense class="mt-2">
                    <v-col cols="6">
                        <v-select
                        dense
                        outlined
+                       v-if="alarmCompany == 'ADT'"
                        v-model="ADTPackageChosen"
                        label="ADT Package Chosen"
                        :items="['Basic','Command - Traditional','Command - Traditional w/ Life Safety','Command - Control','Command - Remote','Command - Video Lite','Command - Video & Home Automation']"
@@ -66,7 +67,7 @@
                        ></v-select>
                    </v-col>
                </v-row>
-               <v-row dense class="mt-0">
+               <v-row v-if="alarmCompany == 'ADT'" dense class="mt-0">
                    <v-col
                    cols="6"
                    lg="6"
@@ -102,7 +103,7 @@
                        </v-menu>
                </v-col>
                </v-row>
-               <v-row dense class="">
+               <v-row  v-if="alarmCompany == 'ADT'" dense class="">
                    <v-col cols="6">
                        <v-select
                        dense
@@ -117,10 +118,11 @@
                        ></v-select>
                    </v-col>
                </v-row>
-               <v-row dense>
+               <v-row v-if="alarmCompany == 'ADT'" dense>
                    <v-col cols="6">
                        <v-checkbox 
                        v-model="needToBeScheduleBySupport"
+                       v-if="alarmCompany == 'ADT'"
                        label="Needs to be scheduled by Support (date too far out)"
                        hint="(Must have entered the order and supplied TraxID)"
                        persistent-hint
@@ -148,17 +150,70 @@
                        ></v-textarea>
                    </v-col>
                </v-row>
-               <v-row dense>
-                   <v-col cols="6">
-                       <v-checkbox 
-                       v-model="uhCompletedWelcomCall"
-                       label="UH Completed Welcome Call"              
-                       hint="(Click once you have read the entire Welcome Call Script)"
-                       persistent-hint
-                       ></v-checkbox>
-                   </v-col>
-               </v-row>
-               <v-row dense>
+               <v-row v-if="alarmCompany == 'ADT'" class="mt-5">
+                <v-col>
+                    <v-row>
+                        <h4 class="red--text">*You must read the following to complete the welcome call if not transferring to SafeStreets**</h4>
+                    </v-row>
+                    <v-row class="mt-10">
+                       <p style="color:black"> For verification purposes ADT requires my to recap a few items and ask you a few questions: </p>
+                    </v-row>
+                </v-col>
+                
+            </v-row>
+            <v-row  v-if="alarmCompany == 'ADT'" class="mt-10">
+                <v-col>
+                    <v-row>
+                        <p style="font-style: italic; color:black">We're glad you were able to take advantage of the promotional package that ADT is offering.</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">I have your monthly rate as _____ for a period of 36 months. Is this correct?</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">You will receive a paper statement showing your monthly monitoring amount. That is not a bill so once you go over it, you can discard it.</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">Your activation is only _____, congratulations!</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">Your payments will be drafted from your Credit Card account.</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">Do you understand that your only right of rescission is the one outlined in your agreement?</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">Do you already have an active alarm at this location?</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; "> 
+                            <ul style="list-style-type:none" >
+                                <li> <a style="color: blue;">If Yes:</a> What company are you currently with?</li>
+                                <li>  How many years have you had it?</li>
+                                <li>  Do you understand that we are not affiliated with _____?</li>
+                                <li> Do you understand that it is your responsibility to cancel, along with any fees?</li>
+                            </ul>
+                        </p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">Do you have any questions for me?</p>
+                    </v-row>
+                    <v-row>
+                        <p style="font-style: italic; color:black">Thank you for choosing SafeStreets and ADT.</p>
+                    </v-row>
+                </v-col>
+            </v-row>
+            <v-row v-if="alarmCompany == 'ADT'" dense>
+                <v-col cols="6">
+                    <v-checkbox 
+                    v-model="uhCompletedWelcomCall"
+                    label="UH Completed Welcome Call"              
+                    hint="(Click once you have read the entire Welcome Call Script)"
+                    persistent-hint
+                    ></v-checkbox>
+                </v-col>
+            </v-row>
+               <!-- This field wil populate with CRM and sends to another  -->
+               <!-- <v-row  dense>
                    <v-col class="mt-2" cols="6">
                        <v-text-field
                        dense
@@ -170,7 +225,7 @@
                        >
                    </v-text-field>
                </v-col>
-               </v-row>
+               </v-row> -->
        </v-card-text>
 </v-card>
     4/8
@@ -181,17 +236,25 @@
 export default {
     data: vm=>( {
         alarmInstallMenu:false,
-        alarmInstallDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        alarmInstallFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        alarmInstallDate:'',
+        alarmInstallFormated:'',
         
         
     }),
     watch: {
         alarmInstallDate (val) {
-            this.alarmInstallFormated = this.formatDate(this.alarmInstallDate)
+           this.alarmInstallFormatedStore = this.alarmInstallFormated = this.formatDate(this.alarmInstallDate)
         },
     },
     computed: {
+        alarmInstallFormatedStore:{
+            get(){
+                return this.$store.state.stepFour.alarmInstallFormatedStore;
+            },
+            set(value){
+            this.$store.state.stepFour.alarmInstallFormatedStore=value;
+            },
+        },
         whoIsNameWillSecurityBeIn:{
             get(){
                 return this.$store.state.stepFour.whoIsNameWillSecurityBeIn;

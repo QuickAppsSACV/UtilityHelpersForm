@@ -11,6 +11,7 @@ const stepFour = {
         alarmNotes:'',
         uhCompletedWelcomCall:'',
         alreadyRequestedThroughIntroEmail:'',
+        alarmInstallFormatedStore:''
 
         /*
         alarmInstallMenu:'',

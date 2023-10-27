@@ -424,8 +424,8 @@ export default {
     data: vm=>( {
      
         e1: 1,
-        date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        date:'',
+        dateFormatted: '',
         menu2: false,
         loading:false,
         message: 'Hey!',
@@ -433,10 +433,18 @@ export default {
     }),
     watch: {
         date (val) {
-            this.dateFormatted = this.formatDate(this.date)
+          this.dateFormattedStore =  this.dateFormatted = this.formatDate(this.date)
         }
     },
     computed: {
+        dateFormattedStore: {
+            get() {
+                return this.$store.state.stepOne.dateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepOne.dateFormattedStore = value;
+            },
+        },
         templateInstructions: {
             get() {
                 return this.$store.state.stepOne.templateInstructions;

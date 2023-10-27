@@ -66,6 +66,14 @@ const stepThree = {
         createTicketTV: "",
         ticketNotes: "",
         ihaveReviewed: "",
+        internetInstallDateFormattedStore: "",
+        mobileActivationDateFormattedStore:"",
+        tvInstallDateFormattedStore: "",
+        phoneInstallDateFormattedStore:"",
+        primaryBirthDateFormattedStore:"",
+        secondaryBirthDateFormattedStore:""
+
+
     },
     mutations: {
 

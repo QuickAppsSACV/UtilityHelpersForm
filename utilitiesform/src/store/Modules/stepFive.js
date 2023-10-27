@@ -20,10 +20,12 @@ const stepFive = {
         secondaryPhone:'',
         secondaryEmail:'',
         NotesForInsurceQuote:'',
+        dateOfBirthDateStore:'',
+        secondaryDateOfBirthFormatedStore:'',
+        plumbingReplacedYear:''
         /*
         dateOfBirthMenu:'',
         dateOfBirthFormated:'',
-        dateOfBirthDate:'',
         secondaryDateOfBirthMenu:'',
         secondaryDateOfBirthFormated:'',
         secondaryDateOfBirthDate:'',

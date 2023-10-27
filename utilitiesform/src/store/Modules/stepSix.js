@@ -13,6 +13,9 @@ const stepSix = {
         howSentProMover:'',
         wouldLikeSolarConsulation:'',
         solarConsulationTime:'',
+        pickupDateFormattedStore:'',
+        dropOffDateFormattedStore:'',
+        solarConDateFormattedStore:''
         
         
         /*

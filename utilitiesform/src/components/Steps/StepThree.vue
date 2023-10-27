@@ -972,8 +972,8 @@ export default {
             "What was the name of your first pet?"
         ],
         internetInstallMenu: false,
-        internetInstallDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        internetInstallDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        internetInstallDate: '',
+        internetInstallDateFormatted: '',
         groupChoiceUC: [
             "What is the Last 4 of Your SSN or EIN number?", 
             "What is the name of your first school teacher?", 
@@ -984,29 +984,93 @@ export default {
             "Who was your first employer?"
         ],
         mobileActivationMenu: false,
-        mobileActivationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        mobileActivationDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        mobileActivationDate: '',
+        mobileActivationDateFormatted: '',
         tvInstallMenu: false,
-        tvInstallDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        tvInstallDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        tvInstallDate: '',
+        tvInstallDateFormatted: '',
         phoneInstallMenu: false,
-        phoneInstallDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        phoneInstallDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        phoneInstallDate:'',
+        phoneInstallDateFormatted: '',
         primaryBirthMenu: false,
-        primaryBirthDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        primaryBirthDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        primaryBirthDate: '',
+        primaryBirthDateFormatted: '',
         secondaryBirthMenu: false,
-        secondaryBirthDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        secondaryBirthDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        secondaryBirthDate:'',
+        secondaryBirthDateFormatted: '',
+        // secondaryBirthDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         
         
     }),
     watch: {
-        date (val) {
-            this.dateFormatted = this.formatDate(this.date)
-        }
+        internetInstallDate (val) {
+        this.internetInstallDateFormattedStore = this.internetInstallDateFormatted = this.formatDate(this.internetInstallDate)
+        },
+        mobileActivationDate(val) {
+          this.mobileActivationDateFormattedStore = this.mobileActivationDateFormatted = this.formatDate(this.mobileActivationDate)
+        },
+        tvInstallDate(val) {
+          this.tvInstallDateFormattedStore = this.tvInstallDateFormatted = this.formatDate(this.tvInstallDate)
+        },
+        phoneInstallDate(val) {
+          this.phoneInstallDateFormattedStore = this.phoneInstallDateFormatted = this.formatDate(this.phoneInstallDate)
+        },
+        primaryBirthDate(val) {
+          this.primaryBirthDateFormattedStore = this.primaryBirthDateFormatted = this.formatDate(this.primaryBirthDate)
+        },
+        secondaryBirthDate(val) {
+          this.secondaryBirthDateFormattedStore = this.secondaryBirthDateFormatted = this.formatDate(this.secondaryBirthDate)
+        },
     },
     computed: {
+        secondaryBirthDateFormattedStore: {
+            get() {
+                return this.$store.state.stepThree.secondaryBirthDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepThree.secondaryBirthDateFormattedStore = value;
+            },
+        },
+        primaryBirthDateFormattedStore: {
+            get() {
+                return this.$store.state.stepThree.primaryBirthDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryBirthDateFormattedStore = value;
+            },
+        },
+        phoneInstallDateFormattedStore: {
+            get() {
+                return this.$store.state.stepThree.phoneInstallDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepThree.phoneInstallDateFormattedStore = value;
+            },
+        },
+        tvInstallDateFormattedStore: {
+            get() {
+                return this.$store.state.stepThree.tvInstallDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvInstallDateFormattedStore = value;
+            },
+        },
+        mobileActivationDateFormattedStore: {
+            get() {
+                return this.$store.state.stepThree.mobileActivationDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepThree.mobileActivationDateFormattedStore = value;
+            },
+        },
+        internetInstallDateFormattedStore: {
+            get() {
+                return this.$store.state.stepThree.internetInstallDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetInstallDateFormattedStore = value;
+            },
+        },
         availableInternetProviders: {
             get() {
                 return this.$store.state.stepThree.availableInternetProviders;

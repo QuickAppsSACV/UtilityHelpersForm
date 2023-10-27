@@ -18,14 +18,14 @@
                     ></v-select>
             </v-col>
         </v-row>
-        <h2>Rental Trucks</h2>
+        <h2  v-if="podsOrProMover =='Both'">Rental Trucks</h2>
+        <v-divider class="mt-2"  v-if="podsOrProMover =='Both'"></v-divider>
+        <br>
+        <h2 v-if="podsOrProMover =='Both' || podsOrProMover== 'PODS'" class="bluelight-text">PODS</h2>
+        <h3 v-if="podsOrProMover =='Both' || podsOrProMover== 'PODS'" class="red--text">(Complete w/ customer on the phone)</h3>
         <v-divider></v-divider>
         <br>
-        <h2 class="bluelight-text">PODS</h2>
-        <h3 class="red--text">(Complete w/ customer on the phone)</h3>
-        <v-divider></v-divider>
-        <br>
-        <v-row dense class="mt-0">
+        <v-row v-if="podsOrProMover =='Both' || podsOrProMover== 'PODS'" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                     label="Unloading Zip Code"
@@ -35,14 +35,15 @@
                     outlined></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="podsOrProMover =='Both' || podsOrProMover== 'PODS'" dense class="mt-0">
             <v-col class="d-flex justify-center mb-6 bg-surface-variant">
                 <a 
-            href="https://www.pods.com/partners/utilityhelpers?utm_medium=managed-referral&utm_source=utility_helpers&utm_campaign=utility_helper_website_referrals&utm_content=affiliate"
+                target="_blank"
+                href="https://www.pods.com/partners/utilityhelpers?utm_medium=managed-referral&utm_source=utility_helpers&utm_campaign=utility_helper_website_referrals&utm_content=affiliate"
             class="green--text text-h6 text-center">CLICK HERE TO LAUNCH PODS OFFERS</a>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="podsOrProMover =='Both' || podsOrProMover== 'PODS'" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                 v-model="podsQuoteNumber"
@@ -52,7 +53,7 @@
                     outlined></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="podsOrProMover =='Both'" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                 v-model="rentalTruckCompany"
@@ -62,7 +63,7 @@
                     ></v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="podsOrProMover =='Both'" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     v-model="typeOfMove"
@@ -72,7 +73,7 @@
                     ></v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="podsOrProMover =='Both'" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                 v-model="sizeEquipment"
@@ -82,81 +83,81 @@
                     outlined></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-2">
-                            <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                <v-menu
-                                    ref="pickupMenu"
-                                    v-model="pickupMenu"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="pickupDateFormatted"
-                                        label="Moving Truck Pick Up Date"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY format"
-                                        persistent-hint
-                                        prepend-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="pickupDate = parseDate(pickupDateFormatted)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="pickupDate"
-                                        no-title
-                                        @input="pickupMenu = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                                    <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
-                            </v-col>
+        <v-row  v-if="podsOrProMover =='Both'" dense class="mt-2">
+            <v-col
+                cols="6"
+                lg="6"
+                >
+                <v-menu
+                    ref="pickupMenu"
+                    v-model="pickupMenu"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="auto"
+                    >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                        v-model="pickupDateFormatted"
+                        label="Moving Truck Pick Up Date"
+                        dense
+                        outlined
+                        hint="MM/DD/YYYY format"
+                        persistent-hint
+                        prepend-icon="mdi-calendar"
+                        v-bind="attrs"
+                        @blur="pickupDate = parseDate(pickupDateFormatted)"
+                        v-on="on"
+                        ></v-text-field>
+                    </template>
+                    <v-date-picker
+                        v-model="pickupDate"
+                        no-title
+                        @input="pickupMenu = false"
+                    ></v-date-picker>
+                    </v-menu>
+                    <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
+            </v-col>
+        </v-row>
+        <v-row  v-if="podsOrProMover =='Both'" dense class="mt-2">
+            <v-col
+                cols="6"
+                lg="6"
+                >
+                <v-menu
+                    ref="dropOffMenu"
+                    v-model="dropOffMenu"
+                    :close-on-content-click="false"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="auto"
+                    >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                        v-model="dropOffDateFormatted"
+                        label="Moving Truck Drop Off Date"
+                        dense
+                        outlined
+                        hint="MM/DD/YYYY format"
+                        persistent-hint
+                        prepend-icon="mdi-calendar"
+                        v-bind="attrs"
+                        @blur="dropOffDate = parseDate(dropOffDateFormatted)"
+                        v-on="on"
+                        ></v-text-field>
+                    </template>
+                    <v-date-picker
+                        v-model="dropOffDate"
+                        no-title
+                        @input="dropOffMenu = false"
+                    ></v-date-picker>
+                    </v-menu>
+                    <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
+                </v-col>
                         </v-row>
-                        <v-row dense class="mt-2">
-                            <v-col
-                                cols="6"
-                                lg="6"
-                                >
-                                <v-menu
-                                    ref="dropOffMenu"
-                                    v-model="dropOffMenu"
-                                    :close-on-content-click="false"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="auto"
-                                    >
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field
-                                        v-model="dropOffDateFormatted"
-                                        label="Moving Truck Pick Up Date"
-                                        dense
-                                        outlined
-                                        hint="MM/DD/YYYY format"
-                                        persistent-hint
-                                        prepend-icon="mdi-calendar"
-                                        v-bind="attrs"
-                                        @blur="dropOffDate = parseDate(dropOffDateFormatted)"
-                                        v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="dropOffDate"
-                                        no-title
-                                        @input="dropOffMenu = false"
-                                    ></v-date-picker>
-                                    </v-menu>
-                                    <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
-                            </v-col>
-                        </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row  v-if="podsOrProMover =='Both'" dense class="mt-0">
                             <v-col cols="6">
                                 <v-text-field
                                 v-model="RentalTrukConfirmationNumber"
@@ -164,19 +165,19 @@
                                     outlined></v-text-field>
                             </v-col>
                         </v-row>
-                        <h3 class="black--text">Pro Movers</h3>
-                        <v-divider></v-divider>
-                        <v-row dense class="mt-4">
+                        <h3  v-if="podsOrProMover =='Both' || podsOrProMover== 'Pro Mover'" class="black--text">Pro Movers</h3>
+                        <v-divider  v-if="podsOrProMover =='Both' || podsOrProMover== 'Pro Mover'" class="mt-2"></v-divider>
+                        <v-row  v-if="podsOrProMover =='Both' || podsOrProMover== 'Pro Mover'" dense class="mt-4">
                             <v-col cols="6">
                                 <v-select
                                     v-model="proMovingCompany"
                                     label="Pro Moving Company"
-                                    :items="['Bekins (National)', 'Rocks Moving (Tampa Bay Area)']"
+                                    :items="['Bekins (National)','Rocks Moving (Tampa Bay Area)']"
                                     outlined
                                     ></v-select>
                             </v-col>
                         </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row v-if="(proMovingCompany == 'Rocks Moving (Tampa Bay Area)')&& (podsOrProMover =='Both' || podsOrProMover== 'Pro Mover')" dense class="mt-0">
                             <v-col>
                                 <p >
                                     <span class="indigo--text text-accent-3 font-weight-bold">Rocks Moving</span> 
@@ -187,7 +188,7 @@
                                 </p>
                             </v-col>
                         </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row v-if="(proMovingCompany == 'Bekins (National)')&& (podsOrProMover =='Both' || podsOrProMover== 'Pro Mover')" dense class="mt-0">
                             <v-col>
                                 <p >
                                     <span class="indigo--text text-accent-3 font-weight-bold">Bekins</span> 
@@ -199,7 +200,7 @@
                                 </p>
                             </v-col>
                         </v-row>
-                        <v-row class="mt-0">
+                        <v-row  v-if="podsOrProMover =='Both' || podsOrProMover== 'Pro Mover'" class="mt-0">
                                 <v-col cols="">
                                     <v-textarea
                                     v-model="proMoverNotes"
@@ -211,7 +212,7 @@
                                     ></v-textarea>
                                 </v-col>
                         </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row  v-if="podsOrProMover =='Both' || podsOrProMover== 'Pro Mover'" dense class="mt-0">
                             <v-col cols="6">
                                 <v-select
                                     v-model="howSentProMover"
@@ -221,7 +222,7 @@
                                     ></v-select>
                             </v-col>
                         </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row v-if="!(this.$store.state.stepFive.newState.toLowerCase() == 'fl' || this.$store.state.stepFive.newState.toLowerCase().includes('florida'))" dense class="mt-0">
                             <v-col>
                                 <h2 class="red--text text-center text-h4">SKIP SOLAR SECTION</h2>
                                 <p class="text-center black--text text-p">Solar Program Only Available in Florida at this Time</p>
@@ -232,7 +233,7 @@
                                 <p><span class="blue--text text-subtitle-1 yellow pa-0">Solar Consultation:</span></p>
                             </v-col>
                         </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row v-if="this.$store.state.stepFive.newState.toLowerCase() == 'fl' || this.$store.state.stepFive.newState.toLowerCase().includes('florida')" dense class="mt-0">
                             <v-col>
                                 <p class="text-body-1">We are always looking for ways to save our customers money! so the next thing on our list is solar energy.  There is a new solar program that offers no money out of pocket, no debt, and no financing. You will simply see a reduction in your electric bill, and prevent your bill from increasing with electric rates in the future.  There are also some federal incentives currently to help make solar affordable.</p>
                                 <p class="text-body-1">If you'd like we can schedule a no obligation energy consult for a technician to asses if adding solar would benefit you. Typically we recommend scheduling that for about 6 weeks after you move in, so you have a full electric bill to asses your usage. Would that be good for you?</p>
@@ -248,7 +249,7 @@
                                 </v-checkbox>
                                 </v-col>
                         </v-row>
-                        <v-row dense class="mt-2">
+                        <v-row v-if="wouldLikeSolarConsulation == true" dense class="mt-2">
                             <v-col
                                 cols="6"
                                 lg="6"
@@ -285,7 +286,7 @@
                                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
                             </v-col>
                         </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row v-if="wouldLikeSolarConsulation == true" dense class="mt-0">
                             <v-col cols="6">
                                 <v-select
                                 v-model="solarConsulationTime"
@@ -302,15 +303,15 @@
                                     ></v-select>
                             </v-col>
                         </v-row>
-                        <v-row class="mt-0">
-                                <v-col cols="">
-                                    <v-textarea
-                                    label="Solar Notes"
-                                    outlined
-                                    dense
-                                    >
+                        <v-row v-if="wouldLikeSolarConsulation == true" class="mt-0">
+                            <v-col cols="">
+                                <v-textarea
+                                label="Solar Notes"
+                                outlined
+                                dense
+                                >
                                 </v-textarea>
-                                </v-col>
+                            </v-col>
                         </v-row>
     </v-card-text>
     </v-card>
@@ -323,29 +324,53 @@ export default {
      
         e1: 1,
         pickupMenu: false,
-        pickupDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        pickupDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        pickupDate: '',
+        pickupDateFormatted: '',
         dropOffMenu: false,
-        dropOffDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        dropOffDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        dropOffDate: '',
+        dropOffDateFormatted: '',
         solarConMenu: false,
-        solarConDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        solarConDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        solarConDate: '',
+        solarConDateFormatted: '',
         
         
     }),
     watch: {
         pickupDate (val) {
-            this.pickupDateFormatted = this.formatDate(this.pickupDate)
+          this.pickupDateFormattedStore =  this.pickupDateFormatted = this.formatDate(this.pickupDate)
         },
         dropOffDate (val) {
-            this.dropOffDateFormatted = this.formatDate(this.dropOffDate)
+            this.dropOffDateFormattedStore = this.dropOffDateFormatted = this.formatDate(this.dropOffDate)
         },
         solarConDate (val) {
-            this.solarConDateFormatted = this.formatDate(this.solarConDate)
+         this.solarConDateFormattedStore =   this.solarConDateFormatted = this.formatDate(this.solarConDate)
         },
     },
     computed: {
+        solarConDateFormattedStore: {
+            get() {
+                return this.$store.state.stepSix.solarConDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepSix.solarConDateFormattedStore = value;
+            },
+        }, 
+        dropOffDateFormattedStore: {
+            get() {
+                return this.$store.state.stepSix.dropOffDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepSix.dropOffDateFormattedStore = value;
+            },
+        },   
+        pickupDateFormattedStore: {
+            get() {
+                return this.$store.state.stepSix.pickupDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepSix.pickupDateFormattedStore = value;
+            },
+        },    
       podsOrProMover: {
             get() {
                 return this.$store.state.stepSix.podsOrProMover;

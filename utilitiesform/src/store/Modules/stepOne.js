@@ -38,6 +38,7 @@ const stepOne = {
         fontSelected:'Roboto',
         specialInstructions: '',
         hideQRLogo:false,
+        dateFormattedStore:""
     },
     mutations: {
         setAddressInfo: (state, payload) =>{

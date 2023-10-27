@@ -479,26 +479,26 @@ export default {
     data: vm=>( {
         e1: 7,
         primaryDOBMenu:false,
-        primaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        primaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        primaryDOBDate:'',
+        primaryDOBFormated:'',
         secondaryDOBMenu:false,
-        secondaryDOBDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        secondaryDOBFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        secondaryDOBDate:'',
+        secondaryDOBFormated:'',
         electricActivationMenu: false,
-        electricActivationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        electricActivationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        electricActivationDate: '',
+        electricActivationFormated:'',
         electricCancellationMenu: false,
-        electricCancellationDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        electricCancellationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        electricCancellationDate: '',
+        electricCancellationFormated:'',
         gasActivationMenu:false,
-        gasActivationDate:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        gasActivationFormated:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        gasActivationDate:'',
+        gasActivationFormated:'',
         primaryDOBMenu2:false,
-        primaryDOBDate2:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        primaryDOBFormated2:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        primaryDOBDate2:'',
+        primaryDOBFormated2:'',
         secondDOBMenu2:false,
-        secondDOBDate2:(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        secondDOBFormated2:vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+        secondDOBDate2:'',
+        secondDOBFormated2:'',
         groupElectricProviderActived:       ['AEP - Ohio',
                                             'Alabama Power',
                                             'Ameren',
@@ -693,29 +693,85 @@ export default {
     }),
     watch: {
         primaryDOBDate (val) {
-            this.primaryDOBFormated = this.formatDate(this.primaryDOBDate)
+        this.primaryDOBFormatedStore =  this.primaryDOBFormated = this.formatDate(this.primaryDOBDate)
         },
         secondaryDOBDate (val) {
-            this.secondaryDOBFormated = this.formatDate(this.secondaryDOBDate)
+        this.secondaryDOBFormatedStore =    this.secondaryDOBFormated = this.formatDate(this.secondaryDOBDate)
         },
         electricActivationDate (val) {
-            this.electricActivationFormated = this.formatDate(this.electricActivationDate)
+        this.electricActivationFormatedStore =    this.electricActivationFormated = this.formatDate(this.electricActivationDate)
         },
         electricCancellationDate (val) {
-            this.electricCancellationFormated = this.formatDate(this.electricCancellationDate)
+        this.electricCancellationFormatedStore =   this.electricCancellationFormated = this.formatDate(this.electricCancellationDate)
         },
         gasActivationDate (val) {
-            this.gasActivationFormated = this.formatDate(this.gasActivationDate)
+        this.gasActivationFormatedStore =   this.gasActivationFormated = this.formatDate(this.gasActivationDate)
         },
         primaryDOBDate2 (val) {
-            this.primaryDOBFormated2 = this.formatDate(this.primaryDOBDate2)
+          this.primaryDOBFormated2Store =  this.primaryDOBFormated2 = this.formatDate(this.primaryDOBDate2)
         },
         secondDOBDate2 (val) {
-            this.secondDOBFormated2 = this.formatDate(this.secondDOBDate2)
+         this.secondDOBFormated2Store =   this.secondDOBFormated2 = this.formatDate(this.secondDOBDate2)
         },
         
     },
     computed: {
+        secondDOBFormated2Store: {
+            get() {
+                return this.$store.state.stepSeven.secondDOBFormated2Store;
+            },
+            set(value) {
+                this.$store.state.stepSeven.secondDOBFormated2Store = value;
+            },
+        },
+        primaryDOBFormated2Store: {
+            get() {
+                return this.$store.state.stepSeven.primaryDOBFormated2Store;
+            },
+            set(value) {
+                this.$store.state.stepSeven.primaryDOBFormated2Store = value;
+            },
+        },
+        gasActivationFormatedStore: {
+            get() {
+                return this.$store.state.stepSeven.gasActivationFormatedStore;
+            },
+            set(value) {
+                this.$store.state.stepSeven.gasActivationFormatedStore = value;
+            },
+        },
+        electricCancellationFormatedStore: {
+            get() {
+                return this.$store.state.stepSeven.electricCancellationFormatedStore;
+            },
+            set(value) {
+                this.$store.state.stepSeven.electricCancellationFormatedStore = value;
+            },
+        },
+        electricActivationFormatedStore: {
+            get() {
+                return this.$store.state.stepSeven.electricActivationFormatedStore;
+            },
+            set(value) {
+                this.$store.state.stepSeven.electricActivationFormatedStore = value;
+            },
+        },
+        secondaryDOBFormatedStore: {
+            get() {
+                return this.$store.state.stepSeven.secondaryDOBFormatedStore;
+            },
+            set(value) {
+                this.$store.state.stepSeven.secondaryDOBFormatedStore = value;
+            },
+        },
+        primaryDOBFormatedStore: {
+            get() {
+                return this.$store.state.stepSeven.primaryDOBFormatedStore;
+            },
+            set(value) {
+                this.$store.state.stepSeven.primaryDOBFormatedStore = value;
+            },
+        },
         availablePowerProviders: {
             get() {
                 return this.$store.state.stepSeven.availablePowerProviders;
