@@ -2,9 +2,11 @@
     <div>
         <v-card elevation="10" class="pa-10 ma-10">
             <v-card-title>
-               <p>Enterprix Copy of Utilities Scheduling Flow 2.0</p> <br>
-                <p class="">For use by Rep on call to streamline the entry process</p>
+                    Enterprix Copy of Utilities Scheduling Flow 2.0
             </v-card-title>
+            <v-card-subtitle>              
+                    For use by Rep on call to streamline the entry process
+            </v-card-subtitle>    
             <v-card-text>
                 <v-stepper   alt-labels v-model="e1">
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- -->

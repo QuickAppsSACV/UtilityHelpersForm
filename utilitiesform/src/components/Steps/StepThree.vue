@@ -89,7 +89,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-2">
+        <v-row v-if="availableInternetProviders.toLowerCase().includes('frontier')" dense class="mt-2">
             <v-col>
                 <v-img
                     :src="require('../../assets/Imagen1.png')"
@@ -139,9 +139,11 @@
             </v-col>
         </v-row>
         <br>
-        <h2 color="black" class="black--text">--INTERNET--</h2>
-        <br>
-        <v-row dense class="mt-0">
+        <div v-if="internetCheckbox">     
+            <h2 color="black" class="black--text">--INTERNET--</h2>
+            <br>
+        </div>
+        <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     label="Who's Name will Internet be in?"
@@ -149,11 +151,11 @@
                     hint="Select Primary or Secondary"
                     persistent-hint
                     outlined
-                    v-model="internetName">
+                    v-model="whosNameWillinternet">
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     outlined
@@ -163,7 +165,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="selectedInternetProvider == 'Xfinity' && internetCheckbox" dense class="mt-0">
             <v-col>
                 <p class="red--text text-center font-weight-bold text-h6 ma-0 pb-0">
                     <span class="light-green accent-3 black--text text-h5 font-weight-bold pa-0 ma-0">IF ACTIVATION IS WITHIN 4 BUSINESS DAYS</span>
@@ -173,7 +175,7 @@
                 </p>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="selectedInternetProvider == 'Brightspeed' && internetCheckbox " dense class="mt-0">
             <v-col>
                 <p class="red--text text-center font-weight-bold text-h6">
                     <span class="yellow pa-0">COMPLETE CABLE ACTIVATION</span>
@@ -194,7 +196,7 @@
                 </p>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -205,6 +207,11 @@
                 v-model="internetPlan"
                 ></v-text-field>
             </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'Frontier'  && internetCheckbox" class="pa-10">
+            <h2 style="color:red">If Customer requests to use own router (only) Read this to Customer:</h2>
+            <p class="pt-5" style="color:black;font-size:large">Dear Mr. Valued Customer, Our technician is planning to verify the successful activation of your internet service using our router. If after discussion with the technician regarding the benefits of using our router and confirming that it is not required to provide your service, 
+                you can request to use your own router and we will remove ours at the time the job is completed.</p>
         </v-row>
         <p> Previous Address (OLD)</p>
         <v-row dense class="mt-0">
@@ -257,7 +264,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     label="Installation Type (Internet)"
@@ -267,6 +274,14 @@
                 </v-select>
             </v-col>
         </v-row>
+        <div v-if="InstallationTypeInternet == 'Ship to Home' && selectedInternetProvider == 'COX'">
+            <v-row class="pa-5">
+                <p class="text-h5" style="color:black"><b><u>Ship to home</u> delivery is  <span style="color:red">not available for Mondays.</span></b></p>
+            </v-row>
+            <v-row>
+                <p style="color:black" class="text-h5 pl-5 pb-5"><u>If customer request Monday delivery:</u> offer <b>Tuesday</b> delivery, <b>pro-install</b>, or <b>in-store pickup.</b></p>
+            </v-row>
+        </div>
         <v-row dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-select
@@ -280,7 +295,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -317,7 +332,7 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row dense class="mt-0 mb-2">
+        <v-row v-if="InstallationTypeInternet == 'Professional Install'  && internetCheckbox" dense class="mt-0 mb-2">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -327,11 +342,11 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     label="Security Question (Internet)"
-                    :items="groupChoiceATT"
+                    :items="securityQuestionItems"
                     v-model="securityQuestion"
                     outlined>
                 </v-select>
@@ -347,7 +362,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0 mb-4">
+        <v-row v-if="selectedInternetProvider == 'AT&T' && internetCheckbox|| selectedInternetProvider == 'COX' && internetCheckbox || selectedInternetProvider == 'WOW' && internetCheckbox ||selectedInternetProvider == 'United Communications' && internetCheckbox   " dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -357,7 +372,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0 mb-4">
+        <v-row v-if="InstallationTypeInternet != ''" dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -368,8 +383,8 @@
             </v-col>
         </v-row>
         <br>
-        <h2 color="black" class="black--text">--MOBILE PHONE--</h2>
-        <v-row dense class="mt-0 mb-4">
+        <h2 v-if="availableInternetProviders == ''" color="black" class="black--text pb-5">--MOBILE PHONE--</h2>
+        <v-row v-if="availableInternetProviders == ''" dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-select
                     label="Mobile Phone Provider"
@@ -381,7 +396,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row  class="mt-0">
+        <v-row  v-if="availableInternetProviders == ''" class="mt-0">
             <v-col cols="6">
                 <v-text-field
                 dense
@@ -391,7 +406,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="availableInternetProviders == ''" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -428,7 +443,7 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row class="pt-0">
+        <v-row v-if="availableInternetProviders == ''" class="pt-0">
                 <v-col>
                     <v-textarea
                     label="Mobile Notes"
@@ -438,8 +453,8 @@
                     ></v-textarea>
                 </v-col>
         </v-row>
-        <h2 color="black" class="black--text">--TV--</h2>
-        <v-row dense class="mt-0">
+        <h2 v-if="tvCheckbox" color="black" class="black--text">--TV--</h2>
+        <v-row  v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     v-model="selectedTV" 
@@ -451,11 +466,11 @@
                     dense
                     v-model="otherTV"
                     outlined
-                    v-if="(selectedTV == 'Other')"
+                    v-if="selectedTV == 'Other' && tvCheckbox"
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     label="Who's Name will TV be in?"
@@ -467,7 +482,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0 mb-2">
+        <v-row v-if="selectedTV == 'Spectrum' && tvCheckbox" dense class="mt-0 mb-2">
             <v-col cols="6">
                 <v-checkbox
                     v-model="tvEssentials"
@@ -476,7 +491,7 @@
                     persistent-hint></v-checkbox>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0 mb-2">
+        <v-row v-if="tvCheckbox" dense class="mt-0 mb-2">
             <v-col cols="6">
                 <v-text-field
                     v-model="tvPlanEquipment"
@@ -488,17 +503,17 @@
                 </v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
-                    v-model="installationTypeSelected"
+                    v-model="installationTypeSelectedTV"
                     label="Installation Type(TV) (IF SAME AS INTERNET, SKIP THIS STEP)"
                     :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="tvCheckbox" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -535,7 +550,7 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row dense class="mt-0 mb-2">
+        <v-row v-if="installationTypeSelectedTV == 'Professional Install' && tvCheckbox" dense class="mt-0 mb-2">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -545,14 +560,14 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="installationTypeSelectedTV != ''" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     dense
                     outlined
                     v-model="securityQuestionTV"
                     label="Security Question (TV)"
-                    :items="groupChoiceCox"
+                    :items="securityQuestionItemsTV"
                     >
                 </v-select>
             </v-col>
@@ -567,7 +582,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="selectedTV == 'DirecTV Stream'|| selectedTV == 'DirecTV'|| selectedTV == 'COX'||selectedTV== 'WOW'" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -577,7 +592,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="installationTypeSelectedTV != ''" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 v-model="tvAccountWorkorder"
@@ -588,8 +603,8 @@
             </v-col>
         </v-row>
         <br>
-        <h2 color="black" class="black--text">--PHONE--</h2>
-        <v-row dense class="mt-0">
+        <h2 v-if="phoneCheckbox" color="black" class="black--text">--PHONE--</h2>
+        <v-row v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     v-model="selectedPhone"
@@ -598,14 +613,14 @@
                     outlined>
                 </v-select>
                 <v-text-field
-                    v-if="(selectedPhone=='Other')"
+                    v-if="selectedPhone=='Other' && phoneCheckbox"
                     dense
                     v-model="otherPhone"
                     outlined>
                 </v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     label="Who's Name will Phone be in?"
@@ -617,7 +632,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                     dense
@@ -629,17 +644,17 @@
                 </v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     v-model="installationTypePhone"
-                    label="Installatin Type (Phone) (IF SAME AS INTERNET, SKIP THIS STEP)"
+                    label="Installation Type (Phone) (IF SAME AS INTERNET, SKIP THIS STEP)"
                     :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="phoneCheckbox" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -676,7 +691,7 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="installationTypePhone == 'Professional Install' && phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                     dense
@@ -686,7 +701,7 @@
                 </v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="phoneCheckbox && installationTypePhone != ''" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                 outlined
@@ -697,7 +712,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -707,7 +722,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="selectedPhone == 'AT&T'|| selectedPhone == 'COX'|| selectedPhone== 'WOW'" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -717,7 +732,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="installationTypePhone != ''" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                 v-model="phoneAccountNumber"
@@ -727,10 +742,15 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <br>
-        <h1 color="black" class="black--text">--REQUIRED INFO FOR ORDERS--</h1>
-        <br>
-        <v-row dense class="mt-0">
+        <v-row v-if="InstallationTypeInternet=='In-Store Pickup' && internetCheckbox || installationTypeSelectedTV== 'In-Store Pickup' && tvCheckbox || installationTypePhone == 'In-Store Pickup' && phoneCheckbox" justify="center">
+            <h2><a class="pa-5" href="https://www.spectrum.com/stores" target="_blank">Spectrum Store Locator</a></h2>
+            <h2><a class="pa-5" href="https://www.xfinity.com/local/store-offers" target="_blank">Xfinity Store Locator</a></h2>
+            <h2><a class="pa-5" href="https://www.cox.com/local/search" target="_blank">Cox Store Locator</a></h2>
+        </v-row>
+        <v-row class="pt-10 pb-10">
+            <h1 color="black" class="black--text">--REQUIRED INFO FOR ORDERS--</h1>
+        </v-row>
+            <v-row v-if="whosNameWillinternet == 'Primary'&& internetCheckbox || whosNameWillTv== 'Primary' && tvCheckbox || whosNameWillPhone== 'Primary' && phoneCheckbox" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -767,7 +787,7 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone)" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -787,7 +807,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row  v-if="whosNameWillinternet == 'Secondary'&& internetCheckbox || whosNameWillTv== 'Secondary' && tvCheckbox || whosNameWillPhone== 'Secondary' && phoneCheckbox" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -824,7 +844,7 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone)" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -850,6 +870,7 @@
             <v-col cols="6">
                 <v-select
                     label="Card Type"
+                    dense
                     v-model="cardType"
                     :items="['Visa', 'Mastercard', 'Discover', 'American Express']"
                     outlined>
@@ -910,7 +931,15 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <div v-if="selectedInternetProvider != '' || selectedTV != ''">
+            <v-row justify="center">
+                <p class="text-h4" style="color:black">READ TO CUSTOMER:</p>
+            </v-row>
+            <v-row class="pb-10" justify="center">
+                <p class="text-h5" style="color:red;font-size:medium">If necessary, one of my colleagues on our Support Team may reach out to gather any additional info the Provider requires to finalize your order the week of your activation date.</p>
+            </v-row>    
+        </div>
+        <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     label="Create Ticket? (Internet)"
@@ -920,7 +949,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="installationTypeSelectedTV != ''" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     v-model="createTicketTV"
@@ -930,7 +959,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row class="mt-0">
+        <v-row v-if="createTicketInternet != ''" class="mt-0">
                 <v-col cols="">
                     <v-textarea
                     label="Ticket Notes"
@@ -971,6 +1000,8 @@ export default {
             "What is the name of the road you lived on in 3rd grade?", 
             "What was the name of your first pet?"
         ],
+        securityQuestionItems:[],
+        securityQuestionItemsTv:[],
         internetInstallMenu: false,
         internetInstallDate: '',
         internetInstallDateFormatted: '',
@@ -998,6 +1029,40 @@ export default {
         secondaryBirthMenu: false,
         secondaryBirthDate:'',
         secondaryBirthDateFormatted: '',
+        internetProviderAux1:[
+        "AT&T",
+        "CenturyLink",
+        "Frontier",
+        "Altice USA",
+        "SuddenLink",
+        "Optimum",
+        "Xfinity",
+        "Verizon",
+        "COX",
+        "HughesNet",
+        "Brightspeed"
+        ],
+        selectTVproviderAux:[
+        "Xfinity",
+        "COX",
+        "DirecTV Stream",
+        "DirecTV",
+        "Altice USA",
+        "Optimum",
+        "SuddenLink",
+        "Verizon"
+        ],
+        selectPhoneProviderAux:[
+        "AT&T",
+        "Xfinity",
+        "COX",
+        "Frontier",
+        "Altice USA",
+        "Optimum",
+        "SuddenLink",
+        "Verizon",
+        "CenturyLink"
+        ]
         // secondaryBirthDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         
         
@@ -1021,6 +1086,26 @@ export default {
         secondaryBirthDate(val) {
           this.secondaryBirthDateFormattedStore = this.secondaryBirthDateFormatted = this.formatDate(this.secondaryBirthDate)
         },
+        selectedInternetProvider(val){
+            if(this.selectedInternetProvider == 'COX'){
+                this.securityQuestionItems = this.groupChoiceCox;
+
+            }else if(this.selectedInternetProvider == 'United Communications'){
+                this.securityQuestionItems = this.groupChoiceUC;
+            }else if(this.selectedInternetProvider == 'AT&T'){
+                this.securityQuestionItems = this.groupChoiceATT;
+            }else{
+                this.securityQuestionItems = [];
+            }
+        },
+        selectedTV(val){
+            if(this.selectedTV == 'COX' || this.selectedTV == 'DirecTV Stream' || this.selectedTV == 'DirecTV'){
+                this.securityQuestionItemsTv =  this.groupChoiceCox;
+            }else{
+                this.securityQuestionItemsTv  = []
+            }
+            
+        }
     },
     computed: {
         secondaryBirthDateFormattedStore: {
@@ -1159,12 +1244,12 @@ export default {
                 this.$store.state.stepThree.noneCheckbox = value;
             },
         },
-        internetName: {
+        whosNameWillinternet: {
             get() {
-                return this.$store.state.stepThree.internetName;
+                return this.$store.state.stepThree.whosNameWillinternet;
             },
             set(value) {
-                this.$store.state.stepThree.internetName = value;
+                this.$store.state.stepThree.whosNameWillinternet = value;
             },
         },
         selectedInternetProvider: {
@@ -1343,12 +1428,12 @@ export default {
                 this.$store.state.stepThree.tvPlanEquipment = value;
             },
         },
-        installationTypeSelected: {
+        installationTypeSelectedTV: {
             get() {
-                return this.$store.state.stepThree.installationTypeSelected;
+                return this.$store.state.stepThree.installationTypeSelectedTV;
             },
             set(value) {
-                this.$store.state.stepThree.installationTypeSelected = value;
+                this.$store.state.stepThree.installationTypeSelectedTV = value;
             },
         },
         tvInstallTime: {
