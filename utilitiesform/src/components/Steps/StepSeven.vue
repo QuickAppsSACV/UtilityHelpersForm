@@ -14,12 +14,13 @@
                                     <v-text-field
                                     dense
                                     outlined
+                                    disabled
                                     v-model="availablePowerProviders"
                                     label="Available Power Provider(s)"
                                     >
                                 </v-text-field>
                             </v-col>
-                            </v-row>
+                        </v-row>
                             <v-row dense class="">
                                 <v-col cols="6">
                                     <v-select
@@ -44,7 +45,18 @@
                                     ></v-select>
                                 </v-col>
                             </v-row>
-                            <v-row dense class="">
+                            <v-row v-if="electricProviderActived== 'Colorado Springs Utilities'">
+                                <v-col>
+                                    <v-row> <p style="color:red">**IMPORTANT**</p>Please insure you have the following information for the Secondary as the provider requires Emergency Contact Info:</v-row>
+                                    <v-row>
+                                        <ul>
+                                            <li><p><span style="color:black">Name</span> (first & last)</p></li>
+                                            <li><p style="color:black">Phone Number</p></li>
+                                        </ul> 
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                            <v-row  dense class="mt-5">
                                 <v-col cols="6">
                                     <v-select
                                     dense
@@ -55,7 +67,7 @@
                                     ></v-select>
                                 </v-col>
                             </v-row>
-                            <v-row dense class="mt-0">
+                            <v-row v-if="whoIsNameWillElectric == 'Primary'" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -91,7 +103,7 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row dense>
+                            <v-row v-if="whoIsNameWillElectric == 'Primary'" dense>
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
@@ -102,7 +114,7 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row dense class="mt-0">
+                            <v-row v-if="whoIsNameWillElectric == 'Secondary'" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -138,7 +150,7 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row dense>
+                            <v-row v-if="whoIsNameWillElectric == 'Secondary'"  dense>
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
@@ -149,7 +161,7 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row dense>
+                            <v-row  v-if="ElectricProviderAUX.includes(electricProviderActived)" dense>
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
@@ -174,6 +186,14 @@
                                     >
                                 </v-text-field>
                             </v-col>
+                            </v-row>
+                            <v-row v-if="electricProviderActived == 'FPLNW - Florida Power & Light Northwest'">
+                                <v-col>
+                                    <mark>While activating <b> <u>FPL Northwest</u></b> please create the following temporary password for customer:</mark>
+                                    <br>
+                                    <p><span style="font-size: large;color:red">Password1</span>(must be case-sensitive)</p>
+                                    <i style="color:black">Customer will automatically receive it in their confirmation email, with instructions to change it.</i>
+                                </v-col>
                             </v-row>
                             <v-row dense class="mt-0">
                                 <v-col
@@ -259,7 +279,7 @@
                                     ></v-checkbox>
                                 </v-col>
                             </v-row>
-                            <v-row class="pt-0">
+                            <v-row v-if="haveSupportKeyElectric == true" class="pt-0">
                                 <v-col cols="">
                                     <v-textarea
                                     v-model="ticketNotes"
@@ -269,7 +289,7 @@
                                     ></v-textarea>
                                 </v-col>
                             </v-row>
-                            <v-row dense>
+                            <v-row  v-if="availablePowerProviders.toLowerCase().includes('fpl')"  dense>
                                 <v-col cols="6">
                                     <p>Activated Power Add-Ons</p>
                                     <v-checkbox 
@@ -284,6 +304,7 @@
                                 <v-col class="mt-2" cols="6">
                                     <v-text-field
                                     dense
+                                    disabled
                                     outlined
                                     v-model="availableGasProviders"
                                     label="Available Gas Provider(s)"
@@ -291,10 +312,13 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-card-title class="bluelight-text">
+                            <v-card-title v-if="groupGasProviderAux.includes(availableGasProviders)"  class="bluelight-text">
                                 Gas Activation:
                             </v-card-title>
-                            <v-row dense class="">
+                            <v-row  v-if="!(groupGasProviderAux.includes(availableGasProviders))" justify="center">
+                                <h2  style="color:red;">The customer will need to activate gas <br>instructions will be in the Confirmation Email</h2>
+                            </v-row>
+                            <v-row dense class="pt-5">
                                 <v-col cols="6">
                                     <v-select
                                     dense
@@ -307,7 +331,7 @@
                                     ></v-select>
                                 </v-col>
                             </v-row>
-                            <v-row dense class="">
+                            <v-row v-if="groupGasProviderAux.includes(availableGasProviders)" dense class="">
                                 <v-col cols="6">
                                     <v-select
                                     dense
@@ -319,7 +343,7 @@
                                     ></v-select>
                                 </v-col>
                             </v-row>
-                            <v-row dense class="mt-0">
+                            <v-row v-if="groupGasProviderAux.includes(availableGasProviders)" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -391,12 +415,12 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row dense>
+                            <v-row v-if="whosNameWillGas != 'Primary'" dense>
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
                                     outlined
-                                    v-model="primarySSN2"
+                                    v-model="primarySSNGas"
                                     label="Primary SSN"
                                     >
                                 </v-text-field>
@@ -419,7 +443,7 @@
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
                                         v-model="secondDOBFormated2"
-                                        label="secondary DOB"
+                                        label="Secondary DOB"
                                         dense
                                         outlined
                                         hint="MM/DD/YYYY"
@@ -450,7 +474,7 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row dense>
+                            <v-row v-if="groupGasProviderAux.includes(availableGasProviders)" dense>
                                 <v-col cols="6">
                                     <v-checkbox 
                                     v-model="haveSupportKeyGas"
@@ -458,10 +482,10 @@
                                     ></v-checkbox>
                                 </v-col>
                             </v-row>
-                            <v-row class="pt-0">
+                            <v-row v-if="haveSupportKeyGas == true" class="pt-0">
                                 <v-col cols="">
                                     <v-textarea
-                                    v-model="ticketNotes2"
+                                    v-model="ticketNotesGas"
                                     label="Ticket Notes"
                                     outlined
                                     dense
@@ -499,197 +523,247 @@ export default {
         secondDOBMenu2:false,
         secondDOBDate2:'',
         secondDOBFormated2:'',
-        groupElectricProviderActived:       ['AEP - Ohio',
-                                            'Alabama Power',
-                                            'Ameren',
-                                            'Appalachian Power - AEP',
-                                            'Appalachian Power',
-                                            'Atlantic City Electric',
-                                            'Austin Electric and Utilities - TX',
-                                            'Avista',
-                                            'Baltimore Gas and Electric',
-                                            'Beaches Energy - Jacksonville Beach',
-                                            'Black Hills Energy',
-                                            'Bowling Green Municipal Utilities - KY',
-                                            'Brunswick Electric',
-                                            'CDE Lightband',
-                                            'CFEC - Central Florida Electric Co-Op',
-                                            'CLECO',
-                                            'CORE Electric Cooperative',
-                                            'Carroll Electric Cooperative Corporation',
-                                            'Central Electric Coop - PA',
-                                            'Chelco Energy',
-                                            'Chickasaw Electric',
-                                            'Choose Power',
-                                            'Cimarron Electric',
-                                            'City Utilities of Springfield',
-                                            'City of Alachua - FL',
-                                            'City of Bartow - FL',
-                                            'City of Chattahoochee - FL',
-                                            'City of College Park - GA',
-                                            'City of Concord - NC',
-                                            'City of East Point - GA',
-                                            'City of Edmond - OK',
-                                            'City of Fort Meade - FL',
-                                            'City of Fort Morgan - CO',
-                                            'City of Green Coves Springs - FL',
-                                            'City of High Point - NC',
-                                            'City of Homestead - FL',
-                                            'City of Independence - MO',
-                                            'City of Lake Worth - FL',
-                                            'City of Leesburg - FL',
-                                            'City of Longmont - CO',
-                                            'City of Loveland - CO',
-                                            'City of Lubbock - TX',
-                                            'City of Monroe - NC',
-                                            'City of Mount Dora - FL',
-                                            'City of Mount Vernon - MO',
-                                            'City of New Smyrna Beach - FL',
-                                            'City of Newberry - FL',
-                                            'City of Nixa - MO',
-                                            'City of Ocala - FL',
-                                            'City of Robertsdale - AL',
-                                            'City of Seymour - MO',
-                                            'City of Tallahassee - FL',
-                                            'City of Winter Park - FL',
-                                            'Clark Public Utilities - WA',
-                                            'Clay Electric',
-                                            'Cobb EMC',
-                                            'Colorado Springs Utilities',
-                                            'Commonwealth Edison Company - IL',
-                                            'Coserv - TX',
-                                            'Cowetta-Fayette EMC - GA',
-                                            'Cumberland Electric',
-                                            'Delaware Electric Coop',
-                                            'Delmarva Power',
-                                            'Dominion Energy',
-                                            'Duke Energy',
-                                            'Duquesne Light - PA',
-                                            'EREC - Escambia River Electric Co-op',
-                                            'EWEB - Eugene Water & Electric Board',
-                                            'Energy United',
-                                            'Entergy',
-                                            'EverSource',
-                                            'FKEC - Florida Keys Electric Cooperative',
-                                            'FPL - Florida Power & Light',
-                                            'FPLNW - Florida Power & Light Northwest',
-                                            'FPU - Florida Public Utilities',
-                                            'Fort Pierce Utility Authority - FPUA',
-                                            'Four County Electric Membership Corporation',
-                                            'GCEC - Gulf Coast Electric Coop',
-                                            'GRU - Gainesville Regional Utilities',
-                                            'Georgia Power',
-                                            'Glades Electric',
-                                            'Greystone Power',
-                                            'Gulf Power',
-                                            'Hendricks Power Coop- IN',
-                                            'Holy Cross Electric',
-                                            'Huntsville Utilities - AL',
-                                            'Idaho Power - ID',
-                                            'Indiana Michigan Power - AEP',
-                                            'JEA Utilities - FL',
-                                            'Jackson Electric Membership Corporation',
-                                            'Jersey Central Power & Light - FirstEnergy',
-                                            'Jones-Onslow Electric Membership Co-Op',
-                                            'KEC - Kootenai Electric Cooperative',
-                                            'KU Kentucky Utilities - KY',
-                                            'KUA - Kissimmee Utility Authority',
-                                            'Kentucky Power - AEP',
-                                            'Kodiak Electric Association - AK',
-                                            'LADWP - Los Angeles Dept of Water and Power',
-                                            'LG&E Louisville Gas and Electric - KY',
-                                            'La Plata Electric Association',
-                                            'Laclede Electric Coop',
-                                            'Lakeland - FL',
-                                            'Lansing Board of Water & Light - MI',
-                                            'Lee County Electric',
-                                            'Liberty Utility - MO',
-                                            'Liberty Utility - NH',
-                                            'MLGW - Memphis Light Gas and Water',
-                                            'Merrimac Light Department',
-                                            'Met Ed - FirstEnergy',
-                                            'Metropolitan Edison',
-                                            'MonPower - FirstEnergy',
-                                            'Morgan County REA',
-                                            'Mountain View Electric',
-                                            'National Grid',
-                                            'Northern Neck Electric Coop - VA',
-                                            'OGE - Oklahoma Gas & Electric',
-                                            'OREMC - Okefenoke',
-                                            'OUC - Orlando Utilities Commission',
-                                            'Ohio Edison - FirstEnergy',
-                                            'Omaha Public Power District',
-                                            'Orange & Rockland Utilities',
-                                            'Ozark Electric',
-                                            'PECO - Philadelphia Electric Company',
-                                            'PEPCO - Potomac Electric Power Company',
-                                            'PG&E - Pacific Gas & Electric',
-                                            'PPL - Pennsylvania Power & Lights',
-                                            'PSE&G - Public Service Electric & Gas Company',
-                                            'Peace River Electric Cooperative',
-                                            'Penelec - FirstEnergy',
-                                            'Penn Power - FristEnergy',
-                                            'Piedmont Electric Co-Op',
-                                            'Potomac Edison - FirstEnergy',
-                                            'Poudre Valley Electric',
-                                            'Public Service Company of Oklahoma - AEP',
-                                            'REC - Rappahannock Electric Cooperative',
-                                            'Rhode Island Energy',
-                                            'Riviera Utilities - AL',
-                                            'SECO Energy',
-                                            'SMECO - Southern Maryland Electric Co-Op',
-                                            'SMUD - Sacramento Municipal Utility District',
-                                            'SVEC - Suwannee Valley Electric Cooperative',
-                                            'SWEC - Southwest Electric Co-op',
-                                            'Sac Osage Electric Cooperative',
-                                            'Sawnee River Electric Membership Cooperative',
-                                            'Snapping Shoals Electric',
-                                            'Southern California Edison',
-                                            'Southwestern Electric Power Company - AEP',
-                                            'TECO - Tampa Electric Company',
-                                            'Tacoma Public Utilities - WA',
-                                            'Talquin Co-op',
-                                            'Tri-County Electric',
-                                            'Unified Electric',
-                                            'United Power',
-                                            'Unitil',
-                                            'Upper Peninsula Power Company',
-                                            'WREC - Withlacoochee River Electric Cooperative',
-                                            'Wake Electric Membership Corporation',
-                                            'Walton EMC',
-                                            'We Energies - WI',
-                                            'Webster Electric Co-Op',
-                                            'West FL Electric Coop',
-                                            'West Penn Power - FirstEnergy',
-                                            'White River Electric Cooperative',
-                                            'Xcel Energy',
-                                            'your HOA'],
-        groupGasProviderActivated:  ['Avista',
-                                    'Baltimore Gas and Electric',
-                                    'Center Point Energy',
-                                    'Chattanooga Gas - TN',
-                                    'City of Gainesville - Billed by GRU',
-                                    'Colorado Springs Utilities',
-                                    'Columbia Gas',
-                                    'Coserv - TX',
-                                    'Huntsville Utilities - AL',
-                                    'KU Kentucky Utilities - KY',
-                                    'LG&E Louisville Gas and Electric - KY',
-                                    'MLGW - Memphis Light Gas and Water',
-                                    'Michigan Gas Utilities',
-                                    'Nicor Gas - IL',
-                                    'Orange & Rockland Utilities',
-                                    'PECO - Philadelphia Electric Company',
-                                    'Piedmont Natural Gas',
-                                    'Rhode Island Energy',
-                                    'SoCal Gas',
-                                    'Southwest Gas',
-                                    'Spire Energy',
-                                    'Summit Utilities',
-                                    'TECO - Peoples Gas',
-                                    'Unitil',
-                                    'Washington Gas',
-                                    'Xcel Energy',]
+        groupElectricProviderActived:
+        [
+        'AEP - Ohio',
+        'Alabama Power',
+        'Ameren',
+        'Appalachian Power - AEP',
+        'Appalachian Power',
+        'Atlantic City Electric',
+        'Austin Electric and Utilities - TX',
+        'Avista',
+        'Baltimore Gas and Electric',
+        'Beaches Energy - Jacksonville Beach',
+        'Black Hills Energy',
+        'Bowling Green Municipal Utilities - KY',
+        'Brunswick Electric',
+        'CDE Lightband',
+        'CFEC - Central Florida Electric Co-Op',
+        'CLECO',
+        'CORE Electric Cooperative',
+        'Carroll Electric Cooperative Corporation',
+        'Central Electric Coop - PA',
+        'Chelco Energy',
+        'Chickasaw Electric',
+        'Choose Power',
+        'Cimarron Electric',
+        'City Utilities of Springfield',
+        'City of Alachua - FL',
+        'City of Bartow - FL',
+        'City of Chattahoochee - FL',
+        'City of College Park - GA',
+        'City of Concord - NC',
+        'City of East Point - GA',
+        'City of Edmond - OK',
+        'City of Fort Meade - FL',
+        'City of Fort Morgan - CO',
+        'City of Green Coves Springs - FL',
+        'City of High Point - NC',
+        'City of Homestead - FL',
+        'City of Independence - MO',
+        'City of Lake Worth - FL',
+        'City of Leesburg - FL',
+        'City of Longmont - CO',
+        'City of Loveland - CO',
+        'City of Lubbock - TX',
+        'City of Monroe - NC',
+        'City of Mount Dora - FL',
+        'City of Mount Vernon - MO',
+        'City of New Smyrna Beach - FL',
+        'City of Newberry - FL',
+        'City of Nixa - MO',
+        'City of Ocala - FL',
+        'City of Robertsdale - AL',
+        'City of Seymour - MO',
+        'City of Tallahassee - FL',
+        'City of Winter Park - FL',
+        'Clark Public Utilities - WA',
+        'Clay Electric',
+        'Cobb EMC',
+        'Colorado Springs Utilities',
+        'Commonwealth Edison Company - IL',
+        'Coserv - TX',
+        'Cowetta-Fayette EMC - GA',
+        'Cumberland Electric',
+        'Delaware Electric Coop',
+        'Delmarva Power',
+        'Dominion Energy',
+        'Duke Energy',
+        'Duquesne Light - PA',
+        'EREC - Escambia River Electric Co-op',
+        'EWEB - Eugene Water & Electric Board',
+        'Energy United',
+        'Entergy',
+        'EverSource',
+        'FKEC - Florida Keys Electric Cooperative',
+        'FPL - Florida Power & Light',
+        'FPLNW - Florida Power & Light Northwest',
+        'FPU - Florida Public Utilities',
+        'Fort Pierce Utility Authority - FPUA',
+        'Four County Electric Membership Corporation',
+        'GCEC - Gulf Coast Electric Coop',
+        'GRU - Gainesville Regional Utilities',
+        'Georgia Power',
+        'Glades Electric',
+        'Greystone Power',
+        'Gulf Power',
+        'Hendricks Power Coop- IN',
+        'Holy Cross Electric',
+        'Huntsville Utilities - AL',
+        'Idaho Power - ID',
+        'Indiana Michigan Power - AEP',
+        'JEA Utilities - FL',
+        'Jackson Electric Membership Corporation',
+        'Jersey Central Power & Light - FirstEnergy',
+        'Jones-Onslow Electric Membership Co-Op',
+        'KEC - Kootenai Electric Cooperative',
+        'KU Kentucky Utilities - KY',
+        'KUA - Kissimmee Utility Authority',
+        'Kentucky Power - AEP',
+        'Kodiak Electric Association - AK',
+        'LADWP - Los Angeles Dept of Water and Power',
+        'LG&E Louisville Gas and Electric - KY',
+        'La Plata Electric Association',
+        'Laclede Electric Coop',
+        'Lakeland - FL',
+        'Lansing Board of Water & Light - MI',
+        'Lee County Electric',
+        'Liberty Utility - MO',
+        'Liberty Utility - NH',
+        'MLGW - Memphis Light Gas and Water',
+        'Merrimac Light Department',
+        'Met Ed - FirstEnergy',
+        'Metropolitan Edison',
+        'MonPower - FirstEnergy',
+        'Morgan County REA',
+        'Mountain View Electric',
+        'National Grid',
+        'Northern Neck Electric Coop - VA',
+        'OGE - Oklahoma Gas & Electric',
+        'OREMC - Okefenoke',
+        'OUC - Orlando Utilities Commission',
+        'Ohio Edison - FirstEnergy',
+        'Omaha Public Power District',
+        'Orange & Rockland Utilities',
+        'Ozark Electric',
+        'PECO - Philadelphia Electric Company',
+        'PEPCO - Potomac Electric Power Company',
+        'PG&E - Pacific Gas & Electric',
+        'PPL - Pennsylvania Power & Lights',
+        'PSE&G - Public Service Electric & Gas Company',
+        'Peace River Electric Cooperative',
+        'Penelec - FirstEnergy',
+        'Penn Power - FristEnergy',
+        'Piedmont Electric Co-Op',
+        'Potomac Edison - FirstEnergy',
+        'Poudre Valley Electric',
+        'Public Service Company of Oklahoma - AEP',
+        'REC - Rappahannock Electric Cooperative',
+        'Rhode Island Energy',
+        'Riviera Utilities - AL',
+        'SECO Energy',
+        'SMECO - Southern Maryland Electric Co-Op',
+        'SMUD - Sacramento Municipal Utility District',
+        'SVEC - Suwannee Valley Electric Cooperative',
+        'SWEC - Southwest Electric Co-op',
+        'Sac Osage Electric Cooperative',
+        'Sawnee River Electric Membership Cooperative',
+        'Snapping Shoals Electric',
+        'Southern California Edison',
+        'Southwestern Electric Power Company - AEP',
+        'TECO - Tampa Electric Company',
+        'Tacoma Public Utilities - WA',
+        'Talquin Co-op',
+        'Tri-County Electric',
+        'Unified Electric',
+        'United Power',
+        'Unitil',
+        'Upper Peninsula Power Company',
+        'WREC - Withlacoochee River Electric Cooperative',
+        'Wake Electric Membership Corporation',
+        'Walton EMC',
+        'We Energies - WI',
+        'Webster Electric Co-Op',
+        'West FL Electric Coop',
+        'West Penn Power - FirstEnergy',
+        'White River Electric Cooperative',
+        'Xcel Energy',
+        'your HOA'
+        ],
+        groupGasProviderActivated: 
+        [
+        'Avista',
+        'Baltimore Gas and Electric',
+        'Center Point Energy',
+        'Chattanooga Gas - TN',
+        'City of Gainesville - Billed by GRU',
+        'Colorado Springs Utilities',
+        'Columbia Gas',
+        'Coserv - TX',
+        'Huntsville Utilities - AL',
+        'KU Kentucky Utilities - KY',
+        'LG&E Louisville Gas and Electric - KY',
+        'MLGW - Memphis Light Gas and Water',
+        'Michigan Gas Utilities',
+        'Nicor Gas - IL',
+        'Orange & Rockland Utilities',
+        'PECO - Philadelphia Electric Company',
+        'Piedmont Natural Gas',
+        'Rhode Island Energy',
+        'SoCal Gas',
+        'Southwest Gas',
+        'Spire Energy',
+        'Summit Utilities',
+        'TECO - Peoples Gas',
+        'Unitil',
+        'Washington Gas',
+        'Xcel Energy',
+        ],
+        ElectricProviderAUX:[
+        "JEA Utilities - FL",
+        "WREC - Withlacoochee River Electric Cooperative",
+        "GRU - Gainesville Regional Utilities",
+        "Baltimore Gas and Electric",,
+        "AEP - American Electric Power",
+        "AEP - Ohio",
+        "City of Concord - NC",
+        "MLGW - Memphis Light Gas and Water",
+        "City of Lubbock - TX",
+        "Commonwealth Edison Company - IL",
+        "Kentucky Power",
+        "Southern California Edison",
+        "PECO - Philadelphia Electric Company",
+        "Kodiak Electric Association - AK"
+        ],
+        groupGasProviderAux:[
+        "Baltimore Gas and Electric",
+        "Center Point Energy",
+        "Chattanooga Gas - TN",
+        "City of Gainesville - Billed by GRU",
+        "Colorado Springs Utilities",
+        "Columbia Gas",
+        "Coserv - TX",
+        "KU Kentucky Utilities - KY",
+        "LG&E Louisville Gas and Electric - KY",
+        "MLGW - Memphis Light Gas and Water",
+        "Orange & Rockland Utilities",
+        "Piedmont Natural Gas",
+        "SoCal Gas",
+        "Southwest Gas",
+        "Spire Energy",
+        "TECO - Peoples Gas",
+        "Unitil",
+        "Washington Gas",
+        "Xcel Energy",
+        "Huntsville Utilites - AL",
+        "Nicor Gas - IL",
+        "Rhode Island Energy",
+        "Avista",
+        "Michigan Gas Utilities",
+        "PECO - Philadelphia Electric Company"
+        ]
+
     }),
     watch: {
         primaryDOBDate (val) {
@@ -884,12 +958,12 @@ export default {
                 this.$store.state.stepSeven.gasProviderActivated = value;
             },
         },
-        primarySSN2: {
+        primarySSNGas: {
             get() {
-                return this.$store.state.stepSeven.primarySSN2;
+                return this.$store.state.stepSeven.primarySSNGas;
             },
             set(value) {
-                this.$store.state.stepSeven.primarySSN2 = value;
+                this.$store.state.stepSeven.primarySSNGas = value;
             },
         },
         secondarySSN: {
@@ -908,12 +982,12 @@ export default {
                 this.$store.state.stepSeven.haveSupportKeyGas = value;
             },
         },
-        ticketNotes2: {
+        ticketNotesGas: {
             get() {
-                return this.$store.state.stepSeven.ticketNotes2;
+                return this.$store.state.stepSeven.ticketNotesGas;
             },
             set(value) {
-                this.$store.state.stepSeven.ticketNotes2 = value;
+                this.$store.state.stepSeven.ticketNotesGas = value;
             },
         },
         employerNameBussines: {

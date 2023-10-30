@@ -223,7 +223,7 @@ export default {
         StepEight
      },
     data: vm=>( {
-        e1: 7,
+        e1: 1,
     }),
     watch: {
     },
