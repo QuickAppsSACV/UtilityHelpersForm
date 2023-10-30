@@ -6,7 +6,27 @@ const stepEight = {
     salesRep:'',
     errorField:'',
     orderID:'',
-    usedUtilityTool:''
+    usedUtilityTool:'',
+    whosNamewillWater:'',
+    activatedWaterSelected:'',
+    driversLicenceNo:'',
+    driversLicenceNoSecondary:'',
+    SSNwaterSewer:'',
+    last4SSN:'',
+    securityPIN:'',
+    waterActivationDateStore:'',
+    haveSupportboolean:false,
+    ticketNotes:'',
+    waterTrackingNo:'',
+    waterAccessKey:'',
+    avaiableTrashProv:'',
+    whosNamewillTrash:'',
+    DLforTrash:'',
+    activatedTrashSelected:'',
+    trashActivationDateStore:'',
+
+
+
 
 
 

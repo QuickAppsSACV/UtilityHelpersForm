@@ -174,12 +174,12 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row dense>
+                            <v-row v-if="electricProviderActived == 'Omaha Public Power District'" dense>
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
                                     outlined
-                                    v-model="employerNameBussines"
+                                    v-model="employerNameBusiness"
                                     label="Employer or Name of Business"
                                     hint="Required for account setup. If not employed just enter 'Retired'"
                                     persistent-hint
@@ -289,6 +289,35 @@
                                     ></v-textarea>
                                 </v-col>
                             </v-row>
+                            <div v-if="availablePowerProviders.toLowerCase().includes('fpl')" class="mb-5 mt-2">
+                                <v-row >
+                                <v-col cols="2">
+                                    <v-img
+                                        :src="require('../../assets/fplHome.png')"
+                                        contain
+                                        class="mx-auto"
+                                        height="200"
+                                        />
+                                </v-col>
+                                </v-row>
+                                <a href="https://nexterahome.force.com/surgeportal" target="_blank"> <h1>Click Here to add SurgeShield Protection</h1></a>
+                                <v-row class="pt-5">
+                                    <v-col justify="center">
+                                    <h2 style="color:black">SurgeShield</h2> <br>
+                                        <p style="color:black;font-size: medium;">Attaches a <u>state-of-the-art surge protector directly at your electric meter</u> to help protect your<u>appliances</u>  from power surges through your electric meter.
+                                            The SurgeShield program also comes with a <u><b>$5,000 limited manufacturer’s warranty per covered appliance</b></u>, per occurrence for damages caused by a failure of the surge protector to properly perform.
+                                            <br><b style="color:blue">$10.95 plus tax</b> <i style="color:grey">(discounted from $11.95)</i><br>
+                                            <b style="color:red"> +2 Months Free for using Utility Helpers!</b></p>
+                                        <h2 style="color:black">Electronics Surge Protection</h2>
+                                        <p style="color:black; font-size: medium;">
+                                        A program offered by FPL Home that will <u>reimburse you for the repair or replacement</u> of your covered electronics, 
+                                        such as <u>TVs, computers, gaming systems, tablets </u>etc. that are damaged due to power surges <b>up to $5,000 per year.</b><br>
+                                        <b style="color:blue">$9.95 plus tax</b> <i style="color:gray">(discounted from $10.95)</i>
+                                        </p>
+                                        <h2><span style="color:green">Bundle Both for $15.95</span> (discounted from $16.95)</h2>
+                                    </v-col>
+                                </v-row>
+                        </div>
                             <v-row  v-if="availablePowerProviders.toLowerCase().includes('fpl')"  dense>
                                 <v-col cols="6">
                                     <p>Activated Power Add-Ons</p>
@@ -343,6 +372,9 @@
                                     ></v-select>
                                 </v-col>
                             </v-row>
+                            <v-row v-if="electricProviderActived == 'TECO - Tampa Electric Company' && gasProviderActivated == 'TECO - Peoples Gas' " class="pa-10" justify="center">
+                                    <h2 style="color:red; ">For TECO: Gas will need to be activated the next BUSINESS day after electricity, for safety purposes*</h2>
+                            </v-row>
                             <v-row v-if="groupGasProviderAux.includes(availableGasProviders)" dense class="mt-0">
                                 <v-col
                                 cols="6"
@@ -379,7 +411,7 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row dense class="mt-0">
+                            <v-row v-if="!(primaryDOBFormated == '' || whosNameWillGas != 'Primary')" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -395,7 +427,7 @@
                                     >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                        v-model="primaryDOBFormated2"
+                                        v-model="primaryDOBFormatedGas"
                                         label="Primary DOB"
                                         dense
                                         outlined
@@ -403,7 +435,7 @@
                                         persistent-hint
                                         append-icon="mdi-calendar"
                                         v-bind="attrs"
-                                        @blur="primaryDOBDate2 = parseDate(primaryDOBFormated2)"
+                                        @blur="primaryDOBDate2 = parseDate(primaryDOBFormatedGas)"
                                         v-on="on"
                                         ></v-text-field>
                                     </template>
@@ -426,7 +458,7 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row dense class="mt-0">
+                            <v-row v-if="!(secondaryDOBFormated == ''|| whosNameWillGas != 'Secondary')" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -442,7 +474,7 @@
                                     >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                        v-model="secondDOBFormated2"
+                                        v-model="secondDOBFormatedGas"
                                         label="Secondary DOB"
                                         dense
                                         outlined
@@ -450,7 +482,7 @@
                                         persistent-hint
                                         append-icon="mdi-calendar"
                                         v-bind="attrs"
-                                        @blur="secondDOBDate2 = parseDate(secondDOBFormated2)"
+                                        @blur="secondDOBDate2 = parseDate(secondDOBFormatedGas)"
                                         v-on="on"
                                         ></v-text-field>
                                     </template>
@@ -462,8 +494,7 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            
-                            <v-row dense>
+                            <v-row v-if="!(secondarySSNForPower == '' || whosNameWillGas != 'Secondary')" dense>
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
@@ -519,10 +550,10 @@ export default {
         gasActivationFormated:'',
         primaryDOBMenu2:false,
         primaryDOBDate2:'',
-        primaryDOBFormated2:'',
+        primaryDOBFormatedGas:'',
         secondDOBMenu2:false,
         secondDOBDate2:'',
-        secondDOBFormated2:'',
+        secondDOBFormatedGas:'',
         groupElectricProviderActived:
         [
         'AEP - Ohio',
@@ -782,28 +813,28 @@ export default {
         this.gasActivationFormatedStore =   this.gasActivationFormated = this.formatDate(this.gasActivationDate)
         },
         primaryDOBDate2 (val) {
-          this.primaryDOBFormated2Store =  this.primaryDOBFormated2 = this.formatDate(this.primaryDOBDate2)
+          this.primaryDOBFormatedGasStore =  this.primaryDOBFormatedGas = this.formatDate(this.primaryDOBDate2)
         },
         secondDOBDate2 (val) {
-         this.secondDOBFormated2Store =   this.secondDOBFormated2 = this.formatDate(this.secondDOBDate2)
+         this.secondDOBFormatedGasStore =   this.secondDOBFormatedGas = this.formatDate(this.secondDOBDate2)
         },
         
     },
     computed: {
-        secondDOBFormated2Store: {
+        secondDOBFormatedGasStore: {
             get() {
-                return this.$store.state.stepSeven.secondDOBFormated2Store;
+                return this.$store.state.stepSeven.secondDOBFormatedGasStore;
             },
             set(value) {
-                this.$store.state.stepSeven.secondDOBFormated2Store = value;
+                this.$store.state.stepSeven.secondDOBFormatedGasStore = value;
             },
         },
-        primaryDOBFormated2Store: {
+        primaryDOBFormatedGasStore: {
             get() {
-                return this.$store.state.stepSeven.primaryDOBFormated2Store;
+                return this.$store.state.stepSeven.primaryDOBFormatedGasStore;
             },
             set(value) {
-                this.$store.state.stepSeven.primaryDOBFormated2Store = value;
+                this.$store.state.stepSeven.primaryDOBFormatedGasStore = value;
             },
         },
         gasActivationFormatedStore: {
@@ -990,14 +1021,14 @@ export default {
                 this.$store.state.stepSeven.ticketNotesGas = value;
             },
         },
-        employerNameBussines: {
-            get() {
-                return this.$store.state.stepSeven.employerNameBussines;
-            },
-            set(value) {
-                this.$store.state.stepSeven.employerNameBussines = value;
-            },
-        },
+        // employerNameBussines: {
+        //     get() {
+        //         return this.$store.state.stepSeven.employerNameBussines;
+        //     },
+        //     set(value) {
+        //         this.$store.state.stepSeven.employerNameBussines = value;
+        //     },
+        // },
         
     },
     methods: {
