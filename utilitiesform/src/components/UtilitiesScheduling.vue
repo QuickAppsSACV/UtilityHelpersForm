@@ -1,6 +1,10 @@
 <template>
     <div>
-        <v-card elevation="10" class="pa-10 ma-10">
+        <v-card 
+        elevation="10" 
+        max-width="50vw"
+        class="pa-10 ma-10 mx-auto" 
+        >
             <v-card-title>
                     Enterprix Copy of Utilities Scheduling Flow 2.0
             </v-card-title>
