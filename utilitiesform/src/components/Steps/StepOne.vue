@@ -408,6 +408,7 @@
                     Did you add/verify Secondary data?* 
                     <v-checkbox
                     label="Yes"
+                    v-model="someServicesWill"
                     ></v-checkbox>
                 </v-col>
 
@@ -437,6 +438,14 @@ export default {
         }
     },
     computed: {
+        someServicesWill: {
+            get() {
+                return this.$store.state.stepOne.someServicesWill;
+            },
+            set(value) {
+                this.$store.state.stepOne.someServicesWill = value;
+            },
+        },
         dateFormattedStore: {
             get() {
                 return this.$store.state.stepOne.dateFormattedStore;

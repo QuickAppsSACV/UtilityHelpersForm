@@ -187,6 +187,7 @@
                         <v-spacer></v-spacer>
                         <v-btn
                         dense
+                        @click="dialog=true"
                         color="primary"
                         >Review Recap</v-btn>
                         <v-btn
@@ -200,6 +201,21 @@
                     </v-stepper-items>
                 </v-stepper>
             </v-card-text>
+            <v-row justify="center">
+                <v-dialog 
+                v-model="dialog"
+                persistent
+                max-width="600px"
+                >
+                    <v-card flat>
+                        <reviewSummary/>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="dialog=false" text color="primary" >Close</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-row>
         </v-card>
     </div>
 </template>
@@ -212,6 +228,7 @@ import StepFive from './Steps/StepFive.vue'
 import StepSix from './Steps/StepSix.vue'
 import StepSeven from './Steps/StepSeven.vue'
 import StepEight from './Steps/StepEight.vue'
+import reviewSummary from './Steps/reviewSummary.vue'
 
 export default {
     components: {
@@ -222,15 +239,16 @@ export default {
         StepFive,
         StepSix,
         StepSeven,
-        StepEight
+        StepEight,
+        reviewSummary
      },
     data: vm=>( {
         e1: 1,
+        dialog:false,
     }),
     watch: {
     },
     computed: {
-   
     },
     methods: {
    
