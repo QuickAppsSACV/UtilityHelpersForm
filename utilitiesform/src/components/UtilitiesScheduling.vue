@@ -2,7 +2,7 @@
     <div>
         <v-card 
         elevation="10" 
-        max-width="50vw"
+        max-width="55vw"
         class="pa-10 ma-10 mx-auto" 
         >
             <v-card-title>

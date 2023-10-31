@@ -7,11 +7,11 @@
                 <table id="myTable">
                     <tr>
                         <td>Template Instructions</td>
-                        <td> </td>
+                        <td> {{ $store.state.stepOne.templateInstructions }} </td>
                     </tr>
                     <tr>
                         <td>Zoho CRM <span style="color:red">*</span></td>
-                        <td>Alexis Alvarado Marquez</td>
+                        <td>{{ $store.state.stepOne.zohoCRM }}</td>
                     </tr>
                     <tr>
                         <td>Primary Email</td>
