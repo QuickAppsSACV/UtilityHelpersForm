@@ -3,7 +3,7 @@ const stepOne = {
     state: {
         templateInstructions:'',
         zohoCRM:'',
-        primaryEmail:'aalvarado@quickapps.mx',
+        primaryEmail:'',
         primaryFirstName:'',
         primaryLastName:'',
         primaryPhone:'',
@@ -31,7 +31,7 @@ const stepOne = {
         stateRegion:'',
         zipCode:'',
         closingDate:'',
-        
+        TCEmail:'',
         logoArea:null,
         collectiveAdress:'',
         fontSize:12,

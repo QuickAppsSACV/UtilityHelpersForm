@@ -8,7 +8,16 @@
         PODS and/or Pro Movers:
     </v-card-title>
     <v-card-text>
-        <v-row dense class="mt-0">
+        <div>
+            <p style="font-size: large;">
+                We have some great discounts available for PODS and professional movers. <br>Have you already booked your move, 
+                or is that something we can help you with?
+            </p>
+            <p style="font-size: large;">
+                Are you planning to rent a POD, hire professional movers, or both?
+            </p>
+        </div>
+        <v-row dense class="mt-5">
             <v-col cols="6">
                 <v-select
                 v-model="podsOrProMover"

@@ -9,16 +9,12 @@
            Home Security:
        </v-card-title>
        <v-card-text>
-        <v-row dense class="mt-0">
-            <v-col>
-                <p>
-                    <span class="yellow black--text text-h6">Tony Baroni Team ADT Offer</span>
-                    Install Fee is $199 for Command, Video Lite, or Home Automation
-                    <br class="">
-                    Install Fee is $299 for Video & Home Automation
-                </p>
-            </v-col>
-        </v-row>
+        <div v-if="this.$store.state.stepOne.TCEmail == 'buyerteam@tonybaroni.com'"  >
+            <p class="text-h6"> <mark> Tony Baroni Team ADT Offer</mark></p>
+            <p style="font-size: large;"><b>Install Fee</b> is <b>$199</b> for <b>Command, Video Lite,</b> or <b>Home Automation</b> <br>
+                <b>Install Fee</b> is <b>$299</b> for <b>Video & Home Automation</b></p><br>
+            <p style="font-size: large;" > <b>1 camera free </b>on <b>Video</b> and <b>Video & Home Automation</b> (additional cams get UH discount)</p>
+        </div>
            <v-row dense class="mt-0">
                    <v-col cols="6">
                        <v-select
