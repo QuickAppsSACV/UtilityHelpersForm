@@ -67,7 +67,7 @@
                                     ></v-select>
                                 </v-col>
                             </v-row>
-                            <v-row v-if="whoIsNameWillElectric == 'Primary'" dense class="mt-0">
+                            <v-row v-if="this.$store.state.stepThree.primaryBirthDateFormattedStore == '' && whoIsNameWillElectric == 'Primary'" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -83,7 +83,7 @@
                                     >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                        v-model="primaryDOBFormated"
+                                        v-model="primaryDOBFormatedStore"
                                         label="Primary DOB"
                                         dense
                                         outlined
@@ -91,7 +91,7 @@
                                         persistent-hint
                                         append-icon="mdi-calendar"
                                         v-bind="attrs"
-                                        @blur="primaryDOBDate = parseDate(primaryDOBFormated)"
+                                        @blur="primaryDOBDate = parseDate(primaryDOBFormatedStore)"
                                         v-on="on"
                                         ></v-text-field>
                                     </template>
@@ -103,7 +103,8 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row v-if="whoIsNameWillElectric == 'Primary'" dense>
+                            <v-row v-if="this.$store.state.stepThree.primarySSN == '' && whoIsNameWillElectric == 'Primary'" dense>
+                                <!-- Power -->
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
@@ -114,7 +115,7 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row v-if="whoIsNameWillElectric == 'Secondary'" dense class="mt-0">
+                            <v-row v-if="this.$store.state.stepThree.secondaryBirthDateFormattedStore == '' && whoIsNameWillElectric == 'Secondary'" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -130,7 +131,7 @@
                                     >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                        v-model="secondaryDOBFormated"
+                                        v-model="secondaryDOBFormatedStore"
                                         label="Secondary DOB for Power"
                                         dense
                                         outlined
@@ -138,7 +139,7 @@
                                         persistent-hint
                                         append-icon="mdi-calendar"
                                         v-bind="attrs"
-                                        @blur="secondaryDOBDate = parseDate(secondaryDOBFormated)"
+                                        @blur="secondaryDOBDate = parseDate(secondaryDOBFormatedStore)"
                                         v-on="on"
                                         ></v-text-field>
                                     </template>
@@ -150,7 +151,7 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row v-if="whoIsNameWillElectric == 'Secondary'"  dense>
+                            <v-row v-if="this.$store.state.stepThree.secondarySSNforcable == '' &&  whoIsNameWillElectric == 'Secondary'"  dense>
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
@@ -411,7 +412,7 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row v-if="!(primaryDOBFormated == '' || whosNameWillGas != 'Primary')" dense class="mt-0">
+                            <v-row v-if="!(primaryDOBFormatedStore != '' || whosNameWillGas != 'Primary'|| this.$store.state.stepThree.primaryBirthDateFormattedStore !='')" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -447,7 +448,8 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row v-if="whosNameWillGas != 'Primary'" dense>
+                            <v-row v-if="!(this.$store.state.stepThree.primarySSN != '' || whosNameWillGas != 'Primary'|| primarySSN!='')" dense>
+                                <!-- Gas -->
                                 <v-col class="" cols="6">
                                     <v-text-field
                                     dense
@@ -458,7 +460,7 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row v-if="!(secondaryDOBFormated == ''|| whosNameWillGas != 'Secondary')" dense class="mt-0">
+                            <v-row v-if="!(secondaryDOBFormatedStore != ''|| whosNameWillGas != 'Secondary'||this.$store.state.stepThree.secondaryBirthDateFormattedStore!= '')" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -494,8 +496,9 @@
                                     </v-menu>
                             </v-col>
                             </v-row>
-                            <v-row v-if="!(secondarySSNForPower == '' || whosNameWillGas != 'Secondary')" dense>
+                            <v-row v-if="!(this.$store.state.stepThree.secondarySSNforcable != '' || secondarySSNForPower != '' || whosNameWillGas != 'Secondary')" dense>
                                 <v-col class="" cols="6">
+                                    <!-- Gas -->
                                     <v-text-field
                                     dense
                                     outlined

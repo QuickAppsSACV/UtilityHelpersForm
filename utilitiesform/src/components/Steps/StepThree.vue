@@ -160,13 +160,13 @@
                 <v-select
                     outlined
                     label="Selected Internet Provider"
-                    :items="['AT&amp;T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'HughesNet', 'Kinetic - Windstream', 'Mediacom', 'Metronet', 'Optimum', 'Rise Broadband', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'Viasat', 'WOW', 'Xfinity']"
+                    :items="['AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'HughesNet', 'Kinetic - Windstream', 'Mediacom', 'Metronet', 'Optimum', 'Rise Broadband', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'Viasat', 'WOW', 'Xfinity']"
                     v-model="selectedInternetProvider">
                 </v-select>
             </v-col>
         </v-row>
         <v-row v-if="selectedInternetProvider == 'Xfinity' && internetCheckbox" dense class="mt-0">
-            <v-col>
+            <v-col >
                 <p class="red--text text-center font-weight-bold text-h6 ma-0 pb-0">
                     <span class="light-green accent-3 black--text text-h5 font-weight-bold pa-0 ma-0">IF ACTIVATION IS WITHIN 4 BUSINESS DAYS</span>
                     COMPLETE CABLE ACTIVATION
@@ -175,6 +175,129 @@
                 </p>
             </v-col>
         </v-row>
+        <div v-if="selectedInternetProvider == 'Xfinity' && internetCheckbox">
+            <v-row justify="center">
+                <v-img
+                :src="require('../../assets/map.png')"
+                contain
+                class="mx-auto"
+                height="250"
+                />
+            </v-row>
+            <v-row  class="pt-5" justify="center">
+                <p class="text-h4"> <mark>You must check available <br>
+                <u>Install Options</u> in the portal!</mark></p>
+            </v-row>
+        </div>
+        <div v-if="availableInternetProviders.toLowerCase().includes('rise broadband')">
+            <v-img
+                :src="require('../../assets/RiseBroadband.png')"
+                contain
+                class="mx-auto"
+                height="150"
+            />
+            <br>
+            <v-img
+                :src="require('../../assets/tableRiseBroadband.png')"
+                contain
+                class="mx-auto"
+                height="40vh"
+            />
+        </div>
+        <div v-if="selectedInternetProvider== 'Frontier'  && internetCheckbox">
+            <v-row class="pb-0">
+                <v-col>
+                    <p> <span class="text-h6" style="color:#3399ff">Frontier Equipment</span> <br>
+                    <span  style="color:black;font-size: large;" >Modem and 1 Eero Router is included at <u>no cost!</u>
+                        Whole Home WiFi: Adds <u>2 additional Eeros:</u> $10 per month (optional)</span></p>
+                </v-col>
+            </v-row>
+            <v-row class="pb-0">
+                <v-col>
+                    <p > <span class="text-h6" style="color:#3399ff">Frontier Install Fees:</span> <br>
+                    <span  style="color:black;font-size: large;" >$50 Professional Install (Can be billed $25/$25 on 1st 2 bills)</span></p>
+                </v-col>
+            </v-row>
+            <v-row justify="center">
+                <h1 style="color:red">Now Available in the Frontier Portal!</h1>
+            </v-row>
+            <v-row class="pt-7">
+                <v-img
+                :src="require('../../assets/youtubeTV.png')"
+                contain
+                class="mx-auto"
+                height="150"
+                />
+            </v-row>
+            <v-row>
+                <v-img
+                :src="require('../../assets/topchanels.png')"
+                contain
+                class="mx-auto"
+                height="150"
+                />
+            </v-row>
+            <v-row class="pt-5" justify="center">                
+                    <p class="text-h6" style="color:black"><b>YouTubeTV $72.99</b> (-$10 for Frontier Bundle) = <b ><span style="color:green">$62.99</span> for 12 Months</b></p>
+            </v-row>
+            <v-row justify="center">
+                <p class="text-h6" style="color:black"><b>YouTube TV Spanish Package</b> (28+ channels): <b ><span style="color:green"> $34.99</span> for 12 Months</b></p>
+            </v-row>
+            <v-row justify="center">
+                <p style="color:green" class="text-h5"> <b>NO BROADCAST FEE!!!</b></p>
+            </v-row>
+            <v-row  justify="center">
+                <p  style="color:black;  text-align: center" class="text-h6"><span style="color:#3399ff">Equipment:</span> <b>Google Chromecast 4K <span style="color:green">$49.99</span></b> each <br>
+                    (<span style="color:red">Not Required</span> as long as they have a streaming device <br> or smart tv that supports YouTubeTV)</p>
+            </v-row>
+        </div>
+        <div v-if="selectedInternetProvider== 'Spectrum'  && internetCheckbox">
+            <p class="text-h6" style="color:red">***UPDATED PRICING 8/10/23***</p>
+            <p style="font-size: large;"> <b>Important Update:</b></p>
+            <p style="color:#3399ff;font-size: large;"><b>Autopay is required to receive advertised prices on all Spectrum plans.<br>
+                (If autopay is not selected the price increases by $5)</b></p>
+            <br>
+            <p style="color:black;font-size: large;"><b>TV Select is now being split into 2 offerings in almost all areas:</b></p>
+            <p style="font-size: large;"><ul>
+                <li>TV Select Signature $59.99 – with No Regional Sports Networks (150+ channels)</li>
+                <li>TV Select Plus $69.99 – with Regional Sports Networks (160+channels)</li>
+            </ul></p>
+            <p  style="font-size: large;"><b style="color:#3399ff;">Spectrum Equipment:</b><br>
+                <span style="color:black;font-size: medium;">Modem is included at no cost!</span><br>
+                <span style="font-size:medium">WiFi: $5 (sometimes free promo)<br>
+                HD/DRV Boxes: $10.99<br>
+                DVR Service: $4.99 per TV</span></p>
+            <p  style="font-size: large;"><b style="color:#3399ff;">Install Fees:</b><br>
+                <span  style="font-size:medium">
+                Pro Install: $59.99 <br>
+                Service Activation: $24.99
+                </span></p>
+                <p  style="font-size: large;"><b style="color:#3399ff;">TV Fees:</b><br>
+                <span  style="font-size:medium">
+                Broadcast Fee: $23.20 per mo <br>
+                Sports View Fee: $7.00
+                </span></p>
+        </div>
+        <v-row class="pb-10"></v-row>
+        <div v-if="selectedInternetProvider== 'WOW' && internetCheckbox" >
+            <p  style="font-size: large;"><b style="color:#3399ff;">WOW Equipment:</b><br>
+                <span  style="font-size:medium">
+                Broadcast Fee: $23.20 per mo <br>
+                Sports View Fee: $7.00
+                </span>
+            </p>
+            <p style="font-size: medium;">
+              <b style="color:#3399ff">Phone:</b> $10.00  
+            </p>
+            <p  style="font-size: medium;"><b style="color:#3399ff;">Fees:</b><br>
+                <span  style="font-size:medium">
+                $5 discount with AutoPay<br>
+                (Internet Only) Network Enhancement Fee: $1.00 per mo <br>
+                (TV Only) Broadcast Fee: $26.00 per mo <br>
+                (TV Only) Sports Surcharge: $11.00 per mo
+                </span>
+            </p>
+        </div>
         <v-row  v-if="selectedInternetProvider == 'Brightspeed' && internetCheckbox " dense class="mt-0">
             <v-col>
                 <p class="red--text text-center font-weight-bold text-h6">
@@ -264,9 +387,48 @@
                 ></v-text-field>
             </v-col>
         </v-row>
+        <v-row v-if="selectedInternetProvider=='AT&T'  && internetCheckbox">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">AT&T Install Windows:</b>
+                    <br>
+                    (8am-10am) (10am-12pm) (12pm-2pm) (2pm-4pm)
+                </p>
+            </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'COX'  && internetCheckbox">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">Cox Install Windows:</b>
+                    <br>
+                   <b> (Mon-Sat)
+                    <br>
+                    (8am-10am) (10am-12pm) (1pm-3pm) (3pm-5pm)</b>
+                </p>
+            </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'Frontier'  && internetCheckbox">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">Frontier Install Windows:</b>
+                    <br>
+                    (8am-12pm)  (1pm-5pm)
+                </p>
+            </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'WOW' && internetCheckbox  || InstallationTypeInternet == 'Ship to Home' && internetCheckbox ">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">WOW Delivery Windows:</b>
+                    <br>
+                    (8am-10am) (10am-12pm) (11am-1pm) (1pm-3pm) (3pm-5pm) (4pm-6pm) 
+                </p>
+            </v-col>
+        </v-row>
         <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    dense
                     label="Installation Type (Internet)"
                     :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined
@@ -274,7 +436,19 @@
                 </v-select>
             </v-col>
         </v-row>
-        <div v-if="InstallationTypeInternet == 'Ship to Home' && selectedInternetProvider == 'COX'">
+        <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Professional Install') && internetCheckbox">
+            <p class="text-h5" style="text-align: center">
+                <b style="color:red">If requested install is within 30 days:</b> <br>
+                <mark>You must <u>complete the order in the portal </u>now with customer<br>
+                    because they'll need to receive a confirmation text.</mark></p>
+        </div>
+        <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Ship to Home') && internetCheckbox"  >
+            <p class="text-h5" style="text-align: center">
+                <b style="color:red">If requested delivery is within 7 days:</b> <br>
+                <mark>You must <u>complete the order in the portal </u>now with customer<br>
+                    because they'll need to receive a confirmation text.</mark></p>
+        </div>
+        <div v-if="InstallationTypeInternet == 'Ship to Home' && selectedInternetProvider == 'COX'  && internetCheckbox">
             <v-row class="pa-5">
                 <p class="text-h5" style="color:black"><b><u>Ship to home</u> delivery is  <span style="color:red">not available for Mondays.</span></b></p>
             </v-row>
@@ -282,17 +456,59 @@
                 <p style="color:black" class="text-h5 pl-5 pb-5"><u>If customer request Monday delivery:</u> offer <b>Tuesday</b> delivery, <b>pro-install</b>, or <b>in-store pickup.</b></p>
             </v-row>
         </div>
-        <v-row dense class="mt-0 mb-4">
+        <v-row v-if="selectedInternetProvider== 'Frontier'&& InstallationTypeInternet == 'Professional Install'  && internetCheckbox" dense class="mt-5 mb-4">
             <v-col cols="6">
                 <v-select
                     label="Will there be any pets present during the installation?"
                     :items="['Yes', 'No']"
-                    hint="If yes, read below to Customer:
-                            That's great, we love pets! Frontier asks that your pets be secured while their technician is on premises and inside your home, so they can move about freely to perform their job, and keep your pets safe."
+                    hint="a"
                     persistent-hint
                     outlined
                     v-model="anyPets">
+                    <template v-slot:message><div class="">
+                        <span style="color:red"> <b>If yes,</b></span> <u>read below to Customer:</u> <br>
+                         That's great, we love pets! Frontier asks that your pets be secured while their technician is on premises and inside your home,
+                         so they can move about freely to perform their job, and keep your pets safe.</div></template>
                 </v-select>
+            
+            </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'Spectrum'  && internetCheckbox">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">Spectrum Install Windows:</b>
+                    <br>
+                   <b> (7 Days a Week)
+                    <br>
+                    (8am-9am) (9am-10am) (11am-12pm) (12pm-1pm) (2pm-3pm) (3pm-4pm) (5pm-6pm) </b>
+                </p>
+            </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'Verizon'  && internetCheckbox">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">Verizon Install Windows:</b>
+                    <br>
+                    <b>(9am-11am) (11am-1pm) (1pm-3pm) (3pm-5pm)</b>
+                </p>
+            </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'WOW' && InstallationTypeInternet == 'Professional Install' && internetCheckbox ">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">WOW Install Windows:</b>
+                    <br>
+                    <b>(8am-10am) (9am-11am) (10am-12pm) (11am-1pm) (1pm-3pm) (3pm-5pm) </b>
+                </p>
+            </v-col>
+        </v-row>
+        <v-row v-if="selectedInternetProvider== 'Xfinity'  && internetCheckbox">
+            <v-col>
+                <p style="font-size:medium">
+                    <b style="color:#3399ff;">Xfinity Install Windows:</b>
+                    <br>
+                    <b style="color:red">(8am-10am) (10am-12pm) (12pm-2pm) (2pm-4pm) (3pm-5pm)</b>
+                </p>
             </v-col>
         </v-row>
         <v-row v-if="internetCheckbox" dense class="mt-0">
@@ -342,9 +558,10 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row  dense class="mt-0">
+        <v-row  v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    dense
                     label="Security Question (Internet)"
                     :items="securityQuestionItems"
                     v-model="securityQuestion"
@@ -352,7 +569,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0 mb-4">
+        <v-row v-if="(selectedInternetProvider== 'AT&T'||selectedInternetProvider== 'COX'||selectedInternetProvider== 'United Communications')&& internetCheckbox"  dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -457,6 +674,7 @@
         <v-row  v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    dense
                     v-model="selectedTV" 
                     label="Selected TV Provider"
                     :items="['Altice USA','COX', 'DirecTV Stream', 'DirecTV', 'Mediacom', 'Optimum', 'Spectrum', 'SuddenLink', 'Verizon', 'WOW', 'Xfinity', 'YouTube TV', 'Other']"
@@ -560,7 +778,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row  v-if="installationTypeSelectedTV != ''" dense class="mt-0">
+        <v-row  v-if="installationTypeSelectedTV != '' && tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     dense
@@ -572,7 +790,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="(selectedTV == 'COX'||selectedTV == 'DirecTV Stream') && tvCheckbox " dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -592,7 +810,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="installationTypeSelectedTV != ''" dense class="mt-0">
+        <v-row v-if="installationTypeSelectedTV != '' && tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 v-model="tvAccountWorkorder"
@@ -609,7 +827,7 @@
                 <v-select
                     v-model="selectedPhone"
                     label="Selected Phone Provider"
-                    :items="['AT&amp;T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']"
+                    :items="['AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']"
                     outlined>
                 </v-select>
                 <v-text-field
@@ -797,7 +1015,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="selectedInternetProvider=='Viasat' && internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -854,84 +1072,86 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="(selectedInternetProvider== 'Frontier'||selectedInternetProvider== 'Spectrum' || selectedInternetProvider== 'Viasat') && internetCheckbox  " dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     v-model="collectCCInfo"
                     label="Collect CC Info for AutoPay or Initial Payment"
-                    :items="['Yes']"
+                    :items="['Yes','No']"
                     outlined>
                 </v-select>
             </v-col>
         </v-row>
-        <h2 color="black" class="black--text">--Payment Info--</h2>
-        <br>
-        <v-row dense class="mt-0">
-            <v-col cols="6">
-                <v-select
-                    label="Card Type"
+        <div v-if="(selectedInternetProvider== 'Frontier'||selectedInternetProvider== 'Spectrum' || selectedInternetProvider== 'Viasat') && internetCheckbox && collectCCInfo=='Yes'  ">
+            <h2 color="black" class="black--text">--Payment Info--</h2>
+            <br>
+            <v-row dense class="mt-0">
+                <v-col cols="6">
+                    <v-select
+                        label="Card Type"
+                        dense
+                        v-model="cardType"
+                        :items="['Visa', 'Mastercard', 'Discover', 'American Express']"
+                        outlined>
+                    </v-select>
+                </v-col>
+            </v-row>
+            <v-row dense class="mt-0">
+                <v-col cols="6">
+                    <v-text-field 
+                    v-model="CCNumber"
                     dense
-                    v-model="cardType"
-                    :items="['Visa', 'Mastercard', 'Discover', 'American Express']"
-                    outlined>
-                </v-select>
-            </v-col>
-        </v-row>
-        <v-row dense class="mt-0">
-            <v-col cols="6">
-                <v-text-field 
-                v-model="CCNumber"
-                dense
-                outlined
-                label="Credit Card Number"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row dense class="mt-0">
-            <v-col cols="6">
-                <v-text-field 
-                dense
-                v-model="expiration"
-                outlined
-                label="Expiration"
-                hint="MM/YY"
-                persistent-hint
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row dense class="mt-0">
-            <v-col cols="6">
-                <v-text-field 
-                dense
-                v-model="NameonCard"
-                outlined
-                label="Name on Card"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row dense class="mt-0">
-            <v-col cols="6">
-                <v-text-field 
-                dense
-                v-model="billingZipCode"
-                outlined
-                label="Billing Zip Code"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row dense class="mt-0">
-            <v-col cols="6">
-                <v-text-field 
-                dense
-                outlined
-                v-model="cardVerificationCode"
-                label="Card Verification Code"
-                hint="3 or 4 Digit Code on the Back of the Card. (May be embossed on the front of some cards)"
-                persistent-hint
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <div v-if="selectedInternetProvider != '' || selectedTV != ''">
+                    outlined
+                    label="Credit Card Number"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row dense class="mt-0">
+                <v-col cols="6">
+                    <v-text-field 
+                    dense
+                    v-model="expiration"
+                    outlined
+                    label="Expiration"
+                    hint="MM/YY"
+                    persistent-hint
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row dense class="mt-0">
+                <v-col cols="6">
+                    <v-text-field 
+                    dense
+                    v-model="NameonCard"
+                    outlined
+                    label="Name on Card"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row dense class="mt-0">
+                <v-col cols="6">
+                    <v-text-field 
+                    dense
+                    v-model="billingZipCode"
+                    outlined
+                    label="Billing Zip Code"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row dense class="mt-0">
+                <v-col cols="6">
+                    <v-text-field 
+                    dense
+                    outlined
+                    v-model="cardVerificationCode"
+                    label="Card Verification Code"
+                    hint="3 or 4 Digit Code on the Back of the Card. (May be embossed on the front of some cards)"
+                    persistent-hint
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+        </div>
+        <div v-if="selectedInternetProvider != ''  && internetCheckbox || selectedTV != ''  && tvCheckbox">
             <v-row justify="center">
                 <p class="text-h4" style="color:black">READ TO CUSTOMER:</p>
             </v-row>
@@ -949,7 +1169,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row v-if="installationTypeSelectedTV != ''" dense class="mt-0">
+        <v-row v-if="installationTypeSelectedTV != '' && tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     v-model="createTicketTV"
@@ -971,7 +1191,7 @@
                     ></v-textarea>
                 </v-col>
         </v-row>
-        <v-row dense class="mt-0">
+        <v-row v-if="selectedInternetProvider != ''&& selectedTV!= ''  && internetCheckbox  && tvCheckbox " dense class="mt-0">
             <v-col cols="6">
                 <v-checkbox
                 v-model="ihaveReviewed"
