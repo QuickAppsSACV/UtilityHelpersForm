@@ -120,7 +120,7 @@
                    </tr>
                    <tr>
                     <td> Yard is collected:</td>
-                    <td> {{ $store.state.stepTwo.yardDaysIsCollected }} </td>
+                    <td> {{ $store.state.stepTwo.yardIsCollected }} </td>
                    </tr>
                 </table>
                 <table>
@@ -145,7 +145,7 @@
                    </tr>
                    <tr>
                     <td>  Cable Services Requested <span style="color:red">*  NEED Attention</span></td>
-                    <td> {{ $store.state.stepThree.yardDaysIsCollected }} </td>
+                    <td> {{ $store.state.stepThree.yardIsCollected }} </td>
                    </tr>
                    <tr>
                     <td> Previous Address (OLD)  <span style="color:red">*</span> </td>

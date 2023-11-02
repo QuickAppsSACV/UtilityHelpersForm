@@ -10,7 +10,7 @@ const stepTwo = {
         recycleDays:'',
         recycleIsCollected:'',
         yardDays:'',
-        yardDaysIsCollected:'',
+        yardIsCollected:'',
     },
     mutations: {
 

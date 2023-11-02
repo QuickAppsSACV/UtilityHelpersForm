@@ -115,7 +115,7 @@
                     dense
                     disabled
                     persistent-hint
-                    v-model="yardDaysIsCollected"
+                    v-model="yardIsCollected"
                     hint="if blank (EVERY WEEK)"
                     label="Yard is collected"
                     ></v-text-field>
@@ -208,12 +208,12 @@ export default {
                 this.$store.state.stepTwo.yardDays = value;
             },
         },
-        yardDaysIsCollected: {
+        yardIsCollected: {
             get() {
-                return this.$store.state.stepTwo.yardDaysIsCollected;
+                return this.$store.state.stepTwo.yardIsCollected;
             },
             set(value) {
-                this.$store.state.stepTwo.yardDaysIsCollected = value;
+                this.$store.state.stepTwo.yardIsCollected = value;
             },
         },
        

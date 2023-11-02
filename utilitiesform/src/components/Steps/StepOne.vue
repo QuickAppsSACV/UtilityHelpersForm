@@ -54,6 +54,16 @@
               </v-fade-transition>
             </template>
           </v-text-field>
+          <v-select
+          dense
+          outlined
+          v-if="selectBoolean"
+          @change="getData()"
+          :items="crmItems"
+          v-model="selectedEmail"
+          item-text="name"
+          label="Select email"
+          ></v-select>
             <h2 color="blue" class="blue-text">--Primary--</h2>
             <v-divider class="mt-2 mb-7"></v-divider>
             
@@ -430,6 +440,9 @@ export default {
         menu2: false,
         loading:false,
         message: 'Hey!',
+        crmItems: [],
+        selectBoolean:false,
+        selectedEmail: '',
         
     }),
     watch: {
@@ -694,6 +707,106 @@ export default {
                 this.$store.state.stepOne.closingDate = value;
             },
         },
+        //-------------------------step2------------------------------
+        researchNotes: {
+            get() {
+                return this.$store.state.stepTwo.researchNotes;
+            },
+            set(value) {
+                this.$store.state.stepTwo.researchNotes = value;
+            },
+        },
+        availableGas: {
+            get() {
+                return this.$store.state.stepTwo.availableGas;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availableGas = value;
+            },
+        },
+        availableTrash: {
+            get() {
+                return this.$store.state.stepTwo.availableTrash;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availableTrash = value;
+            },
+        },
+        recycleIsCollected: {
+            get() {
+                return this.$store.state.stepTwo.recycleIsCollected;
+            },
+            set(value) {
+                this.$store.state.stepTwo.recycleIsCollected = value;
+            },
+        },
+        yardIsCollected: {
+            get() {
+                return this.$store.state.stepTwo.yardIsCollected;
+            },
+            set(value) {
+                this.$store.state.stepTwo.yardIsCollected = value;
+            },
+        },
+        // --------------------------step 3------------------------------------
+        previousStreet: {
+            get() {
+                return this.$store.state.stepThree.previousStreet;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousStreet = value;
+            },
+        },  
+        previousCity: {
+            get() {
+                return this.$store.state.stepThree.previousCity;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousCity = value;
+            },
+        },
+        previousState: {
+            get() {
+                return this.$store.state.stepThree.previousState;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousState = value;
+            },
+        },
+        previousZipCode: {
+            get() {
+                return this.$store.state.stepThree.previousZipCode;
+            },
+            set(value) {
+                this.$store.state.stepThree.previousZipCode = value;
+            },
+        },
+        primaryBirthDateFormattedStore: {
+            get() {
+                return this.$store.state.stepThree.primaryBirthDateFormattedStore;
+            },
+            set(value) {
+                this.$store.state.stepThree.primaryBirthDateFormattedStore = value;
+            },
+        },
+        //step 4 -------------------------------------------------
+        alreadyRequestedThroughIntroEmail:{
+            get(){
+                return this.$store.state.stepFour.alreadyRequestedThroughIntroEmail;
+            },
+            set(value){
+            this.$store.state.stepFour.alreadyRequestedThroughIntroEmail=value;
+            },
+        },
+        //step7-----------------------------------------
+        availableGasProviders: {
+            get() {
+                return this.$store.state.stepSeven.availableGasProviders;
+            },
+            set(value) {
+                this.$store.state.stepSeven.availableGasProviders = value;
+            },
+        },
         computedDateFormatted () {
             return this.formatDate(this.date)
         },
@@ -716,38 +829,88 @@ export default {
   },
     methods: {
      async  clickMe () {
-        this.loading = true
-        setTimeout(() => {
-           this.loading = false
-        }, 2000)
+        try { 
+         this.loading = true
+         let data = {
+          "zohoCRM": this.zohoCRM
+        };       
+        const callCRM = await axios.request({
+                url: "https://utilitiesformcatalyst-833998083.development.catalystserverless.com/server/utilities_form_catalyst_function/crm",
+                method: 'POST',
+                headers:{
+                "Content-type":"application/x-www-form-urlencoded",
+                },
+                data: data
+            })
+            this.crmItems = [];
+            this.crmItems.push(...JSON.parse("["+callCRM.data.message+"]"));
+            this.selectBoolean = true;
+            this.loading = false
+        } catch (error) {
+            this.loading = false
+            console.log(error)
+        }
 
-        // const resp=  await axios({
-        //     url:`https://www.zohoapis.com/crm/v2/Leads/search?criteria=(Email:starts_with:`+this.zohoCRM+`)`, 
-        //     method:"GET",
-        //     headers:{
-        //       "Content-type":"application/json",
-        //       "Authorization": "bearer 1000.e32058a05cfff0df4221170640edde71.09fd24e01f152959d7016a07b7c17dbe"
-        //     },
-        //   })
-        const data = {
-        'crmAPIRequest': this.zohoCRM,
-         }
-         //headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        //  console.log(data);
-        //  console.log();
-        //  console.log(JSON.parse(data));
-        // url:`https://www.zohoapis.com/crm/v2/functions/FormServerless/actions/execute?auth_type=apikey&zapikey=1003.9bfee056482b123ed4c7a478d7eb4683.513ec5f354e37a03742b210e05a5a9b1`,
-        // const resp = await axios({
-        //     url:'https://webhook.site/ef62294c-9312-4213-b2ad-07a1702d0044',
-        //      method: 'POST',
-        //      headers: {'Content-Type':'application/json'},
-        //      data: JSON.stringify({"data":data})
-        // })
-        //   console.log(resp);
-        // console.log(JSON.parse(data));
+      },
+      async getData(){
+        try{
+        let data = {
+          "leadID": this.selectedEmail
+        };  
+        const callCRM = await axios.request({
+                url: "https://utilitiesformcatalyst-833998083.development.catalystserverless.com/server/utilities_form_catalyst_function/getData",
+                method: 'POST',
+                headers:{
+                "Content-type":"application/x-www-form-urlencoded",
+                },
+                data: data
+            })
+        let lead = JSON.parse(callCRM.data.message)
 
+        //step 1---------------------------------------------
+        this.primaryEmail = lead.Email;
+        this.primaryFirstName = lead.First_Name;
+        this.primaryLastName = lead.Last_Name;
+        this.primaryPhone = lead.Phone;
+        this.secondaryFirstName = lead.Buyer2_First_Name;
+        this.secondaryLastName = lead.Buyer2_Last_Name;
+        this.secondaryPhone = lead.Buyer2_Phone ;
+        this.secondaryEmail = lead.Secondary_Email;
+        this.streetAddress = lead.Street;
+        this.city = lead.City;
+        this.state = lead.stateRegion;
+        this.zipCode = lead.Zip_Code;
+        this.closingDate = lead.Close_Date;
+        this.whosubmittedRequest = lead.Lead_Submitted_By;
+        this.agentFirstName = lead.Agent_First_Name;
+        this.agentLastName = lead.Agent_Last_Name;
+        this.assistantFirstName = lead.TC_Name;
+        this.assistantLastName = lead.TC_Last_Name;
+        this.referrallPartner = lead.Referral_Source;
+        
+        //step2---------------------------------------------------
+        this.researchNotes = lead.Research_Notes;
+        this.availableGas = lead.Available_Gas_Providers;
+        this.availableTrash = lead.Available_Trash_Providers;
+        this.recycleIsCollected = lead.Not_Weekly_Recycle;
+        this.yardIsCollected = lead.Not_Weekly_Yard;
 
+        
+        // step3----------------------------------------------
+        this.previousStreet = lead.Previous_Street_Address;
+        this.previousState = lead.Previous_State;
+        this.previousCity = lead.Previous_City;
+        this.previousZipCode = lead.Previous_Zip;
+        this.primaryBirthDateFormattedStore = lead.Date_of_Birth
 
+        //step4-----------------------------------------------
+        this.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
+        //step7--------------------------------------------------
+        // this.availableGasProviders = lead.Available_Gas_Providers
+
+        }catch(err){
+            console.log(err)
+        }
 
       },
       formatDate (date) {
