@@ -1002,7 +1002,6 @@
                         @input="primaryBirthMenu = false"
                     ></v-date-picker>
                     </v-menu>
-                    <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
         <v-row v-if="internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone)" dense class="mt-0">

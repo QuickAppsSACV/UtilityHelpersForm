@@ -81,7 +81,7 @@
                 <v-card-subtitle>
                     Available Provider Synopsis
                 </v-card-subtitle>
-                <table>   
+                <table id="myTable">   
                    <tr>
                     <td class="tdClass">Research Notes:</td>
                     <td class="tdClass"> {{ $store.state.stepTwo.researchNotes }}  </td>
@@ -123,7 +123,7 @@
                     <td class="tdClass"> {{ $store.state.stepTwo.yardIsCollected }} </td>
                    </tr>
                 </table>
-                <table>
+                <table id="myTable">
                     <v-card-subtitle>
                         Cable/Internet/Phone
                     </v-card-subtitle>
@@ -177,7 +177,7 @@
                 <v-card-subtitle>
                     Home Security
                 </v-card-subtitle>
-                <table>
+                <table id="myTable">
                     <tr>
                     <td class="tdClass"> Who's Name will Security be in?</td>
                     <td class="tdClass"> {{ $store.state.stepFour.whoIsNameWillSecurityBeIn }} </td>
@@ -198,7 +198,7 @@
                 <v-card-subtitle>
                     Homeowners Insurance
                 </v-card-subtitle>
-                <table>
+                <table id="myTable">
                     <tr>
                         <td class="tdClass"> New State</td>
                         <td class="tdClass"> {{ $store.state.stepFive.newState }} </td>
@@ -215,7 +215,7 @@
                 <v-card-subtitle>
                     PODS / Pro Movers
                 </v-card-subtitle>
-                <table>
+                <table id="myTable">
                     <tr>
                         <td class="tdClass"> PODS or Pro Mover?</td>
                         <td class="tdClass"> {{ $store.state.stepSix.podsOrProMover }} </td>
@@ -228,7 +228,7 @@
                 <v-card-subtitle>
                     Electric
                 </v-card-subtitle>
-                <table>
+                <table id="myTable">
                     <tr>
                         <td class="tdClass"> Available Power Provider(s)</td>
                         <td class="tdClass"> {{ $store.state.stepSeven.availablePowerProviders }} </td>
@@ -261,7 +261,7 @@
                 <v-card-subtitle>
                     Water/Sewer/Trash
                 </v-card-subtitle>
-                <table>
+                <table id="myTable">
                     <tr>
                         <td class="tdClass"> Available Water/Sewer</td>
                         <td class="tdClass"> {{ $store.state.stepEight.availableWater }} </td>
