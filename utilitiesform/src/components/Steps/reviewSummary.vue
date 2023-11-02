@@ -6,76 +6,76 @@
             <v-card-text>
                 <table id="myTable">
                     <tr>
-                        <td>Template Instructions</td>
-                        <td> {{ $store.state.stepOne.templateInstructions }} </td>
+                        <td class="tdClass">Template Instructions</td>
+                        <td class="tdClass"> {{ $store.state.stepOne.templateInstructions }} </td>
                     </tr>
                     <tr>
-                        <td>Zoho CRM <span style="color:red">*</span></td>
-                        <td>{{ $store.state.stepOne.zohoCRM }}</td>
+                        <td class="tdClass">Zoho CRM <span style="color:red">*</span></td>
+                        <td class="tdClass">{{ $store.state.stepOne.zohoCRM }}</td>
                     </tr>
                     <tr>
-                        <td>Primary Email</td>
-                        <td> {{ $store.state.stepOne.primaryEmail }}</td>
+                        <td class="tdClass">Primary Email</td>
+                        <td class="tdClass"> {{ $store.state.stepOne.primaryEmail }}</td>
                     </tr>
                    <tr>
-                    <td>Primary Name</td>
-                    <td> {{ $store.state.stepOne.primaryFirstName }}  {{ $store.state.stepOne.primaryLastName }}  </td>
+                    <td class="tdClass">Primary Name</td>
+                    <td class="tdClass"> {{ $store.state.stepOne.primaryFirstName }}  {{ $store.state.stepOne.primaryLastName }}  </td>
                    </tr>
                    <tr>
-                    <td>Primary Phone</td>
-                    <td> {{ $store.state.stepOne.primaryPhone }}   </td>
+                    <td class="tdClass">Primary Phone</td>
+                    <td class="tdClass"> {{ $store.state.stepOne.primaryPhone }}   </td>
                    </tr>
                    <tr>
-                    <td> Secondary Email</td>
-                    <td>  {{ $store.state.stepOne.secondaryEmail }}  </td>
+                    <td class="tdClass"> Secondary Email</td>
+                    <td class="tdClass">  {{ $store.state.stepOne.secondaryEmail }}  </td>
                    </tr>
                    <tr>
-                    <td> Secondary Name</td>
-                    <td>  {{ $store.state.stepOne.secondaryFirstName }} {{ $store.state.stepOne.secondaryLastName }}  </td>
+                    <td class="tdClass"> Secondary Name</td>
+                    <td class="tdClass">  {{ $store.state.stepOne.secondaryFirstName }} {{ $store.state.stepOne.secondaryLastName }}  </td>
                    </tr>
                    <tr>
-                    <td>Secondary Phone</td>
-                    <td>{{ $store.state.stepOne.secondaryPhone }}</td>
+                    <td class="tdClass">Secondary Phone</td>
+                    <td class="tdClass">{{ $store.state.stepOne.secondaryPhone }}</td>
                    </tr>
                    <tr>
-                    <td>Who am i speaking to?  <span style="color:red">*</span></td>
-                    <td> {{ $store.state.stepOne.whoamISpeaking }}   </td>
+                    <td class="tdClass">Who am i speaking to?  <span style="color:red">*</span></td>
+                    <td class="tdClass"> {{ $store.state.stepOne.whoamISpeaking }}   </td>
                    </tr>
                    <tr>
-                    <td> Will any services be in the Secondary's name? <span style="color:red">*</span>   </td>
-                    <td>  {{ $store.state.stepOne.willanyService }}  </td>
+                    <td class="tdClass"> Will any services be in the Secondary's name? <span style="color:red">*</span>   </td>
+                    <td class="tdClass">  {{ $store.state.stepOne.willanyService }}  </td>
                    </tr>
                    <tr>
-                    <td>Who submitted the request</td>
-                    <td>  {{ $store.state.stepOne.whosubmittedRequest }}</td>
+                    <td class="tdClass">Who submitted the request</td>
+                    <td class="tdClass">  {{ $store.state.stepOne.whosubmittedRequest }}</td>
                    </tr>
                    <tr>
-                    <td>Referral Partner    </td>
-                    <td> {{ $store.state.stepOne.referrallPartner }}   </td>
+                    <td class="tdClass">Referral Partner    </td>
+                    <td class="tdClass"> {{ $store.state.stepOne.referrallPartner }}   </td>
                    </tr>
                    <tr>
-                    <td>Brokerage/Company    </td>
-                    <td>  {{ $store.state.stepOne.brokerageCompany }}  </td>
+                    <td class="tdClass">Brokerage/Company    </td>
+                    <td class="tdClass">  {{ $store.state.stepOne.brokerageCompany }}  </td>
                    </tr>
                    <tr>
-                    <td> Agent </td>
-                    <td>  {{ $store.state.stepOne.agentFirstName }}  {{ $store.state.stepOne.agentLastName }} </td>
+                    <td class="tdClass"> Agent </td>
+                    <td class="tdClass">  {{ $store.state.stepOne.agentFirstName }}  {{ $store.state.stepOne.agentLastName }} </td>
                    </tr>
                    <tr>
-                    <td>Assistant</td>
-                    <td> {{ $store.state.stepOne.assistantFirstName }} {{ $store.state.stepOne.assistantLastName }}   </td>
+                    <td class="tdClass">Assistant</td>
+                    <td class="tdClass"> {{ $store.state.stepOne.assistantFirstName }} {{ $store.state.stepOne.assistantLastName }}   </td>
                    </tr>
                    <tr>
-                    <td> New Address (Moving To)   </td>
-                    <td> {{ $store.state.stepOne.streetAddress }} {{ $store.state.stepOne.city }} {{ $store.state.stepOne.stateRegion }} {{ $store.state.stepOne.zipCode }}      </td>
+                    <td class="tdClass"> New Address (Moving To)   </td>
+                    <td class="tdClass"> {{ $store.state.stepOne.streetAddress }} {{ $store.state.stepOne.city }} {{ $store.state.stepOne.stateRegion }} {{ $store.state.stepOne.zipCode }}      </td>
                    </tr>
                    <tr>
-                    <td> Expected Closing Date </td>
-                    <td> {{ $store.state.stepOne.closingDate }}   </td>
+                    <td class="tdClass"> Expected Closing Date </td>
+                    <td class="tdClass"> {{ $store.state.stepOne.closingDate }}   </td>
                    </tr>
                    <tr>
-                    <td> Some Services will be in the <br>Secondary NameDid you add/verify <br>Secondary data? <span style="color:red">*</span></td>
-                    <td> {{ $store.state.stepOne.someServicesWill }}   </td>
+                    <td class="tdClass"> Some Services will be in the <br>Secondary NameDid you add/verify <br>Secondary data? <span style="color:red">*</span></td>
+                    <td class="tdClass"> {{ $store.state.stepOne.someServicesWill }}   </td>
                    </tr>
                 </table>
                 <v-card-subtitle>
@@ -83,44 +83,44 @@
                 </v-card-subtitle>
                 <table>   
                    <tr>
-                    <td>Research Notes:</td>
-                    <td> {{ $store.state.stepTwo.researchNotes }}  </td>
+                    <td class="tdClass">Research Notes:</td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.researchNotes }}  </td>
                    </tr>
                    <tr>
-                    <td>1. Available Power Provider(s) </td>
-                    <td> {{ $store.state.stepTwo.availablePower }}   </td>
+                    <td class="tdClass">1. Available Power Provider(s) </td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.availablePower }}   </td>
                    </tr>
                    <tr>
-                    <td> 2. Available Gas Provider </td>
-                    <td> {{ $store.state.stepTwo.availableGas }}   </td>
+                    <td class="tdClass"> 2. Available Gas Provider </td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.availableGas }}   </td>
                    </tr>
                    <tr>
-                    <td> 3. Available Water/Sewer Service  </td>
-                    <td> {{ $store.state.stepTwo.availableWater }}   </td>
+                    <td class="tdClass"> 3. Available Water/Sewer Service  </td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.availableWater }}   </td>
                    </tr>
                    <tr>
-                    <td> 4. Available Trash Provider </td>
-                    <td> {{ $store.state.stepTwo.availableTrash }}   </td>
+                    <td class="tdClass"> 4. Available Trash Provider </td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.availableTrash }}   </td>
                    </tr>
                    <tr>
-                    <td> Trash Days </td>
-                    <td> {{ $store.state.stepTwo.trashDays }} </td>
+                    <td class="tdClass"> Trash Days </td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.trashDays }} </td>
                    </tr>
                    <tr>
-                    <td> Recycle Days</td>
-                    <td> {{ $store.state.stepTwo.recycleDays }} </td>
+                    <td class="tdClass"> Recycle Days</td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.recycleDays }} </td>
                    </tr>
                    <tr>
-                    <td> Recycle is collected:</td>
-                    <td> {{ $store.state.stepTwo.recycleIsCollected }} </td>
+                    <td class="tdClass"> Recycle is collected:</td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.recycleIsCollected }} </td>
                    </tr>
                    <tr>
-                    <td> Yard Days</td>
-                    <td> {{ $store.state.stepTwo.yardDays }} </td>
+                    <td class="tdClass"> Yard Days</td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.yardDays }} </td>
                    </tr>
                    <tr>
-                    <td> Yard is collected:</td>
-                    <td> {{ $store.state.stepTwo.yardIsCollected }} </td>
+                    <td class="tdClass"> Yard is collected:</td>
+                    <td class="tdClass"> {{ $store.state.stepTwo.yardIsCollected }} </td>
                    </tr>
                 </table>
                 <table>
@@ -128,50 +128,50 @@
                         Cable/Internet/Phone
                     </v-card-subtitle>
                     <tr>
-                    <td>Available Internet Provider(s)</td>
-                    <td> {{ $store.state.stepThree.availableInternetProviders }} </td>
+                    <td class="tdClass">Available Internet Provider(s)</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.availableInternetProviders }} </td>
                    </tr>
                    <tr>
-                    <td> Available TV Provider(s)</td>
-                    <td> {{ $store.state.stepThree.availableTVProviders }} </td>
+                    <td class="tdClass"> Available TV Provider(s)</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.availableTVProviders }} </td>
                    </tr>
                    <tr>
-                    <td> Available Phone Provider(s)</td>
-                    <td> {{ $store.state.stepThree.availablePhoneProviders }} </td>
+                    <td class="tdClass"> Available Phone Provider(s)</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.availablePhoneProviders }} </td>
                    </tr>
                    <tr>
-                    <td> New Address</td>
-                    <td> {{ $store.state.stepThree.newStreetAddress }} {{ $store.state.stepThree.newCity }}  {{ $store.state.stepThree.newState }}  {{ $store.state.stepThree.newZipCode }}   </td>
+                    <td class="tdClass"> New Address</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.newStreetAddress }} {{ $store.state.stepThree.newCity }}  {{ $store.state.stepThree.newState }}  {{ $store.state.stepThree.newZipCode }}   </td>
                    </tr>
                    <tr>
-                    <td>  Cable Services Requested <span style="color:red">*  NEED Attention</span></td>
-                    <td> {{ $store.state.stepThree.yardIsCollected }} </td>
+                    <td class="tdClass">  Cable Services Requested <span style="color:red">*  NEED Attention</span></td>
+                    <td class="tdClass"> {{ $store.state.stepThree.yardIsCollected }} </td>
                    </tr>
                    <tr>
-                    <td> Previous Address (OLD)  <span style="color:red">*</span> </td>
-                    <td> {{ $store.state.stepThree.previousStreet }} {{ $store.state.stepThree.previousCity }}
+                    <td class="tdClass"> Previous Address (OLD)  <span style="color:red">*</span> </td>
+                    <td class="tdClass"> {{ $store.state.stepThree.previousStreet }} {{ $store.state.stepThree.previousCity }}
                         {{ $store.state.stepThree.previousState }} {{ $store.state.stepThree.previousZipCode }}
                     </td>
                    </tr>
                    <tr>
-                    <td> Security Question (Internet)</td>
-                    <td> {{ $store.state.stepThree.securityQuestion }} </td>
+                    <td class="tdClass"> Security Question (Internet)</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.securityQuestion }} </td>
                    </tr>
                    <tr>
-                    <td> Mobile Phone Provider</td>
-                    <td> {{ $store.state.stepThree.mobilePhoneProvider }} </td>
+                    <td class="tdClass"> Mobile Phone Provider</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.mobilePhoneProvider }} </td>
                    </tr>
                    <tr>
-                    <td>Number of Mobile Lines Purchased</td>
-                    <td> {{ $store.state.stepThree.noMobileLines }} </td>
+                    <td class="tdClass">Number of Mobile Lines Purchased</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.noMobileLines }} </td>
                    </tr>
                    <tr>
-                    <td> Mobile Activation Date</td>
-                    <td> {{ $store.state.stepThree.mobileActivationDateFormattedStore }} </td>
+                    <td class="tdClass"> Mobile Activation Date</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.mobileActivationDateFormattedStore }} </td>
                    </tr>
                    <tr>
-                    <td> Mobile Notes</td>
-                    <td> {{ $store.state.stepThree.mobileNotes }} </td>
+                    <td class="tdClass"> Mobile Notes</td>
+                    <td class="tdClass"> {{ $store.state.stepThree.mobileNotes }} </td>
                    </tr>
                 </table>
                 <v-card-subtitle>
@@ -179,20 +179,20 @@
                 </v-card-subtitle>
                 <table>
                     <tr>
-                    <td> Who's Name will Security be in?</td>
-                    <td> {{ $store.state.stepFour.whoIsNameWillSecurityBeIn }} </td>
+                    <td class="tdClass"> Who's Name will Security be in?</td>
+                    <td class="tdClass"> {{ $store.state.stepFour.whoIsNameWillSecurityBeIn }} </td>
                    </tr>
                    <tr>
-                    <td> Alarm Company</td>
-                    <td> {{ $store.state.stepFour.alarmCompany }} </td>
+                    <td class="tdClass"> Alarm Company</td>
+                    <td class="tdClass"> {{ $store.state.stepFour.alarmCompany }} </td>
                    </tr>
                    <tr>
-                    <td> TraxID / Order#</td>
-                    <td> {{ $store.state.stepFour.traxID }} </td>
+                    <td class="tdClass"> TraxID / Order#</td>
+                    <td class="tdClass"> {{ $store.state.stepFour.traxID }} </td>
                    </tr>
                    <tr>
-                    <td> Alarm Notes</td>
-                    <td> {{ $store.state.stepFour.alarmNotes }} </td>
+                    <td class="tdClass"> Alarm Notes</td>
+                    <td class="tdClass"> {{ $store.state.stepFour.alarmNotes }} </td>
                    </tr>
                 </table>
                 <v-card-subtitle>
@@ -200,16 +200,16 @@
                 </v-card-subtitle>
                 <table>
                     <tr>
-                        <td> New State</td>
-                        <td> {{ $store.state.stepFive.newState }} </td>
+                        <td class="tdClass"> New State</td>
+                        <td class="tdClass"> {{ $store.state.stepFive.newState }} </td>
                     </tr>
                     <tr>
-                        <td> Insurance quote requested?</td>
-                        <td> {{ $store.state.stepFive.insuranceQuoteRequested }} </td>
+                        <td class="tdClass"> Insurance quote requested?</td>
+                        <td class="tdClass"> {{ $store.state.stepFive.insuranceQuoteRequested }} </td>
                     </tr>
                     <tr>
-                        <td>What is your Date of Birth?</td>
-                        <td> {{ $store.state.stepFive.dateOfBirthDateStore }} </td>
+                        <td class="tdClass">What is your Date of Birth?</td>
+                        <td class="tdClass"> {{ $store.state.stepFive.dateOfBirthDateStore }} </td>
                     </tr>
                 </table>
                 <v-card-subtitle>
@@ -217,12 +217,12 @@
                 </v-card-subtitle>
                 <table>
                     <tr>
-                        <td> PODS or Pro Mover?</td>
-                        <td> {{ $store.state.stepSix.podsOrProMover }} </td>
+                        <td class="tdClass"> PODS or Pro Mover?</td>
+                        <td class="tdClass"> {{ $store.state.stepSix.podsOrProMover }} </td>
                     </tr>
                     <tr>
-                        <td> Customer would like a Solar Consultation</td>
-                        <td> {{ $store.state.stepSix.wouldLikeSolarConsulation }} </td>
+                        <td class="tdClass"> Customer would like a Solar Consultation</td>
+                        <td class="tdClass"> {{ $store.state.stepSix.wouldLikeSolarConsulation }} </td>
                     </tr>
                 </table>
                 <v-card-subtitle>
@@ -230,32 +230,32 @@
                 </v-card-subtitle>
                 <table>
                     <tr>
-                        <td> Available Power Provider(s)</td>
-                        <td> {{ $store.state.stepSeven.availablePowerProviders }} </td>
+                        <td class="tdClass"> Available Power Provider(s)</td>
+                        <td class="tdClass"> {{ $store.state.stepSeven.availablePowerProviders }} </td>
                     </tr>
                     <tr>
-                        <td>Primary DOB</td>
-                        <td> {{ $store.state.stepSeven.primaryDOBFormatedStore }} </td>
+                        <td class="tdClass">Primary DOB</td>
+                        <td class="tdClass"> {{ $store.state.stepSeven.primaryDOBFormatedStore }} </td>
                     </tr>
                     <tr>
-                        <td>Primary SSN</td>
-                        <td> {{ $store.state.stepSeven.primarySSN }} </td>
+                        <td class="tdClass">Primary SSN</td>
+                        <td class="tdClass"> {{ $store.state.stepSeven.primarySSN }} </td>
                     </tr>
                     <tr>
-                        <td>Secondary DOB for Power</td>
-                        <td> {{ $store.state.stepSeven.secondaryDOBFormatedStore }} </td>
+                        <td class="tdClass">Secondary DOB for Power</td>
+                        <td class="tdClass"> {{ $store.state.stepSeven.secondaryDOBFormatedStore }} </td>
                     </tr>
                     <tr>
-                        <td>Secondary SSN for Power</td>
-                        <td> {{ $store.state.stepSeven.secondarySSNForPower }} </td>
+                        <td class="tdClass">Secondary SSN for Power</td>
+                        <td class="tdClass"> {{ $store.state.stepSeven.secondarySSNForPower }} </td>
                     </tr>
                     <tr>
-                        <td>Available Gas Provider(s)</td>
-                        <td> {{ $store.state.stepSeven.availableGasProviders }} </td>
+                        <td class="tdClass">Available Gas Provider(s)</td>
+                        <td class="tdClass"> {{ $store.state.stepSeven.availableGasProviders }} </td>
                     </tr>
                     <tr>
-                        <td>Who's name will the Gas be in?</td>
-                        <td> {{ $store.state.stepSeven.whosNameWillGas }} </td>
+                        <td class="tdClass">Who's name will the Gas be in?</td>
+                        <td class="tdClass"> {{ $store.state.stepSeven.whosNameWillGas }} </td>
                     </tr>
                 </table>
                 <v-card-subtitle>
@@ -263,20 +263,20 @@
                 </v-card-subtitle>
                 <table>
                     <tr>
-                        <td> Available Water/Sewer</td>
-                        <td> {{ $store.state.stepEight.availableWater }} </td>
+                        <td class="tdClass"> Available Water/Sewer</td>
+                        <td class="tdClass"> {{ $store.state.stepEight.availableWater }} </td>
                     </tr>
                     <tr>
-                        <td>Call Notes 1 </td>
-                        <td> {{ $store.state.stepEight.callNotes }} </td>
+                        <td class="tdClass">Call Notes 1 </td>
+                        <td class="tdClass"> {{ $store.state.stepEight.callNotes }} </td>
                     </tr>
                     <tr>
-                        <td>Sales Rep <span style="color:red">*</span> </td>
-                        <td> {{ $store.state.stepEight.salesRep }} </td>
+                        <td class="tdClass">Sales Rep <span style="color:red">*</span> </td>
+                        <td class="tdClass"> {{ $store.state.stepEight.salesRep }} </td>
                     </tr>
                     <tr>
-                        <td>Errors in Research? </td>
-                        <td> {{ $store.state.stepEight.errorField }} </td>
+                        <td class="tdClass">Errors in Research? </td>
+                        <td class="tdClass"> {{ $store.state.stepEight.errorField }} </td>
                     </tr>
                 </table>
             </v-card-text>
@@ -284,11 +284,11 @@
     </div>
 </template>
 <style>
-table{
+#myTable{
     width: 100%;
     border-collapse: collapse;
 }
-th, td {
+.tdClass {
 border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
