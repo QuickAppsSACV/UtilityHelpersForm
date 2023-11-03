@@ -29,6 +29,8 @@
             outlined
             ></v-text-field> -->
             <v-text-field
+            v-if="formType=='Page'"
+            @keydown.enter="getListLeads" 
             v-model="zohoCRM"
             dense
             outlined
@@ -45,7 +47,7 @@
                   indeterminate
                 ></v-progress-circular>
                 <v-icon
-                @click="clickMe"
+                @click="getListLeads"
                 v-else
                 color="green darken-2"
                 >
@@ -443,7 +445,8 @@ export default {
         crmItems: [],
         selectBoolean:false,
         selectedEmail: '',
-        
+        formType: '',
+        leadID:''
     }),
     watch: {
         date (val) {
@@ -813,22 +816,19 @@ export default {
        
     },
     async mounted(){
-    // const that = this;
-    //  await ZOHO.embeddedApp.on("PageLoad",function(data){         
-    //     // ZOHO.CRM.UI.Resize({height:"596.5",width:"1100"})
-    //     console.log(data.EntityId);
-  
-     
-    //     //   ZOHO.CRM.API.getRecord({Entity:"Deals",RecordID:that.dealID})
-    // //   .then(function(data){
-    // //     console.log("alexis")
-    // //     console.log(data);
-    // //   })
-    // })
-    // ZOHO.embeddedApp.init();
+    const that = this;
+    this.formType = "Page";
+     await ZOHO.embeddedApp.on("PageLoad",function(data){      
+         ZOHO.CRM.UI.Resize({height:"100%",width:"100%"})
+         that.leadID = data.EntityId
+         that.formType = "Widget";
+         that.getData();
+    })
+    ZOHO.embeddedApp.init();
   },
     methods: {
-     async  clickMe () {
+     async  getListLeads () {
+        console.log(this.formType);
         try { 
          this.loading = true
          let data = {
@@ -853,63 +853,112 @@ export default {
 
       },
       async getData(){
-        try{
-        let data = {
-          "leadID": this.selectedEmail
-        };  
-        const callCRM = await axios.request({
-                url: "https://utilitiesformcatalyst-833998083.development.catalystserverless.com/server/utilities_form_catalyst_function/getData",
-                method: 'POST',
-                headers:{
-                "Content-type":"application/x-www-form-urlencoded",
-                },
-                data: data
-            })
-        let lead = JSON.parse(callCRM.data.message)
-
-        //step 1---------------------------------------------
-        this.primaryEmail = lead.Email;
-        this.primaryFirstName = lead.First_Name;
-        this.primaryLastName = lead.Last_Name;
-        this.primaryPhone = lead.Phone;
-        this.secondaryFirstName = lead.Buyer2_First_Name;
-        this.secondaryLastName = lead.Buyer2_Last_Name;
-        this.secondaryPhone = lead.Buyer2_Phone ;
-        this.secondaryEmail = lead.Secondary_Email;
-        this.streetAddress = lead.Street;
-        this.city = lead.City;
-        this.state = lead.stateRegion;
-        this.zipCode = lead.Zip_Code;
-        this.closingDate = lead.Close_Date;
-        this.whosubmittedRequest = lead.Lead_Submitted_By;
-        this.agentFirstName = lead.Agent_First_Name;
-        this.agentLastName = lead.Agent_Last_Name;
-        this.assistantFirstName = lead.TC_Name;
-        this.assistantLastName = lead.TC_Last_Name;
-        this.referrallPartner = lead.Referral_Source;
+        if(this.formType == 'Page'){
+            try{
+            let data = {
+              "leadID": this.selectedEmail
+            };  
+            const callCRM = await axios.request({
+                    url: "https://utilitiesformcatalyst-833998083.development.catalystserverless.com/server/utilities_form_catalyst_function/getData",
+                    method: 'POST',
+                    headers:{
+                    "Content-type":"application/x-www-form-urlencoded",
+                    },
+                    data: data
+                })
+            let lead = JSON.parse(callCRM.data.message)
+    
+            //step 1---------------------------------------------
+            this.primaryEmail = lead.Email;
+            this.primaryFirstName = lead.First_Name;
+            this.primaryLastName = lead.Last_Name;
+            this.primaryPhone = lead.Phone;
+            this.secondaryFirstName = lead.Buyer2_First_Name;
+            this.secondaryLastName = lead.Buyer2_Last_Name;
+            this.secondaryPhone = lead.Buyer2_Phone ;
+            this.secondaryEmail = lead.Secondary_Email;
+            this.streetAddress = lead.Street;
+            this.city = lead.City;
+            this.state = lead.stateRegion;
+            this.zipCode = lead.Zip_Code;
+            this.closingDate = lead.Close_Date;
+            this.whosubmittedRequest = lead.Lead_Submitted_By;
+            this.agentFirstName = lead.Agent_First_Name;
+            this.agentLastName = lead.Agent_Last_Name;
+            this.assistantFirstName = lead.TC_Name;
+            this.assistantLastName = lead.TC_Last_Name;
+            this.referrallPartner = lead.Referral_Source;
+            
+            //step2---------------------------------------------------
+            this.researchNotes = lead.Research_Notes;
+            this.availableGas = lead.Available_Gas_Providers;
+            this.availableTrash = lead.Available_Trash_Providers;
+            this.recycleIsCollected = lead.Not_Weekly_Recycle;
+            this.yardIsCollected = lead.Not_Weekly_Yard;
+    
+            
+            // step3----------------------------------------------
+            this.previousStreet = lead.Previous_Street_Address;
+            this.previousState = lead.Previous_State;
+            this.previousCity = lead.Previous_City;
+            this.previousZipCode = lead.Previous_Zip;
+            this.primaryBirthDateFormattedStore = lead.Date_of_Birth
+    
+            //step4-----------------------------------------------
+            this.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
+            //step7--------------------------------------------------
+            // this.availableGasProviders = lead.Available_Gas_Providers
+    
+            }catch(err){
+                console.log(err)
+            }
+        }else{
+        const that = this;
+        ZOHO.CRM.API.getRecord({Entity:"Leads",RecordID:that.leadID})
+         .then(function(data){
+        const lead = data.data[0];
+         //step 1---------------------------------------------
+        that.primaryEmail = lead.Email;
+        that.primaryFirstName = lead.First_Name;
+        that.primaryLastName = lead.Last_Name;
+        that.primaryPhone = lead.Phone;
+        that.secondaryFirstName = lead.Buyer2_First_Name;
+        that.secondaryLastName = lead.Buyer2_Last_Name;
+        that.secondaryPhone = lead.Buyer2_Phone ;
+        that.secondaryEmail = lead.Secondary_Email;
+        that.streetAddress = lead.Street;
+        that.city = lead.City;
+        that.state = lead.stateRegion;
+        that.zipCode = lead.Zip_Code;
+        that.closingDate = lead.Close_Date;
+        that.whosubmittedRequest = lead.Lead_Submitted_By;
+        that.agentFirstName = lead.Agent_First_Name;
+        that.agentLastName = lead.Agent_Last_Name;
+        that.assistantFirstName = lead.TC_Name;
+        that.assistantLastName = lead.TC_Last_Name;
+        that.referrallPartner = lead.Referral_Source;
         
         //step2---------------------------------------------------
-        this.researchNotes = lead.Research_Notes;
-        this.availableGas = lead.Available_Gas_Providers;
-        this.availableTrash = lead.Available_Trash_Providers;
-        this.recycleIsCollected = lead.Not_Weekly_Recycle;
-        this.yardIsCollected = lead.Not_Weekly_Yard;
+        that.researchNotes = lead.Research_Notes;
+        that.availableGas = lead.Available_Gas_Providers;
+        that.availableTrash = lead.Available_Trash_Providers;
+        that.recycleIsCollected = lead.Not_Weekly_Recycle;
+        that.yardIsCollected = lead.Not_Weekly_Yard;
 
         
         // step3----------------------------------------------
-        this.previousStreet = lead.Previous_Street_Address;
-        this.previousState = lead.Previous_State;
-        this.previousCity = lead.Previous_City;
-        this.previousZipCode = lead.Previous_Zip;
-        this.primaryBirthDateFormattedStore = lead.Date_of_Birth
+        that.previousStreet = lead.Previous_Street_Address;
+        that.previousState = lead.Previous_State;
+        that.previousCity = lead.Previous_City;
+        that.previousZipCode = lead.Previous_Zip;
+        that.primaryBirthDateFormattedStore = lead.Date_of_Birth
 
         //step4-----------------------------------------------
-        this.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
+        that.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
         //step7--------------------------------------------------
-        // this.availableGasProviders = lead.Available_Gas_Providers
-
-        }catch(err){
-            console.log(err)
+        // that.availableGasProviders = lead.Available_Gas_Providers
+    })
+            
         }
 
       },
