@@ -12,11 +12,12 @@
                     For use by Rep on call to streamline the entry process
             </v-card-subtitle>    
             <v-card-text>
-                <v-stepper   alt-labels v-model="e1">
+                <v-stepper non-linear   alt-labels v-model="e1">
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- ---------------------------------------HEADER------------------------------------------------------------------------------------------------------------------- -->
                     <v-stepper-header>
-                        <v-stepper-step
+                        <v-stepper-step 
+                            editable
                             :complete="e1 > 1"
                             step="1"
                         >
@@ -25,7 +26,8 @@
                             </small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step
+                        <v-stepper-step 
+                            editable
                             :complete="e1 > 2"
                             step="2"
                         >
@@ -34,36 +36,42 @@
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step step="3"
+                        <v-stepper-step 
+                        editable step="3"
                         :complete="e1 > 3"
                         >
                             <small>Cable/Internet/Phone</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="4"
+                        <v-stepper-step 
+                        editable step="4"
                         :complete="e1 > 4"
                         >
                             <small>Home Security</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="5"
+                        <v-stepper-step 
+                        editable step="5"
                         :complete="e1 > 5"
                         >
                             <small>Homeowners Insurance</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="6"
+                        <v-stepper-step 
+                        editable step="6"
                         :complete="e1 > 6"
                         >
                             <small>PODS / Pro Movers</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="7"
+                        <v-stepper-step 
+                        editable step="7"
                         :complete="e1 > 7">
                             <small>Electric</small>
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step step="8"
+                        <v-stepper-step 
+                        editable step="8"
                         :complete="e1 > 8"
                         >
                             <small>Water/Sewer/Trash</small>

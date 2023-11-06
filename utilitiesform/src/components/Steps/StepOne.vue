@@ -32,6 +32,7 @@
             v-if="formType=='Page'"
             @keydown.enter="getListLeads" 
             v-model="zohoCRM"
+            :rules="[rules.required]"
             dense
             outlined
             clearable
@@ -162,6 +163,7 @@
                     <v-select
                     dense
                     outlined
+                    :rules="[rules.required]"
                     v-model="whoamISpeaking"
                     label="Who am i Speaking to? *"
                     :items="['Primary','Secondary','Both']"
@@ -176,6 +178,7 @@
                     <v-select
                     dense
                     outlined
+                    :rules="[rules.required]"
                     v-model="willanyService"
                     label="Will Any services be in the Secondary's name? *"
                     :items="['Yes','No']"
@@ -446,7 +449,10 @@ export default {
         selectBoolean:false,
         selectedEmail: '',
         formType: '',
-        leadID:''
+        leadID:'',
+        rules:{
+            required: value => !!value || 'This field is Required',
+        }
     }),
     watch: {
         date (val) {
@@ -866,8 +872,10 @@ export default {
                     },
                     data: data
                 })
-            let lead = JSON.parse(callCRM.data.message)
     
+                let lead = JSON.parse(callCRM.data.message)
+                
+            this.zohoCRM = lead.Email;
             //step 1---------------------------------------------
             this.primaryEmail = lead.Email;
             this.primaryFirstName = lead.First_Name;
