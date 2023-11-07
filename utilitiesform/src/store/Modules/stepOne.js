@@ -39,9 +39,18 @@ const stepOne = {
         specialInstructions: '',
         hideQRLogo:false,
         dateFormattedStore:"",
-        someServicesWill:''
+        someServicesWill:'',
+        formType:'',
+        leadID:'',
+        Security_Answer_Internet:'',
+        ownerEmail:'',
+        ownerName: '',
+        
     },
     mutations: {
+        setBuilder: (state, payload) =>{
+            state.builder = payload
+        },
         setAddressInfo: (state, payload) =>{
             state.addressArea = payload
         },

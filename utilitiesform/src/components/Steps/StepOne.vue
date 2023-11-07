@@ -190,6 +190,7 @@
                     <v-select
                     dense
                     disabled
+
                     outlined
                     :items="['Agent','Landlord','Builder','Buyer','Transaction Coordinator','Lender','Title Company','Inspector','Uhaul Rental Only','Uhaul Customer Wants to Use Utility Helpers','Other']"
                     v-model="whosubmittedRequest"
@@ -226,6 +227,7 @@
                     dense
                     v-model="builder"
                     disabled
+
                     outlined
                     label="Builder"
                     ></v-text-field>
@@ -448,8 +450,6 @@ export default {
         crmItems: [],
         selectBoolean:false,
         selectedEmail: '',
-        formType: '',
-        leadID:'',
         rules:{
             required: value => !!value || 'This field is Required',
         }
@@ -460,6 +460,22 @@ export default {
         }
     },
     computed: {
+        leadID: {
+            get() {
+                return this.$store.state.stepOne.leadID;
+            },
+            set(value) {
+                this.$store.state.stepOne.leadID = value;
+            },
+        },
+        formType: {
+            get() {
+                return this.$store.state.stepOne.formType;
+            },
+            set(value) {
+                this.$store.state.stepOne.formType = value;
+            },
+        },
         someServicesWill: {
             get() {
                 return this.$store.state.stepOne.someServicesWill;
@@ -601,7 +617,8 @@ export default {
                 return this.$store.state.stepOne.builder;
             },
             set(value) {
-                this.$store.state.stepOne.builder = value;
+                // this.$store.state.stepOne.builder = value;
+                this.$store.commit('stepOne/setBuilder',value);
             },
         },
         landlord: {
@@ -887,7 +904,7 @@ export default {
             this.secondaryEmail = lead.Secondary_Email;
             this.streetAddress = lead.Street;
             this.city = lead.City;
-            this.state = lead.stateRegion;
+            this.state = lead.State;
             this.zipCode = lead.Zip_Code;
             this.closingDate = lead.Close_Date;
             this.whosubmittedRequest = lead.Lead_Submitted_By;
@@ -921,10 +938,15 @@ export default {
                 console.log(err)
             }
         }else{
+            //it means the widget is opened in zoho CRM and the function needs to be done with the SDK
         const that = this;
         ZOHO.CRM.API.getRecord({Entity:"Leads",RecordID:that.leadID})
          .then(function(data){
         const lead = data.data[0];
+        //------------------------------------------------------------------------------------
+        that.$store.state.stepOne.ownerEmail = lead.Owner.email
+        that.$store.state.stepOne.ownerName = lead.Owner.name
+        that.$store.state.stepOne.Security_Answer_Internet = lead.Security_Answer_Internet;
          //step 1---------------------------------------------
         that.primaryEmail = lead.Email;
         that.primaryFirstName = lead.First_Name;
@@ -936,7 +958,7 @@ export default {
         that.secondaryEmail = lead.Secondary_Email;
         that.streetAddress = lead.Street;
         that.city = lead.City;
-        that.state = lead.stateRegion;
+        that.state = lead.State;
         that.zipCode = lead.Zip_Code;
         that.closingDate = lead.Close_Date;
         that.whosubmittedRequest = lead.Lead_Submitted_By;

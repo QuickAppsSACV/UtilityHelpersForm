@@ -15,7 +15,8 @@ const stepSix = {
         solarConsulationTime:'',
         pickupDateFormattedStore:'',
         dropOffDateFormattedStore:'',
-        solarConDateFormattedStore:''
+        solarConDateFormattedStore:'',
+        solarNotes:''
         
         
         /*

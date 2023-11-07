@@ -316,6 +316,7 @@
                             <v-col cols="">
                                 <v-textarea
                                 label="Solar Notes"
+                                v-model="solarNotes"
                                 outlined
                                 dense
                                 >
@@ -356,6 +357,14 @@ export default {
         },
     },
     computed: {
+        solarNotes:{
+            get() {
+                return this.$store.state.stepSix.solarNotes;
+            },
+            set(value) {
+                this.$store.state.stepSix.solarNotes = value;
+            },
+        },
         solarConDateFormattedStore: {
             get() {
                 return this.$store.state.stepSix.solarConDateFormattedStore;
