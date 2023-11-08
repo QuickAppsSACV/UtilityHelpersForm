@@ -336,16 +336,16 @@
                                     dense
                                     disabled
                                     outlined
-                                    v-model="availableGasProviders"
+                                    v-model="availableGas"
                                     label="Available Gas Provider(s)"
                                     >
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-card-title v-if="groupGasProviderAux.includes(availableGasProviders)"  class="bluelight-text">
+                            <v-card-title v-if="groupGasProviderAux.includes(availableGas)"  class="bluelight-text">
                                 Gas Activation:
                             </v-card-title>
-                            <v-row  v-if="!(groupGasProviderAux.includes(availableGasProviders))" justify="center">
+                            <v-row  v-if="!(groupGasProviderAux.includes(availableGas))" justify="center">
                                 <h2  style="color:red;">The customer will need to activate gas <br>instructions will be in the Confirmation Email</h2>
                             </v-row>
                             <v-row dense class="pt-5">
@@ -361,7 +361,7 @@
                                     ></v-select>
                                 </v-col>
                             </v-row>
-                            <v-row v-if="groupGasProviderAux.includes(availableGasProviders)" dense class="">
+                            <v-row v-if="groupGasProviderAux.includes(availableGas)" dense class="">
                                 <v-col cols="6">
                                     <v-select
                                     dense
@@ -376,7 +376,7 @@
                             <v-row v-if="electricProviderActived == 'TECO - Tampa Electric Company' && gasProviderActivated == 'TECO - Peoples Gas' " class="pa-10" justify="center">
                                     <h2 style="color:red; ">For TECO: Gas will need to be activated the next BUSINESS day after electricity, for safety purposes*</h2>
                             </v-row>
-                            <v-row v-if="groupGasProviderAux.includes(availableGasProviders)" dense class="mt-0">
+                            <v-row v-if="groupGasProviderAux.includes(availableGas)" dense class="mt-0">
                                 <v-col
                                 cols="6"
                                 lg="6"
@@ -508,7 +508,7 @@
                                 </v-text-field>
                             </v-col>
                             </v-row>
-                            <v-row v-if="groupGasProviderAux.includes(availableGasProviders)" dense>
+                            <v-row v-if="groupGasProviderAux.includes(availableGas)" dense>
                                 <v-col cols="6">
                                     <v-checkbox 
                                     v-model="haveSupportKeyGas"
@@ -970,12 +970,12 @@ export default {
                 this.$store.state.stepSeven.fplSurgesShield = value;
             },
         },
-        availableGasProviders: {
+        availableGas: {
             get() {
-                return this.$store.state.stepSeven.availableGasProviders;
+                return this.$store.state.stepTwo.availableGas;
             },
             set(value) {
-                this.$store.state.stepSeven.availableGasProviders = value;
+                this.$store.state.stepTwo.availableGas = value;
             },
         },
         whosNameWillGas: {
