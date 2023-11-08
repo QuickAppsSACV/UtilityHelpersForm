@@ -1026,7 +1026,7 @@ export default {
         
         //step2---------------------------------------------------
         that.availablePower = lead.Power;
-        this.availableWater = lead.Available_Water_Sewer;
+        that.availableWater = lead.Available_Water_Sewer;
         that.researchNotes = lead.Research_Notes;
         that.availableGas = lead.Available_Gas_Providers;
         that.availableTrash = lead.Available_Trash_Providers;
