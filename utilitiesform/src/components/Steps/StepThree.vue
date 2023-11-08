@@ -9,7 +9,7 @@
     </v-card-title>
     
     <v-card-text>
-        <v-row class="mt-0">
+        <v-row v-if="this.$store.state.stepOne.cablehandledHOA == true" class="mt-0">
             <v-col>
                 <h1 color="red" class="red--text text-center  mb-4">THIS ADDRESS HAS HOA CABLE</h1>
                 <p color="blue" class="blue-text text-center font-italic comic-sans-font mb-4">SCRIPTING</p>
@@ -54,8 +54,9 @@
                 <v-text-field
                 dense
                 outlined
+                disabled
                 label="Street Address"
-                v-model="newStreetAddress"
+                v-model="streetAddress"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -65,7 +66,8 @@
                 dense
                 outlined
                 label="City"
-                v-model="newCity"
+                disabled
+                v-model="city"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -74,8 +76,9 @@
                 <v-text-field
                 dense
                 outlined
+                disabled
                 label="State/Region/Province"
-                v-model="newState"
+                v-model="stateRegion"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -84,8 +87,9 @@
                 <v-text-field
                 dense
                 outlined
+                disabled
                 label="Postal/Zip Code"
-                v-model="newZipCode"
+                v-model="zipCode"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -106,39 +110,41 @@
                 </ul>
             </v-col>
         </v-row>
+        <div v-if="this.$store.state.stepOne.cablehandledHOA != true">
         <br>
         <p>Cable Services Requested</p>
-        <v-row dense class="mt-0">
-            <v-col>
-                <v-checkbox
-                    dense
-                    label="Internet"
-                    v-model="internetCheckbox">
-                </v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox
-                    dense
-                    label="TV"
-                    v-model="tvCheckbox">
-                </v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox
-                    dense
-                    label="Phone"
-                    v-model="phoneCheckbox">
-                </v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox
-                    dense
-                    label="(None)"
-                    v-model="noneCheckbox">
-                </v-checkbox>
-            </v-col>
-        </v-row>
-        <br>
+            <v-row dense class="mt-0">
+                <v-col>
+                    <v-checkbox
+                        dense
+                        label="Internet"
+                        v-model="internetCheckbox">
+                    </v-checkbox>
+                </v-col>
+                <v-col>
+                    <v-checkbox
+                        dense
+                        label="TV"
+                        v-model="tvCheckbox">
+                    </v-checkbox>
+                </v-col>
+                <v-col>
+                    <v-checkbox
+                        dense
+                        label="Phone"
+                        v-model="phoneCheckbox">
+                    </v-checkbox>
+                </v-col>
+                <v-col>
+                    <v-checkbox
+                        dense
+                        label="(None)"
+                        v-model="noneCheckbox">
+                    </v-checkbox>
+                </v-col>
+            </v-row>
+            <br>
+        </div>
         <div v-if="internetCheckbox">     
             <h2 color="black" class="black--text">--INTERNET--</h2>
             <br>
@@ -160,7 +166,7 @@
                 <v-select
                     outlined
                     label="Selected Internet Provider"
-                    :items="['AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'HughesNet', 'Kinetic - Windstream', 'Mediacom', 'Metronet', 'Optimum', 'Rise Broadband', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'Viasat', 'WOW', 'Xfinity']"
+                    :items="['','AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'HughesNet', 'Kinetic - Windstream', 'Mediacom', 'Metronet', 'Optimum', 'Rise Broadband', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'Viasat', 'WOW', 'Xfinity']"
                     v-model="selectedInternetProvider">
                 </v-select>
             </v-col>
@@ -430,7 +436,7 @@
                 <v-select
                     dense
                     label="Installation Type (Internet)"
-                    :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
+                    :items="['','Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined
                     v-model="InstallationTypeInternet">
                 </v-select>
@@ -605,7 +611,7 @@
             <v-col cols="6">
                 <v-select
                     label="Mobile Phone Provider"
-                    :items="['Spectrum']"
+                    :items="['','Spectrum']"
                     v-model="mobilePhoneProvider"
                     hint="If activating Spectrum Mobile You'll need to complete the Internetr/TV order with customer, then call ( 855) 392-9910 to add the FREE Mobile line. Be sure to give them our SAID# (22778) to receive credit for the sale."
                     persistent-hint
@@ -677,7 +683,7 @@
                     dense
                     v-model="selectedTV" 
                     label="Selected TV Provider"
-                    :items="['Altice USA','COX', 'DirecTV Stream', 'DirecTV', 'Mediacom', 'Optimum', 'Spectrum', 'SuddenLink', 'Verizon', 'WOW', 'Xfinity', 'YouTube TV', 'Other']"
+                    :items="['','Altice USA','COX', 'DirecTV Stream', 'DirecTV', 'Mediacom', 'Optimum', 'Spectrum', 'SuddenLink', 'Verizon', 'WOW', 'Xfinity', 'YouTube TV', 'Other']"
                     outlined>
                 </v-select>
                 <v-text-field
@@ -726,7 +732,7 @@
                 <v-select
                     v-model="installationTypeSelectedTV"
                     label="Installation Type(TV) (IF SAME AS INTERNET, SKIP THIS STEP)"
-                    :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
+                    :items="['','Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
                 </v-select>
             </v-col>
@@ -827,7 +833,7 @@
                 <v-select
                     v-model="selectedPhone"
                     label="Selected Phone Provider"
-                    :items="['AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']"
+                    :items="['','AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']"
                     outlined>
                 </v-select>
                 <v-text-field
@@ -867,7 +873,7 @@
                 <v-select
                     v-model="installationTypePhone"
                     label="Installation Type (Phone) (IF SAME AS INTERNET, SKIP THIS STEP)"
-                    :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
+                    :items="['','Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
                 </v-select>
             </v-col>
@@ -1090,7 +1096,7 @@
                         label="Card Type"
                         dense
                         v-model="cardType"
-                        :items="['Visa', 'Mastercard', 'Discover', 'American Express']"
+                        :items="['','Visa', 'Mastercard', 'Discover', 'American Express']"
                         outlined>
                     </v-select>
                 </v-col>
@@ -1163,7 +1169,7 @@
                 <v-select
                     label="Create Ticket? (Internet)"
                     v-model="createTicketInternet"
-                    :items="['Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
+                    :items="['','Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
                     outlined>
                 </v-select>
             </v-col>
@@ -1173,7 +1179,7 @@
                 <v-select
                     v-model="createTicketTV"
                     label="Create Ticket? (TV)"
-                    :items="['Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
+                    :items="['','Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
                     outlined>
                 </v-select>
             </v-col>
@@ -1209,12 +1215,14 @@
 export default {
     data: vm=>( {
         groupChoiceATT : [
+            "",
             "What's your favorite Restaurant?", 
             "Who is your favorite actor?", 
             "Who is your favorite singer?", 
             "Who was your childhood hero?"
         ],
         groupChoiceCox: [
+            "",
             "What is the first concert you attended?", 
             "What is the name of the road you lived on in 3rd grade?", 
             "What was the name of your first pet?"
@@ -1225,6 +1233,7 @@ export default {
         internetInstallDate: '',
         internetInstallDateFormatted: '',
         groupChoiceUC: [
+            "",
             "What is the Last 4 of Your SSN or EIN number?", 
             "What is the name of your first school teacher?", 
             "What is your favorite sports team?", 
@@ -1249,6 +1258,7 @@ export default {
         secondaryBirthDate:'',
         secondaryBirthDateFormatted: '',
         internetProviderAux1:[
+        "",
         "AT&T",
         "CenturyLink",
         "Frontier",
@@ -1262,6 +1272,7 @@ export default {
         "Brightspeed"
         ],
         selectTVproviderAux:[
+        "",
         "Xfinity",
         "COX",
         "DirecTV Stream",
@@ -1272,6 +1283,7 @@ export default {
         "Verizon"
         ],
         selectPhoneProviderAux:[
+        "",
         "AT&T",
         "Xfinity",
         "COX",
@@ -1327,6 +1339,38 @@ export default {
         }
     },
     computed: {
+        streetAddress: {
+            get() {
+                return this.$store.state.stepOne.streetAddress;
+            },
+            set(value) {
+                this.$store.state.stepOne.streetAddress = value;
+            },
+        },
+        city: {
+            get() {
+                return this.$store.state.stepOne.city;
+            },
+            set(value) {
+                this.$store.state.stepOne.city = value;
+            },
+        },
+        stateRegion: {
+            get() {
+                return this.$store.state.stepOne.stateRegion;
+            },
+            set(value) {
+                this.$store.state.stepOne.stateRegion = value;
+            },
+        },
+        zipCode: {
+            get() {
+                return this.$store.state.stepOne.zipCode;
+            },
+            set(value) {
+                this.$store.state.stepOne.zipCode = value;
+            },
+        },
         secondaryBirthDateFormattedStore: {
             get() {
                 return this.$store.state.stepThree.secondaryBirthDateFormattedStore;

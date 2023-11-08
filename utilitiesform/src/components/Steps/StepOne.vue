@@ -192,7 +192,7 @@
                     disabled
 
                     outlined
-                    :items="['Agent','Landlord','Builder','Buyer','Transaction Coordinator','Lender','Title Company','Inspector','Uhaul Rental Only','Uhaul Customer Wants to Use Utility Helpers','Other']"
+                    :items="['','Agent','Landlord','Builder','Buyer','Transaction Coordinator','Lender','Title Company','Inspector','Uhaul Rental Only','Uhaul Customer Wants to Use Utility Helpers','Other']"
                     v-model="whosubmittedRequest"
                     label="Who submitted the request"
                     ></v-select>
@@ -398,15 +398,15 @@
                     >
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                        v-model="dateFormatted"
+                        v-model="closingDate"
                         label="Expected Closing Date"
                         dense
                         outlined
-                        hint="MM/DD/YYYY format"
+                        hint="MM/DD/YYYY"
                         persistent-hint
                         prepend-icon="mdi-calendar"
                         v-bind="attrs"
-                        @blur="date = parseDate(dateFormatted)"
+                        @blur="date = parseDate(closingDate)"
                         v-on="on"
                         ></v-text-field>
                     </template>
@@ -456,10 +456,50 @@ export default {
     }),
     watch: {
         date (val) {
-          this.dateFormattedStore =  this.dateFormatted = this.formatDate(this.date)
+          this.closingDate =  this.formatDate(this.date)
         }
     },
     computed: {
+        cablehandledHOA: {
+            get() {
+                return this.$store.state.stepOne.cablehandledHOA;
+            },
+            set(value) {
+                this.$store.state.stepOne.cablehandledHOA = value;
+            },
+        },
+        yardDays: {
+            get() {
+                return this.$store.state.stepTwo.yardDays;
+            },
+            set(value) {
+                this.$store.state.stepTwo.yardDays = value;
+            },
+        },
+        recycleDays: {
+            get() {
+                return this.$store.state.stepTwo.recycleDays;
+            },
+            set(value) {
+                this.$store.state.stepTwo.recycleDays = value;
+            },
+        },
+        availableWater: {
+            get() {
+                return this.$store.state.stepTwo.availableWater;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availableWater = value;
+            },
+        },
+        availablePower: {
+            get() {
+                return this.$store.state.stepTwo.availablePower;
+            },
+            set(value) {
+                this.$store.state.stepTwo.availablePower = value;
+            },
+        },
         leadID: {
             get() {
                 return this.$store.state.stepOne.leadID;
@@ -758,6 +798,14 @@ export default {
                 this.$store.state.stepTwo.availableTrash = value;
             },
         },
+        trashDays: {
+            get() {
+                return this.$store.state.stepTwo.trashDays;
+            },
+            set(value) {
+                this.$store.state.stepTwo.trashDays = value;
+            },
+        },
         recycleIsCollected: {
             get() {
                 return this.$store.state.stepTwo.recycleIsCollected;
@@ -906,20 +954,27 @@ export default {
             this.city = lead.City;
             this.state = lead.State;
             this.zipCode = lead.Zip_Code;
-            this.closingDate = lead.Close_Date;
+            this.closingDate = this.formatDate(lead.Close_Date);
             this.whosubmittedRequest = lead.Lead_Submitted_By;
             this.agentFirstName = lead.Agent_First_Name;
             this.agentLastName = lead.Agent_Last_Name;
             this.assistantFirstName = lead.TC_Name;
             this.assistantLastName = lead.TC_Last_Name;
             this.referrallPartner = lead.Referral_Source;
+            this.cablehandledHOA = lead.Cable_handled_by_HOA;
             
             //step2---------------------------------------------------
+            this.availablePower = lead.Power;
+            this.availableWater = lead.Available_Water_Sewer;
             this.researchNotes = lead.Research_Notes;
             this.availableGas = lead.Available_Gas_Providers;
             this.availableTrash = lead.Available_Trash_Providers;
             this.recycleIsCollected = lead.Not_Weekly_Recycle;
             this.yardIsCollected = lead.Not_Weekly_Yard;
+            this.trashDays = lead.Trash_Days;
+            this.recycleDays = lead.Recycle_Days;
+            this.yardDays = lead.Yard_Days;
+
     
             
             // step3----------------------------------------------
@@ -967,13 +1022,19 @@ export default {
         that.assistantFirstName = lead.TC_Name;
         that.assistantLastName = lead.TC_Last_Name;
         that.referrallPartner = lead.Referral_Source;
+        that.cablehandledHOA = lead.Cable_handled_by_HOA;
         
         //step2---------------------------------------------------
+        that.availablePower = lead.Power;
+        this.availableWater = lead.Available_Water_Sewer;
         that.researchNotes = lead.Research_Notes;
         that.availableGas = lead.Available_Gas_Providers;
         that.availableTrash = lead.Available_Trash_Providers;
         that.recycleIsCollected = lead.Not_Weekly_Recycle;
         that.yardIsCollected = lead.Not_Weekly_Yard;
+        that.trashDays = lead.Trash_Days;
+        that.recycleDays = lead.Recycle_Days;
+        that.yardDays = lead.Yard_Days;
 
         
         // step3----------------------------------------------

@@ -22,7 +22,7 @@
                 <v-select
                 v-model="podsOrProMover"
                     label="PODS or Pro Mover?"
-                    :items="['PODS','Pro Mover','Both']"
+                    :items="['','PODS','Pro Mover','Both']"
                     outlined
                     ></v-select>
             </v-col>
@@ -67,7 +67,7 @@
                 <v-select
                 v-model="rentalTruckCompany"
                     label="Rental Truck Company"
-                    :items="['Uhaul']"
+                    :items="['','Uhaul']"
                     outlined
                     ></v-select>
             </v-col>
@@ -77,7 +77,7 @@
                 <v-select
                     v-model="typeOfMove"
                     label="Type of Move"
-                    :items="['One-Way','In-Town']"
+                    :items="['','One-Way','In-Town']"
                     outlined
                     ></v-select>
             </v-col>
@@ -181,7 +181,7 @@
                                 <v-select
                                     v-model="proMovingCompany"
                                     label="Pro Moving Company"
-                                    :items="['Bekins (National)','Rocks Moving (Tampa Bay Area)']"
+                                    :items="['','Bekins (National)','Rocks Moving (Tampa Bay Area)']"
                                     outlined
                                     ></v-select>
                             </v-col>
@@ -226,12 +226,12 @@
                                 <v-select
                                     v-model="howSentProMover"
                                     label="How Sent to Pro Mover?"
-                                    :items="['Warm Transfer', 'Request Call Back']"
+                                    :items="['','Warm Transfer', 'Request Call Back']"
                                     outlined
                                     ></v-select>
                             </v-col>
                         </v-row>
-                        <v-row v-if="!(this.$store.state.stepFive.newState.toLowerCase() == 'fl' || this.$store.state.stepFive.newState.toLowerCase().includes('florida'))" dense class="mt-0">
+                        <v-row v-if="!(this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida'))" dense class="mt-0">
                             <v-col>
                                 <h2 class="red--text text-center text-h4">SKIP SOLAR SECTION</h2>
                                 <p class="text-center black--text text-p">Solar Program Only Available in Florida at this Time</p>
@@ -242,7 +242,7 @@
                                 <p><span class="blue--text text-subtitle-1 yellow pa-0">Solar Consultation:</span></p>
                             </v-col>
                         </v-row>
-                        <v-row v-if="this.$store.state.stepFive.newState.toLowerCase() == 'fl' || this.$store.state.stepFive.newState.toLowerCase().includes('florida')" dense class="mt-0">
+                        <v-row v-if="this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida')" dense class="mt-0">
                             <v-col>
                                 <p class="text-body-1">We are always looking for ways to save our customers money! so the next thing on our list is solar energy.  There is a new solar program that offers no money out of pocket, no debt, and no financing. You will simply see a reduction in your electric bill, and prevent your bill from increasing with electric rates in the future.  There are also some federal incentives currently to help make solar affordable.</p>
                                 <p class="text-body-1">If you'd like we can schedule a no obligation energy consult for a technician to asses if adding solar would benefit you. Typically we recommend scheduling that for about 6 weeks after you move in, so you have a full electric bill to asses your usage. Would that be good for you?</p>
@@ -301,6 +301,7 @@
                                 v-model="solarConsulationTime"
                                     label="Solar Consultation Time Window"
                                     :items="[
+                                        '',
                                         '11am - 1pm', 
                                         '1pm - 3pm',
                                         '3pm - 5pm',

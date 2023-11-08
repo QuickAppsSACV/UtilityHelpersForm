@@ -45,6 +45,7 @@ const stepOne = {
         Security_Answer_Internet:'',
         ownerEmail:'',
         ownerName: '',
+        cablehandledHOA:'',
         
     },
     mutations: {

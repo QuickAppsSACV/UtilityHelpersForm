@@ -439,11 +439,13 @@ export default {
         primaryDOBFormated:'',
         activatedWaterItems: activatedWaterItems,
         activatedTrashItems:[
+        "",
         "City of Hendersonville - TN",       
         "City of Miami - FL",
         "Oak Hill - TN"
         ],
         salesRepItems:[
+        "",
         "andrew@utilityhelpers.com",
         "billy@utilityhelpers.com",
         "blake@utilityhelpers.com",

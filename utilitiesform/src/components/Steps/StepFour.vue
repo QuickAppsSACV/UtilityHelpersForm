@@ -35,7 +35,7 @@
                        outlined
                        v-model="alarmCompany"
                        label="Alarm Company"
-                       :items="['ADT','SimpliSafe']"
+                       :items="['','ADT','SimpliSafe']"
                        ></v-select>
                    </v-col>
                </v-row>
@@ -58,7 +58,7 @@
                        v-if="alarmCompany == 'ADT'"
                        v-model="ADTPackageChosen"
                        label="ADT Package Chosen"
-                       :items="['Basic','Command - Traditional','Command - Traditional w/ Life Safety','Command - Control','Command - Remote','Command - Video Lite','Command - Video & Home Automation']"
+                       :items="['','Basic','Command - Traditional','Command - Traditional w/ Life Safety','Command - Control','Command - Remote','Command - Video Lite','Command - Video & Home Automation']"
                        
                        ></v-select>
                    </v-col>
@@ -106,7 +106,7 @@
                        outlined
                        v-model="alarmInstalTimeWindows"
                        label="Alarm Install Time Window"
-                       :items="['8am-12pm','12pm-4pm','4pm-8pm']"
+                       :items="['','8am-12pm','12pm-4pm','4pm-8pm']"
                        hint="** 4pm-8pm is not available on Saturdays **
                            ** No Sunday Appointments **"
                        persistent-hint

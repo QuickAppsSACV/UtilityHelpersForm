@@ -20,13 +20,15 @@
             </v-row>
             <v-row class="mt-0">
                 <v-col cols="6">
-                    <v-text-field
+                    <v-textarea
                     outlined
                     v-model="availablePower"
                     dense
                     disabled
+                    rows="2"
+                    row-height="15"
                     label="1. Available Power Provider(s)"
-                    ></v-text-field>
+                    ></v-textarea>
                 </v-col>
             </v-row>
             <v-row class="mt-0">

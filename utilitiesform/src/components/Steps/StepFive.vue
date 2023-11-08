@@ -98,7 +98,7 @@
                         outlined
                         v-model="whoIsTheHomeGoing"
                         label="Who is the home going to be occupied by?"
-                        :items="['Owner','Renter','Unoccupied']"                     
+                        :items="['','Owner','Renter','Unoccupied']"                     
                         ></v-select>
                     </v-col>
                 </v-row>
@@ -120,7 +120,7 @@
                         outlined
                         v-model="howManyMonth"
                         label="​How many months to be occupied?"
-                        :items="['9 Months or More','0-3 Months','4-8 Months']"
+                        :items="['','9 Months or More','0-3 Months','4-8 Months']"
                         ></v-select>
                     </v-col>
                 </v-row>

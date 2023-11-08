@@ -63,7 +63,7 @@
                                     outlined
                                     v-model="activationOeTransfer"
                                     label="Activation or Transfer"
-                                    :items="['New Activation','Transfer']"
+                                    :items="['','New Activation','Transfer']"
                                     ></v-select>
                                 </v-col>
                             </v-row>
@@ -559,6 +559,7 @@ export default {
         secondDOBFormatedGas:'',
         groupElectricProviderActived:
         [
+        '',
         'AEP - Ohio',
         'Alabama Power',
         'Ameren',
@@ -727,6 +728,7 @@ export default {
         ],
         groupGasProviderActivated: 
         [
+        '',
         'Avista',
         'Baltimore Gas and Electric',
         'Center Point Energy',
