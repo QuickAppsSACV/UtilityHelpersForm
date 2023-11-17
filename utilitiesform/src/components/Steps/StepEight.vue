@@ -282,7 +282,7 @@
                     outlined
                     disabled
                     label="Available Trash Provider(s)"
-                    v-model="avaiableTrashProv"
+                    v-model="availableTrash"
                     ></v-text-field>
                 </v-col>
             </v-row>
@@ -424,10 +424,10 @@
     </div>
 </template>
 <script>
-import activatedWaterItems from "../../../src/activatedWaterItems.json"
+// import activatedWaterItems from "../../../src/activatedWaterItems.json"
 export default {
     data: vm=>( {
-        error: true,
+        error: false,
         primaryDOBMenu:false,
         SecondaryDOBMenu:false,
         wateractDateMenu:false,
@@ -437,7 +437,7 @@ export default {
         waterActivationDate:'',
         trashActivationDate:'',
         primaryDOBFormated:'',
-        activatedWaterItems: activatedWaterItems,
+        // activatedWaterItems: activatedWaterItems,
         activatedTrashItems:[
         "",
         "City of Hendersonville - TN",       
@@ -571,6 +571,14 @@ export default {
         },
     },
     computed: {
+        activatedWaterItems:{
+            get() {
+                return this.$store.state.stepEight.activatedWaterItems;
+            },
+            set(value) {
+                this.$store.state.stepEight.activatedWaterItems = value;
+            },
+        },
         trashActivationDateStore:{
             get() {
                 return this.$store.state.stepEight.trashActivationDateStore;
@@ -603,12 +611,12 @@ export default {
                 this.$store.state.stepEight.whosNamewillTrash = value;
             },
         },
-        avaiableTrashProv:{
+        availableTrash: {
             get() {
-                return this.$store.state.stepEight.avaiableTrashProv;
+                return this.$store.state.stepTwo.availableTrash;
             },
             set(value) {
-                this.$store.state.stepEight.avaiableTrashProv = value;
+                this.$store.state.stepTwo.availableTrash = value;
             },
         },
         waterAccessKey:{

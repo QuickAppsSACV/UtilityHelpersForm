@@ -863,6 +863,54 @@ export default {
                 this.$store.state.stepThree.primaryBirthDateFormattedStore = value;
             },
         },
+        availableInternetProviders: {
+            get() {
+                return this.$store.state.stepThree.availableInternetProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availableInternetProviders = value;
+            },
+        },
+        availableTVProviders: {
+            get() {
+                return this.$store.state.stepThree.availableTVProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availableTVProviders = value;
+            },
+        },
+        availablePhoneProviders: {
+            get() {
+                return this.$store.state.stepThree.availablePhoneProviders;
+            },
+            set(value) {
+                this.$store.state.stepThree.availablePhoneProviders = value;
+            },
+        },
+        phoneItems:{
+            get() {
+                return this.$store.state.stepThree.phoneItems;
+            },
+            set(value) {
+                this.$store.state.stepThree.phoneItems = value;
+            },
+        },
+        internetItems:{
+            get() {
+                return this.$store.state.stepThree.internetItems;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetItems = value;
+            },
+        },
+        tvItems:{
+            get() {
+                return this.$store.state.stepThree.tvItems;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvItems = value;
+            },
+        },
         //step 4 -------------------------------------------------
         alreadyRequestedThroughIntroEmail:{
             get(){
@@ -879,6 +927,31 @@ export default {
             },
             set(value) {
                 this.$store.state.stepSeven.availableGasProviders = value;
+            },
+        },
+        groupElectricProviderActived: {
+            get() {
+                return this.$store.state.stepSeven.groupElectricProviderActived;
+            },
+            set(value) {
+                this.$store.state.stepSeven.groupElectricProviderActived = value;
+            },
+        },
+        groupGasProviderActivated: {
+            get() {
+                return this.$store.state.stepSeven.groupGasProviderActivated;
+            },
+            set(value) {
+                this.$store.state.stepSeven.groupGasProviderActivated = value;
+            },
+        },
+        //step 8 ---------------------------
+        activatedWaterItems:{
+            get() {
+                return this.$store.state.stepEight.activatedWaterItems;
+            },
+            set(value) {
+                this.$store.state.stepEight.activatedWaterItems = value;
             },
         },
         computedDateFormatted () {
@@ -964,10 +1037,20 @@ export default {
             this.cablehandledHOA = lead.Cable_handled_by_HOA;
             
             //step2---------------------------------------------------
-            this.availablePower = lead.Power;
-            this.availableWater = lead.Available_Water_Sewer;
+            this.availablePower = lead.Power.toString();
+            if(lead.Power.length >0){
+                this.groupElectricProviderActived = [...lead.Power];
+            }
+            this.availableWater = lead.Available_Water_Sewer.toString();
+            if(lead.Available_Water_Sewer.length > 0){
+             this.activatedWaterItems = [...lead.Available_Water_Sewer];
+            }
             this.researchNotes = lead.Research_Notes;
-            this.availableGas = lead.Available_Gas_Providers;
+            this.availableGas = lead.Available_Gas_Providers.toString();
+            if(lead.Available_Gas_Providers.length > 0){
+                this.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+            }
+            //this field is not multiselect
             this.availableTrash = lead.Available_Trash_Providers;
             this.recycleIsCollected = lead.Not_Weekly_Recycle;
             this.yardIsCollected = lead.Not_Weekly_Yard;
@@ -983,6 +1066,18 @@ export default {
             this.previousCity = lead.Previous_City;
             this.previousZipCode = lead.Previous_Zip;
             this.primaryBirthDateFormattedStore = lead.Date_of_Birth
+            this.availablePhoneProviders = lead.Available_Phone_Providers.toString();
+            if(lead.Available_Phone_Providers.length > 0){
+            this.phoneItems=[...lead.Available_Phone_Providers];
+            }
+            this.availableInternetProviders = lead.Available_Internet_Providers.toString();
+            if(lead.Available_Internet_Providers.length > 0){
+                this.internetItems=[...lead.Available_Internet_Providers]
+            }
+            this.availableTVProviders= lead.Available_TV_Providers.toString();
+            if(lead.Available_TV_Providers.length > 0){
+                this.tvItems=[...lead.Available_TV_Providers];
+            }
     
             //step4-----------------------------------------------
             this.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
@@ -1025,10 +1120,20 @@ export default {
         that.cablehandledHOA = lead.Cable_handled_by_HOA;
         
         //step2---------------------------------------------------
-        that.availablePower = lead.Power;
-        that.availableWater = lead.Available_Water_Sewer;
+        that.availablePower = lead.Power.toString();
+        if(lead.Power.length >0){
+            that.groupElectricProviderActived = [...lead.Power];
+        }
+        that.availableWater = lead.Available_Water_Sewer.toString();
+        if(lead.Available_Water_Sewer.length > 0){
+            that.activatedWaterItems = [...lead.Available_Water_Sewer];
+        }
         that.researchNotes = lead.Research_Notes;
-        that.availableGas = lead.Available_Gas_Providers;
+        that.availableGas = lead.Available_Gas_Providers.toString();
+        if(lead.Available_Gas_Providers.length > 0){
+            that.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+        }
+        //this field is not multiselect
         that.availableTrash = lead.Available_Trash_Providers;
         that.recycleIsCollected = lead.Not_Weekly_Recycle;
         that.yardIsCollected = lead.Not_Weekly_Yard;
@@ -1042,8 +1147,19 @@ export default {
         that.previousState = lead.Previous_State;
         that.previousCity = lead.Previous_City;
         that.previousZipCode = lead.Previous_Zip;
-        that.primaryBirthDateFormattedStore = lead.Date_of_Birth
-
+        that.primaryBirthDateFormattedStore = lead.Date_of_Birth;
+        that.availablePhoneProviders = lead.Available_Phone_Providers.toString();
+        if(lead.Available_Phone_Providers.length > 0){
+            that.phoneItems=[...lead.Available_Phone_Providers];
+        }
+        that.availableInternetProviders = lead.Available_Internet_Providers.toString();
+        if(lead.Available_Internet_Providers.length > 0){
+            that.internetItems=[...lead.Available_Internet_Providers]
+        }
+        that.availableTVProviders= lead.Available_TV_Providers.toString();
+        if(lead.Available_TV_Providers.length > 0){
+            that.tvItems=[...lead.Available_TV_Providers];
+        }
         //step4-----------------------------------------------
         that.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
         //step7--------------------------------------------------

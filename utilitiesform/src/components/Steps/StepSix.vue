@@ -237,7 +237,7 @@
                                 <p class="text-center black--text text-p">Solar Program Only Available in Florida at this Time</p>
                             </v-col>
                         </v-row>
-                        <v-row dense class="mt-0">
+                        <v-row v-if="this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida')" dense class="mt-0">
                             <v-col>
                                 <p><span class="blue--text text-subtitle-1 yellow pa-0">Solar Consultation:</span></p>
                             </v-col>
@@ -248,7 +248,7 @@
                                 <p class="text-body-1">If you'd like we can schedule a no obligation energy consult for a technician to asses if adding solar would benefit you. Typically we recommend scheduling that for about 6 weeks after you move in, so you have a full electric bill to asses your usage. Would that be good for you?</p>
                             </v-col>
                         </v-row>
-                        <v-row class="mt-0">
+                        <v-row v-if="this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida')" class="mt-0">
                                 <v-col>
                                     <v-checkbox
                                     class="blue--text"
@@ -258,7 +258,7 @@
                                 </v-checkbox>
                                 </v-col>
                         </v-row>
-                        <v-row v-if="wouldLikeSolarConsulation == true" dense class="mt-2">
+                        <v-row v-if="wouldLikeSolarConsulation == true && (this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida'))" dense class="mt-2">
                             <v-col
                                 cols="6"
                                 lg="6"
@@ -295,7 +295,7 @@
                                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
                             </v-col>
                         </v-row>
-                        <v-row v-if="wouldLikeSolarConsulation == true" dense class="mt-0">
+                        <v-row v-if="wouldLikeSolarConsulation == true && (this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida'))" dense class="mt-0">
                             <v-col cols="6">
                                 <v-select
                                 v-model="solarConsulationTime"
@@ -313,7 +313,7 @@
                                     ></v-select>
                             </v-col>
                         </v-row>
-                        <v-row v-if="wouldLikeSolarConsulation == true" class="mt-0">
+                        <v-row v-if="wouldLikeSolarConsulation == true && (this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida'))" class="mt-0">
                             <v-col cols="">
                                 <v-textarea
                                 label="Solar Notes"

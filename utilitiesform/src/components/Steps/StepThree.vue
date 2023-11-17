@@ -23,6 +23,7 @@
                 <v-text-field 
                 dense
                 outlined
+                disabled
                 label="Available Internet Provider(s)"
                 v-model="availableInternetProviders"
                 ></v-text-field>
@@ -32,6 +33,7 @@
             <v-col cols="6">
                 <v-text-field 
                 dense
+                disabled
                 outlined
                 label="Available TV Provider(s)"
                 v-model="availableTVProviders"
@@ -43,6 +45,7 @@
                 <v-text-field 
                 dense
                 outlined
+                disabled
                 label="Available Phone Provider(s)"
                 v-model="availablePhoneProviders"
                 ></v-text-field>
@@ -166,7 +169,7 @@
                 <v-select
                     outlined
                     label="Selected Internet Provider"
-                    :items="['','AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'HughesNet', 'Kinetic - Windstream', 'Mediacom', 'Metronet', 'Optimum', 'Rise Broadband', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'Viasat', 'WOW', 'Xfinity']"
+                    :items="internetItems"
                     v-model="selectedInternetProvider">
                 </v-select>
             </v-col>
@@ -349,6 +352,7 @@
                 dense
                 outlined
                 label="Street Address"
+                :rules="[rules.required]"
                 v-model="previousStreet"
                 ></v-text-field>
             </v-col>
@@ -357,6 +361,7 @@
             <v-col cols="6">
                 <v-text-field
                 dense
+                :rules="[rules.required]"
                 outlined
                 label="City"
                 v-model="previousCity"
@@ -367,6 +372,7 @@
             <v-col cols="6">
                 <v-text-field
                 dense
+                :rules="[rules.required]"
                 outlined
                 label="State/Region/Province"
                 v-model="previousState"
@@ -378,6 +384,7 @@
                 <v-text-field
                 dense
                 outlined
+                :rules="[rules.required]"
                 label="Postal/Zip Code"
                 v-model="previousZipCode"
                 ></v-text-field>
@@ -437,11 +444,28 @@
                     dense
                     label="Installation Type (Internet)"
                     :items="['','Professional Install', 'In-Store Pickup', 'Ship to Home']"
+                    @change="showSnackbar(InstallationTypeInternet)"
                     outlined
                     v-model="InstallationTypeInternet">
                 </v-select>
             </v-col>
         </v-row>
+        <v-snackbar
+        v-model="snackbar"
+        
+        >
+            {{ text }}
+            <template v-slot:action="{ attrs }">
+                <v-btn
+                color="blue "
+                text
+                v-bind="attrs"
+                @click="snackbar = false"
+                >
+                Close
+                </v-btn>
+            </template>
+        </v-snackbar>
         <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Professional Install') && internetCheckbox">
             <p class="text-h5" style="text-align: center">
                 <b style="color:red">If requested install is within 30 days:</b> <br>
@@ -606,76 +630,80 @@
             </v-col>
         </v-row>
         <br>
-        <h2 v-if="availableInternetProviders == ''" color="black" class="black--text pb-5">--MOBILE PHONE--</h2>
-        <v-row v-if="availableInternetProviders == ''" dense class="mt-0 mb-4">
-            <v-col cols="6">
-                <v-select
-                    label="Mobile Phone Provider"
-                    :items="['','Spectrum']"
-                    v-model="mobilePhoneProvider"
-                    hint="If activating Spectrum Mobile You'll need to complete the Internetr/TV order with customer, then call ( 855) 392-9910 to add the FREE Mobile line. Be sure to give them our SAID# (22778) to receive credit for the sale."
-                    persistent-hint
-                    outlined>
-                </v-select>
-            </v-col>
-        </v-row>
-        <v-row  v-if="availableInternetProviders == ''" class="mt-0">
-            <v-col cols="6">
-                <v-text-field
-                dense
-                v-model="noMobileLines"
-                outlined
-                label="Number of Mobile Lines Purchased"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row v-if="availableInternetProviders == ''" dense class="mt-0">
-            <v-col
-                cols="6"
-                lg="6"
-                >
-                <v-menu
-                    ref="mobileActivationMenu"
-                    v-model="mobileActivationMenu"
-                    :close-on-content-click="false"
-                    transition="scale-transition"
-                    offset-y
-                    max-width="290px"
-                    min-width="auto"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                        v-model="mobileActivationDateFormatted"
-                        label="Mobile Activation Date"
-                        dense
-                        outlined
-                        hint="MM/DD/YYYY format"
+        <!-- ---------------------------------TEMPORARY DISABLED PER PETITION  (temporarily not being used)------------------------------------------------------------------------------------------- -->
+        <!-- <div>
+            <h2 v-if="availableInternetProviders == ''" color="black" class="black--text pb-5">--MOBILE PHONE--</h2>
+            <v-row v-if="availableInternetProviders == ''" dense class="mt-0 mb-4">
+                <v-col cols="6">
+                    <v-select
+                        label="Mobile Phone Provider"
+                        :items="['','Spectrum']"
+                        v-model="mobilePhoneProvider"
+                        hint="If activating Spectrum Mobile You'll need to complete the Internetr/TV order with customer, then call ( 855) 392-9910 to add the FREE Mobile line. Be sure to give them our SAID# (22778) to receive credit for the sale."
                         persistent-hint
-                        prepend-icon="mdi-calendar"
-                        v-bind="attrs"
-                        @blur="mobileActivationDate = parseDate(mobileActivationDateFormatted)"
-                        v-on="on"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker
-                        v-model="mobileActivationDate"
-                        no-title
-                        @input="mobileActivationMenu = false"
-                    ></v-date-picker>
-                    </v-menu>
-                    <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
-            </v-col>
-        </v-row>
-        <v-row v-if="availableInternetProviders == ''" class="pt-0">
-                <v-col>
-                    <v-textarea
-                    label="Mobile Notes"
-                    outlined
-                    v-model="mobileNotes"
-                    dense
-                    ></v-textarea>
+                        outlined>
+                    </v-select>
                 </v-col>
-        </v-row>
+            </v-row>
+            <v-row  v-if="availableInternetProviders == ''" class="mt-0">
+                <v-col cols="6">
+                    <v-text-field
+                    dense
+                    v-model="noMobileLines"
+                    outlined
+                    label="Number of Mobile Lines Purchased"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row v-if="availableInternetProviders == ''" dense class="mt-0">
+                <v-col
+                    cols="6"
+                    lg="6"
+                    >
+                    <v-menu
+                        ref="mobileActivationMenu"
+                        v-model="mobileActivationMenu"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        max-width="290px"
+                        min-width="auto"
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                            v-model="mobileActivationDateFormatted"
+                            label="Mobile Activation Date"
+                            dense
+                            outlined
+                            hint="MM/DD/YYYY format"
+                            persistent-hint
+                            prepend-icon="mdi-calendar"
+                            v-bind="attrs"
+                            @blur="mobileActivationDate = parseDate(mobileActivationDateFormatted)"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="mobileActivationDate"
+                            no-title
+                            @input="mobileActivationMenu = false"
+                        ></v-date-picker>
+                        </v-menu>
+                       
+                </v-col>
+            </v-row>
+            <v-row v-if="availableInternetProviders == ''" class="pt-0">
+                    <v-col>
+                        <v-textarea
+                        label="Mobile Notes"
+                        outlined
+                        v-model="mobileNotes"
+                        dense
+                        ></v-textarea>
+                    </v-col>
+            </v-row>
+    </div> -->
+    <!--  --------------------------------------------------------------------------------------------------------------------------------------- -->
         <h2 v-if="tvCheckbox" color="black" class="black--text">--TV--</h2>
         <v-row  v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
@@ -683,7 +711,7 @@
                     dense
                     v-model="selectedTV" 
                     label="Selected TV Provider"
-                    :items="['','Altice USA','COX', 'DirecTV Stream', 'DirecTV', 'Mediacom', 'Optimum', 'Spectrum', 'SuddenLink', 'Verizon', 'WOW', 'Xfinity', 'YouTube TV', 'Other']"
+                    :items="tvItems"
                     outlined>
                 </v-select>
                 <v-text-field
@@ -830,10 +858,11 @@
         <h2 v-if="phoneCheckbox" color="black" class="black--text">--PHONE--</h2>
         <v-row v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
+                <!-- :items="['','AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']" -->
                 <v-select
                     v-model="selectedPhone"
                     label="Selected Phone Provider"
-                    :items="['','AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']"
+                    :items="phoneItems"
                     outlined>
                 </v-select>
                 <v-text-field
@@ -974,7 +1003,7 @@
         <v-row class="pt-10 pb-10">
             <h1 color="black" class="black--text">--REQUIRED INFO FOR ORDERS--</h1>
         </v-row>
-            <v-row v-if="whosNameWillinternet == 'Primary'&& internetCheckbox || whosNameWillTv== 'Primary' && tvCheckbox || whosNameWillPhone== 'Primary' && phoneCheckbox" dense class="mt-0">
+            <v-row v-if="(whosNameWillinternet == 'Primary'&& internetCheckbox || whosNameWillTv== 'Primary' && tvCheckbox || whosNameWillPhone== 'Primary' && phoneCheckbox)&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -1010,13 +1039,17 @@
                     </v-menu>
             </v-col>
         </v-row>
-        <v-row v-if="internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone)" dense class="mt-0">
+        <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
                 outlined
                 v-model="primarySSN"
                 label="Primary SSN for Cable (No Dashes)"
+                :rules="[
+                    rules.onlyNumber,
+                    rules.last4ofSSNLength,
+                ]"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -1030,7 +1063,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row  v-if="whosNameWillinternet == 'Secondary'&& internetCheckbox || whosNameWillTv== 'Secondary' && tvCheckbox || whosNameWillPhone== 'Secondary' && phoneCheckbox" dense class="mt-0">
+        <v-row  v-if="(whosNameWillinternet == 'Secondary'&& internetCheckbox || whosNameWillTv== 'Secondary' && tvCheckbox || whosNameWillPhone== 'Secondary' && phoneCheckbox)&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -1067,11 +1100,15 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row v-if="internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone)" dense class="mt-0">
+        <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
                 v-model="secondarySSNforcable"
+                :rules="[
+                    rules.onlyNumber,
+                    rules.last4ofSSNLength,
+                ]"
                 outlined
                 label="Secondary SSN for Cable (No Dashes)"
                 ></v-text-field>
@@ -1214,6 +1251,9 @@
 
 export default {
     data: vm=>( {
+        snackbar: true,
+        text: "test",
+        multiLine: true,
         groupChoiceATT : [
             "",
             "What's your favorite Restaurant?", 
@@ -1232,6 +1272,12 @@ export default {
         internetInstallMenu: false,
         internetInstallDate: '',
         internetInstallDateFormatted: '',
+        rules:{
+            required: value => !!value || 'This field is Required',
+            onlyNumber: value =>  /^\d+$/.test(value) || 'just numbers allowed',
+            last4ofSSNLength: value =>  value.length == 9 ||"Must be 9 digits"
+        },
+        
         groupChoiceUC: [
             "",
             "What is the Last 4 of Your SSN or EIN number?", 
@@ -1339,6 +1385,38 @@ export default {
         }
     },
     computed: {
+        whoamISpeaking: {
+            get() {
+                return this.$store.state.stepOne.whoamISpeaking;
+            },
+            set(value) {
+                this.$store.state.stepOne.whoamISpeaking = value;
+            },
+        },
+        phoneItems:{
+            get() {
+                return this.$store.state.stepThree.phoneItems;
+            },
+            set(value) {
+                this.$store.state.stepThree.phoneItems = value;
+            },
+        },
+        internetItems:{
+            get() {
+                return this.$store.state.stepThree.internetItems;
+            },
+            set(value) {
+                this.$store.state.stepThree.internetItems = value;
+            },
+        },
+        tvItems:{
+            get() {
+                return this.$store.state.stepThree.tvItems;
+            },
+            set(value) {
+                this.$store.state.stepThree.tvItems = value;
+            },
+        },
         streetAddress: {
             get() {
                 return this.$store.state.stepOne.streetAddress;
@@ -1934,18 +2012,27 @@ export default {
 
     },
     methods: {
-      formatDate (date) {
+    showSnackbar(value){
+        if(value == "Ship to Home"){
+            this.snackbar = true;
+            this.text="Enter on Phone - Ship to Home Message";
+        }else if(value == "Professional Install"){
+            this.snackbar = true;
+            this.text = "Enter on Phone - Pro Install Message";
+        }
+    },
+    formatDate (date) {
         if (!date) return null
 
         const [year, month, day] = date.split('-')
         return `${month}/${day}/${year}`
-      },
-      parseDate (date) {
+    },
+    parseDate (date) {
         if (!date) return null
 
         const [month, day, year] = date.split('/')
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      }
+    }
     }
 }
 </script>

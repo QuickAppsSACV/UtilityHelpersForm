@@ -26,7 +26,9 @@ const stepSeven = {
         electricCancellationFormatedStore:'',
         gasActivationFormatedStore:'',
         primaryDOBFormatedGasStore:'',
-        secondDOBFormatedGasStore:''
+        secondDOBFormatedGasStore:'',
+        groupElectricProviderActived:[],
+        groupGasProviderActivated:[],
 
 
 

@@ -98,3 +98,43 @@
 [info] [2023-11-03T18:18:23.013Z] :  ==> app\js\app.48b0ef33.js.map
 [info] [2023-11-03T18:18:23.014Z] :  ==> app\js\chunk-vendors.48c5c1ed.js.map
 [info] [2023-11-03T18:18:23.015Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-08T17:14:30.102Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-08T17:14:30.105Z] :  ==> app\favicon.ico
+[info] [2023-11-08T17:14:30.105Z] :  ==> app\js\app.945de8c3.js.map
+[info] [2023-11-08T17:14:30.106Z] :  ==> app\js\chunk-vendors.48c5c1ed.js.map
+[info] [2023-11-08T17:14:30.107Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-08T17:14:30.117Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-08T17:14:30.118Z] :  ==> app\favicon.ico
+[info] [2023-11-08T17:14:30.120Z] :  ==> app\js\app.945de8c3.js.map
+[info] [2023-11-08T17:14:30.121Z] :  ==> app\js\chunk-vendors.48c5c1ed.js.map
+[info] [2023-11-08T17:14:30.122Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-08T17:37:51.736Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-08T17:37:51.739Z] :  ==> app\favicon.ico
+[info] [2023-11-08T17:37:51.740Z] :  ==> app\js\app.0df6508d.js.map
+[info] [2023-11-08T17:37:51.740Z] :  ==> app\js\chunk-vendors.48c5c1ed.js.map
+[info] [2023-11-08T17:37:51.741Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-08T17:37:51.749Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-08T17:37:51.750Z] :  ==> app\favicon.ico
+[info] [2023-11-08T17:37:51.751Z] :  ==> app\js\app.0df6508d.js.map
+[info] [2023-11-08T17:37:51.752Z] :  ==> app\js\chunk-vendors.48c5c1ed.js.map
+[info] [2023-11-08T17:37:51.754Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-08T18:20:45.234Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-08T18:20:45.236Z] :  ==> app\favicon.ico
+[info] [2023-11-08T18:20:45.237Z] :  ==> app\js\app.87c94fe7.js.map
+[info] [2023-11-08T18:20:45.237Z] :  ==> app\js\chunk-vendors.48c5c1ed.js.map
+[info] [2023-11-08T18:20:45.238Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-08T18:20:45.246Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-08T18:20:45.247Z] :  ==> app\favicon.ico
+[info] [2023-11-08T18:20:45.248Z] :  ==> app\js\app.87c94fe7.js.map
+[info] [2023-11-08T18:20:45.250Z] :  ==> app\js\chunk-vendors.48c5c1ed.js.map
+[info] [2023-11-08T18:20:45.251Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-17T17:37:26.652Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-17T17:37:26.654Z] :  ==> app\favicon.ico
+[info] [2023-11-17T17:37:26.655Z] :  ==> app\js\app.af0dfec7.js.map
+[info] [2023-11-17T17:37:26.655Z] :  ==> app\js\chunk-vendors.a46b01f2.js.map
+[info] [2023-11-17T17:37:26.656Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2
+[error] [2023-11-17T17:37:26.666Z] : × Below file formats are not allowed in Sigma
+[info] [2023-11-17T17:37:26.667Z] :  ==> app\favicon.ico
+[info] [2023-11-17T17:37:26.668Z] :  ==> app\js\app.af0dfec7.js.map
+[info] [2023-11-17T17:37:26.669Z] :  ==> app\js\chunk-vendors.a46b01f2.js.map
+[info] [2023-11-17T17:37:26.670Z] : Note - File formats that can be packed are: txt, md, xml, dre, jpg, jpeg, png, gif, css, js, html, json, mp3, svg, woff, ttf, eot, webm, mp4, and woff2

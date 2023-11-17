@@ -52,8 +52,8 @@ const stepThree = {
         securityAnswerPhone: "",
         securityPinPhone: "",
         phoneAccountNumber: "",
-        primarySSN: "",
-        last4ofSSN: "",
+        primarySSN: '',
+        last4ofSSN: '',
         secondarySSNforcable: "",
         collectCCInfo: "",
         cardType: "",
@@ -71,7 +71,10 @@ const stepThree = {
         tvInstallDateFormattedStore: "",
         phoneInstallDateFormattedStore:"",
         primaryBirthDateFormattedStore:"",
-        secondaryBirthDateFormattedStore:""
+        secondaryBirthDateFormattedStore:"",
+        phoneItems:[],
+        internetItems:[],
+        tvItems:[]
 
 
     },
