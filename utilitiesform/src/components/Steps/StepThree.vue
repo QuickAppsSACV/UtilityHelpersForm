@@ -156,6 +156,7 @@
             <v-col cols="6">
                 <v-select
                     label="Who's Name will Internet be in?"
+                    dense
                     :items="['Primary', 'Secondary']"
                     hint="Select Primary or Secondary"
                     persistent-hint
@@ -168,6 +169,7 @@
             <v-col cols="6">
                 <v-select
                     outlined
+                    dense
                     label="Selected Internet Provider"
                     :items="internetItems"
                     v-model="selectedInternetProvider">
@@ -1251,8 +1253,8 @@
 
 export default {
     data: vm=>( {
-        snackbar: true,
-        text: "test",
+        snackbar: false,
+        text: "",
         multiLine: true,
         groupChoiceATT : [
             "",

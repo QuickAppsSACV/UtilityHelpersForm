@@ -1025,7 +1025,7 @@ export default {
             this.secondaryEmail = lead.Secondary_Email;
             this.streetAddress = lead.Street;
             this.city = lead.City;
-            this.state = lead.State;
+            this.stateRegion = lead.State;
             this.zipCode = lead.Zip_Code;
             this.closingDate = this.formatDate(lead.Close_Date);
             this.whosubmittedRequest = lead.Lead_Submitted_By;
@@ -1046,11 +1046,14 @@ export default {
              this.activatedWaterItems = [...lead.Available_Water_Sewer];
             }
             this.researchNotes = lead.Research_Notes;
-            this.availableGas = lead.Available_Gas_Providers.toString();
-            if(lead.Available_Gas_Providers.length > 0){
-                this.groupGasProviderActivated = [...lead.Available_Gas_Providers];
-            }
+
+            if(lead.Available_Gas_Providers != null){
+                // if(lead.Available_Gas_Providers.length > 0){
             //this field is not multiselect
+                    this.availableGas = lead.Available_Gas_Providers.toString();
+                    this.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+                // }
+            }
             this.availableTrash = lead.Available_Trash_Providers;
             this.recycleIsCollected = lead.Not_Weekly_Recycle;
             this.yardIsCollected = lead.Not_Weekly_Yard;
@@ -1073,6 +1076,8 @@ export default {
             this.availableInternetProviders = lead.Available_Internet_Providers.toString();
             if(lead.Available_Internet_Providers.length > 0){
                 this.internetItems=[...lead.Available_Internet_Providers]
+            }else{
+                //if empty then show the default internet providers
             }
             this.availableTVProviders= lead.Available_TV_Providers.toString();
             if(lead.Available_TV_Providers.length > 0){
@@ -1108,7 +1113,7 @@ export default {
         that.secondaryEmail = lead.Secondary_Email;
         that.streetAddress = lead.Street;
         that.city = lead.City;
-        that.state = lead.State;
+        that.stateRegion = lead.State;
         that.zipCode = lead.Zip_Code;
         that.closingDate = lead.Close_Date;
         that.whosubmittedRequest = lead.Lead_Submitted_By;
@@ -1129,9 +1134,12 @@ export default {
             that.activatedWaterItems = [...lead.Available_Water_Sewer];
         }
         that.researchNotes = lead.Research_Notes;
-        that.availableGas = lead.Available_Gas_Providers.toString();
-        if(lead.Available_Gas_Providers.length > 0){
-            that.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+        if(lead.Available_Gas_Providers != null){
+            // if(lead.Available_Gas_Providers.length > 0){
+                that.availableGas = lead.Available_Gas_Providers.toString();
+                //Here we have a problem because of the Field type in ZOHO CRM
+                that.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+            // }
         }
         //this field is not multiselect
         that.availableTrash = lead.Available_Trash_Providers;

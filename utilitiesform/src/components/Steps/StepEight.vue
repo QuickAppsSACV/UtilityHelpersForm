@@ -733,10 +733,10 @@ export default {
         },
         availableWater: {
             get() {
-                return this.$store.state.stepEight.availableWater;
+                return this.$store.state.stepTwo.availableWater;
             },
             set(value) {
-                this.$store.state.stepEight.availableWater = value;
+                this.$store.state.stepTwo.availableWater = value;
             },
         },
         callNotes: {
