@@ -18,6 +18,7 @@
            <v-row dense class="mt-0">
                    <v-col cols="6">
                        <v-select
+                       clearable
                        dense
                        outlined
                        v-model="whoIsNameWillSecurityBeIn"
@@ -31,11 +32,12 @@
                <v-row dense class="mt-2">
                    <v-col cols="6">
                        <v-select
+                       clearable
                        dense
                        outlined
                        v-model="alarmCompany"
                        label="Alarm Company"
-                       :items="['','ADT','SimpliSafe']"
+                       :items="['ADT','SimpliSafe']"
                        ></v-select>
                    </v-col>
                </v-row>
@@ -53,12 +55,13 @@
                <v-row v-if="alarmCompany == 'ADT'" dense class="mt-2">
                    <v-col cols="6">
                        <v-select
+                       clearable
                        dense
                        outlined
                        v-if="alarmCompany == 'ADT'"
                        v-model="ADTPackageChosen"
                        label="ADT Package Chosen"
-                       :items="['','Basic','Command - Traditional','Command - Traditional w/ Life Safety','Command - Control','Command - Remote','Command - Video Lite','Command - Video & Home Automation']"
+                       :items="['Basic','Command - Traditional','Command - Traditional w/ Life Safety','Command - Control','Command - Remote','Command - Video Lite','Command - Video & Home Automation']"
                        
                        ></v-select>
                    </v-col>
@@ -102,11 +105,12 @@
                <v-row  v-if="alarmCompany == 'ADT'" dense class="">
                    <v-col cols="6">
                        <v-select
+                       clearable
                        dense
                        outlined
                        v-model="alarmInstalTimeWindows"
                        label="Alarm Install Time Window"
-                       :items="['','8am-12pm','12pm-4pm','4pm-8pm']"
+                       :items="['8am-12pm','12pm-4pm','4pm-8pm']"
                        hint="** 4pm-8pm is not available on Saturdays **
                            ** No Sunday Appointments **"
                        persistent-hint

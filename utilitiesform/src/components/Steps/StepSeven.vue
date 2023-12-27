@@ -24,6 +24,7 @@
                 <v-row dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="whoIsNameWillElectric"
@@ -37,6 +38,7 @@
                 <v-row dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="electricProviderActived"
@@ -59,11 +61,12 @@
                 <v-row  dense class="mt-5">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="activationOeTransfer"
                         label="Activation or Transfer"
-                        :items="['','New Activation','Transfer']"
+                        :items="['New Activation','Transfer']"
                         ></v-select>
                     </v-col>
                 </v-row>
@@ -351,6 +354,7 @@
                 <v-row dense class="pt-5">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="whosNameWillGas"
@@ -364,6 +368,7 @@
                 <v-row v-if="groupGasProviderAux.includes(availableGas)" dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="gasProviderActivated"

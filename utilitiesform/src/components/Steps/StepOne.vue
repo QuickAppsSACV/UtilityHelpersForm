@@ -755,6 +755,7 @@ export default {
             },
             set(value) {
                 this.$store.state.stepOne.stateRegion = value;
+                this.$store.state.stepFive.newState = value
             },
         },
         zipCode: {
@@ -920,6 +921,15 @@ export default {
             this.$store.state.stepFour.alreadyRequestedThroughIntroEmail=value;
             },
         },
+        //step 5 -------------------------------------------------
+        newState: {
+            get() {
+                return this.$store.state.stepFive.newState;
+            },
+            set(value) {
+                this.$store.state.stepFive.newState = value;
+            },
+        },
         //step7-----------------------------------------
         availableGasProviders: {
             get() {
@@ -1050,8 +1060,14 @@ export default {
             if(lead.Available_Gas_Providers != null){
                 // if(lead.Available_Gas_Providers.length > 0){
             //this field is not multiselect
+                if((typeof lead.Available_Gas_Providers) == "Array"){
                     this.availableGas = lead.Available_Gas_Providers.toString();
                     this.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+                }else if((typeof lead.Available_Gas_Providers) == "String"){
+                    this.availableGas = lead.Available_Gas_Providers;
+                    this.groupGasProviderActivated = lead.Available_Gas_Providers;
+                }
+                    
                 // }
             }
             this.availableTrash = lead.Available_Trash_Providers;
@@ -1086,6 +1102,10 @@ export default {
     
             //step4-----------------------------------------------
             this.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
+
+            //step5--------------------------------------------------
+            // this.newState = lead.State;
+
             //step7--------------------------------------------------
             // this.availableGasProviders = lead.Available_Gas_Providers
     
@@ -1136,10 +1156,17 @@ export default {
         that.researchNotes = lead.Research_Notes;
         if(lead.Available_Gas_Providers != null){
             // if(lead.Available_Gas_Providers.length > 0){
-                that.availableGas = lead.Available_Gas_Providers.toString();
+                // that.availableGas = lead.Available_Gas_Providers.toString();
                 //Here we have a problem because of the Field type in ZOHO CRM
-                that.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+                // that.groupGasProviderActivated = [...lead.Available_Gas_Providers];
             // }
+            if((typeof lead.Available_Gas_Providers) == "array"){
+                that.availableGas = lead.Available_Gas_Providers.toString();
+                that.groupGasProviderActivated = [...lead.Available_Gas_Providers];
+            }else if((typeof lead.Available_Gas_Providers) == "string"){
+                that.availableGas = lead.Available_Gas_Providers;
+                that.groupGasProviderActivated = lead.Available_Gas_Providers;
+            }
         }
         //this field is not multiselect
         that.availableTrash = lead.Available_Trash_Providers;
@@ -1170,6 +1197,10 @@ export default {
         }
         //step4-----------------------------------------------
         that.alreadyRequestedThroughIntroEmail = lead.Submitted_on_Intro_Email;
+
+        //step5 ----------------------------------------------------------
+        // that.newState = lead.State;
+
         //step7--------------------------------------------------
         // that.availableGasProviders = lead.Available_Gas_Providers
     })

@@ -14,6 +14,7 @@
                     dense
                     v-model="availableWater"
                     outlined
+                    disabled
                     label="Available Water/Sewer"
                     ></v-text-field>
                 </v-col>
@@ -62,6 +63,7 @@
          <v-row v-if="avaiableWaterAux.includes(availableWater)" >
             <v-col cols="6">
                 <v-select
+                clearable
                 outlined
                 dense
                 label="Who's Name will Water be in?"
@@ -289,6 +291,7 @@
             <v-row class="">
                 <v-col cols="6">
                     <v-select
+                    clearable
                     outlined
                     dense
                     label="Who's Name Will Trash Be in?"
@@ -297,7 +300,7 @@
                     ></v-select>
                 </v-col>
             </v-row>
-            <v-row>
+            <v-row v-if="availableTrash.includes('Oak Hill - TN')">
                 <v-col cols="6">
                     <v-text-field
                     outlined
@@ -312,6 +315,7 @@
             <v-row>
                 <v-col cols="6">
                     <v-select
+                    clearable
                     dense
                     outlined
                     v-model="activatedTrashSelected"
@@ -377,6 +381,7 @@
             <v-row class="mt-2">
                 <v-col cols="6">
                     <v-select
+                    clearable
                     v-model="salesRep"
                     label="Sales Rep *"
                     outlined
@@ -412,14 +417,14 @@
                     <p style="color:black;font-size:18px">Thank you for trusting Utility Helpers! We strive to provide 5 star service. If you found your service helpful it would mean the world to us if when you receive that confirmation email, you took a moment to leave us a review about your experience today. What else I can do for you today to earn your 5 Star review?</p>
                 </v-col>
             </v-row>
-            <v-row class="mt-4">
+            <!-- <v-row class="mt-4">
                 <v-col>
                     <v-checkbox
                     v-model="usedUtilityTool"
                     label="Used Utility Flow tool?"
                     ></v-checkbox>
                 </v-col>
-            </v-row>
+            </v-row> -->
         </v-card>
     </div>
 </template>
@@ -439,13 +444,11 @@ export default {
         primaryDOBFormated:'',
         // activatedWaterItems: activatedWaterItems,
         activatedTrashItems:[
-        "",
         "City of Hendersonville - TN",       
         "City of Miami - FL",
         "Oak Hill - TN"
         ],
         salesRepItems:[
-        "",
         "andrew@utilityhelpers.com",
         "billy@utilityhelpers.com",
         "blake@utilityhelpers.com",

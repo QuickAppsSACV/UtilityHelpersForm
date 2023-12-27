@@ -155,6 +155,7 @@
         <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     label="Who's Name will Internet be in?"
                     dense
                     :items="['Primary', 'Secondary']"
@@ -168,6 +169,7 @@
         <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     outlined
                     dense
                     label="Selected Internet Provider"
@@ -431,7 +433,7 @@
                 </p>
             </v-col>
         </v-row>
-        <v-row v-if="selectedInternetProvider== 'WOW' && internetCheckbox  || InstallationTypeInternet == 'Ship to Home' && internetCheckbox ">
+        <v-row v-if="selectedInternetProvider== 'WOW' && InstallationTypeInternet == 'Ship to Home' && internetCheckbox ">
             <v-col>
                 <p style="font-size:medium">
                     <b style="color:#3399ff;">WOW Delivery Windows:</b>
@@ -443,9 +445,10 @@
         <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     dense
                     label="Installation Type (Internet)"
-                    :items="['','Professional Install', 'In-Store Pickup', 'Ship to Home']"
+                    :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     @change="showSnackbar(InstallationTypeInternet)"
                     outlined
                     v-model="InstallationTypeInternet">
@@ -491,6 +494,7 @@
         <v-row v-if="selectedInternetProvider== 'Frontier'&& InstallationTypeInternet == 'Professional Install'  && internetCheckbox" dense class="mt-5 mb-4">
             <v-col cols="6">
                 <v-select
+                    clearable
                     label="Will there be any pets present during the installation?"
                     :items="['Yes', 'No']"
                     hint="a"
@@ -593,6 +597,7 @@
         <v-row  v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     dense
                     label="Security Question (Internet)"
                     :items="securityQuestionItems"
@@ -710,6 +715,7 @@
         <v-row  v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     dense
                     v-model="selectedTV" 
                     label="Selected TV Provider"
@@ -727,6 +733,7 @@
         <v-row v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     label="Who's Name will TV be in?"
                     :items="['Primary', 'Secondary']"
                     v-model="whosNameWillTv"
@@ -760,9 +767,10 @@
         <v-row v-if="tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     v-model="installationTypeSelectedTV"
                     label="Installation Type(TV) (IF SAME AS INTERNET, SKIP THIS STEP)"
-                    :items="['','Professional Install', 'In-Store Pickup', 'Ship to Home']"
+                    :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
                 </v-select>
             </v-col>
@@ -817,6 +825,7 @@
         <v-row  v-if="installationTypeSelectedTV != '' && tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     dense
                     outlined
                     v-model="securityQuestionTV"
@@ -862,6 +871,7 @@
             <v-col cols="6">
                 <!-- :items="['','AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']" -->
                 <v-select
+                    clearable
                     v-model="selectedPhone"
                     label="Selected Phone Provider"
                     :items="phoneItems"
@@ -878,6 +888,7 @@
         <v-row  v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     label="Who's Name will Phone be in?"
                     :items="['Primary', 'Secondary']"
                     hint="Select Primary or Secondary"
@@ -902,9 +913,10 @@
         <v-row v-if="phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     v-model="installationTypePhone"
                     label="Installation Type (Phone) (IF SAME AS INTERNET, SKIP THIS STEP)"
-                    :items="['','Professional Install', 'In-Store Pickup', 'Ship to Home']"
+                    :items="['Professional Install', 'In-Store Pickup', 'Ship to Home']"
                     outlined>
                 </v-select>
             </v-col>
@@ -959,6 +971,7 @@
         <v-row  v-if="phoneCheckbox && installationTypePhone != ''" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                clearable
                 outlined
                 label="Security Question (Phone)"
                 :items="groupChoiceCox"
@@ -1119,6 +1132,7 @@
         <v-row v-if="(selectedInternetProvider== 'Frontier'||selectedInternetProvider== 'Spectrum' || selectedInternetProvider== 'Viasat') && internetCheckbox  " dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     v-model="collectCCInfo"
                     label="Collect CC Info for AutoPay or Initial Payment"
                     :items="['Yes','No']"
@@ -1132,10 +1146,11 @@
             <v-row dense class="mt-0">
                 <v-col cols="6">
                     <v-select
+                        clearable
                         label="Card Type"
                         dense
                         v-model="cardType"
-                        :items="['','Visa', 'Mastercard', 'Discover', 'American Express']"
+                        :items="['Visa', 'Mastercard', 'Discover', 'American Express']"
                         outlined>
                     </v-select>
                 </v-col>
@@ -1206,9 +1221,10 @@
         <v-row v-if="internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     label="Create Ticket? (Internet)"
                     v-model="createTicketInternet"
-                    :items="['','Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
+                    :items="['Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
                     outlined>
                 </v-select>
             </v-col>
@@ -1216,9 +1232,10 @@
         <v-row v-if="installationTypeSelectedTV != '' && tvCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     v-model="createTicketTV"
                     label="Create Ticket? (TV)"
-                    :items="['','Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
+                    :items="['Place Order', 'Delayed Cable Order', 'Convert to Pro Install', 'Error Received (Re-Key)']"
                     outlined>
                 </v-select>
             </v-col>
@@ -1264,7 +1281,6 @@ export default {
             "Who was your childhood hero?"
         ],
         groupChoiceCox: [
-            "",
             "What is the first concert you attended?", 
             "What is the name of the road you lived on in 3rd grade?", 
             "What was the name of your first pet?"

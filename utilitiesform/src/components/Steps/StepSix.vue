@@ -20,9 +20,10 @@
         <v-row dense class="mt-5">
             <v-col cols="6">
                 <v-select
-                v-model="podsOrProMover"
+                    clearable
+                    v-model="podsOrProMover"
                     label="PODS or Pro Mover?"
-                    :items="['','PODS','Pro Mover','Both']"
+                    :items="['PODS','Pro Mover','Both']"
                     outlined
                     ></v-select>
             </v-col>
@@ -65,9 +66,10 @@
         <v-row v-if="podsOrProMover =='Both'" dense class="mt-0">
             <v-col cols="6">
                 <v-select
-                v-model="rentalTruckCompany"
+                    clearable
+                    v-model="rentalTruckCompany"
                     label="Rental Truck Company"
-                    :items="['','Uhaul']"
+                    :items="['Uhaul']"
                     outlined
                     ></v-select>
             </v-col>
@@ -75,9 +77,10 @@
         <v-row  v-if="podsOrProMover =='Both'" dense class="mt-0">
             <v-col cols="6">
                 <v-select
+                    clearable
                     v-model="typeOfMove"
                     label="Type of Move"
-                    :items="['','One-Way','In-Town']"
+                    :items="['One-Way','In-Town']"
                     outlined
                     ></v-select>
             </v-col>
@@ -179,9 +182,10 @@
                         <v-row  v-if="podsOrProMover =='Both' || podsOrProMover== 'Pro Mover'" dense class="mt-4">
                             <v-col cols="6">
                                 <v-select
+                                    clearable
                                     v-model="proMovingCompany"
                                     label="Pro Moving Company"
-                                    :items="['','Bekins (National)','Rocks Moving (Tampa Bay Area)']"
+                                    :items="['Bekins (National)','Rocks Moving (Tampa Bay Area)']"
                                     outlined
                                     ></v-select>
                             </v-col>
@@ -224,9 +228,10 @@
                         <v-row  v-if="podsOrProMover =='Both' || podsOrProMover== 'Pro Mover'" dense class="mt-0">
                             <v-col cols="6">
                                 <v-select
+                                    clearable
                                     v-model="howSentProMover"
                                     label="How Sent to Pro Mover?"
-                                    :items="['','Warm Transfer', 'Request Call Back']"
+                                    :items="['Warm Transfer', 'Request Call Back']"
                                     outlined
                                     ></v-select>
                             </v-col>
@@ -298,10 +303,10 @@
                         <v-row v-if="wouldLikeSolarConsulation == true && (this.$store.state.stepOne.stateRegion.toLowerCase() == 'fl' || this.$store.state.stepOne.stateRegion.toLowerCase().includes('florida'))" dense class="mt-0">
                             <v-col cols="6">
                                 <v-select
+                                clearable
                                 v-model="solarConsulationTime"
                                     label="Solar Consultation Time Window"
                                     :items="[
-                                        '',
                                         '11am - 1pm', 
                                         '1pm - 3pm',
                                         '3pm - 5pm',

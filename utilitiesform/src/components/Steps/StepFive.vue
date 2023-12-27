@@ -39,6 +39,7 @@
                 <v-row  v-if="this.$store.state.stepFour.alreadyRequestedThroughIntroEmail != 'Yes'" dense class="mt-10">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="insuranceQuoteRequested"
@@ -94,17 +95,19 @@
                 <v-row  v-if="insuranceQuoteRequested == 'Yes'" dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="whoIsTheHomeGoing"
                         label="Who is the home going to be occupied by?"
-                        :items="['','Owner','Renter','Unoccupied']"                     
+                        :items="['Owner','Renter','Unoccupied']"                     
                         ></v-select>
                     </v-col>
                 </v-row>
                 <v-row  v-if="insuranceQuoteRequested == 'Yes'" dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="howIsThisResidendeGoing"
@@ -116,11 +119,12 @@
                 <v-row  v-if="insuranceQuoteRequested == 'Yes'" dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="howManyMonth"
                         label="​How many months to be occupied?"
-                        :items="['','9 Months or More','0-3 Months','4-8 Months']"
+                        :items="['9 Months or More','0-3 Months','4-8 Months']"
                         ></v-select>
                     </v-col>
                 </v-row>
@@ -171,6 +175,7 @@
                 <v-row  v-if="insuranceQuoteRequested == 'Yes'" dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="willYouHaveAMonitored"
@@ -193,6 +198,7 @@
                 <v-row  v-if="insuranceQuoteRequested == 'Yes'" dense class="">
                     <v-col cols="6">
                         <v-select
+                        clearable
                         dense
                         outlined
                         v-model="howManyDogs"
@@ -201,7 +207,7 @@
                         ></v-select>
                     </v-col>
                 </v-row>
-                <v-row v-if="howManyDogs != '0' && howManyDogs != ''" dense>
+                <v-row v-if="howManyDogs != '0' && howManyDogs != '' && howManyDogs != null" dense>
                     <v-col class="" cols="6">
                         <v-text-field
                         dense
@@ -214,7 +220,7 @@
                     </v-text-field>
                 </v-col>
                 </v-row>
-                <v-row  v-if="howManyDogs != '0' && howManyDogs != ''" dense class="">
+                <v-row  v-if="howManyDogs != '0' && howManyDogs != '' && howManyDogs != null" dense class="">
                     <v-col cols="6">
                         <v-select
                         dense

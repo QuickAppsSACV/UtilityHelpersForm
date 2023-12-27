@@ -6,7 +6,7 @@ const stepEight = {
     salesRep:'',
     errorField:'',
     orderID:'',
-    usedUtilityTool:'',
+    usedUtilityTool: true,
     whosNamewillWater:'',
     activatedWaterSelected:'',
     driversLicenceNo:'',

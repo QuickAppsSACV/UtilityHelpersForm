@@ -18,6 +18,7 @@
                     <v-stepper-header>
                         <v-stepper-step 
                             editable
+                            class="step-space"
                             :complete="e1 > 1"
                             step="1"
                         >
@@ -25,53 +26,66 @@
                                 Customer Info Verification
                             </small>
                         </v-stepper-step>
-                        <v-divider></v-divider>
+                        <v-divider ></v-divider>
                         <v-stepper-step 
                             editable
+                            class="step-space"
                             :complete="e1 > 2"
                             step="2"
                         >
                            <small> Available Provider Synopsis</small>
                         </v-stepper-step>
 
-                        <v-divider></v-divider>
+                        <v-divider ></v-divider>
 
                         <v-stepper-step 
-                        editable step="3"
+                            editable 
+                            class="step-space"
+                            step="3"
                         :complete="e1 > 3"
                         >
                             <small>Cable/Internet/Phone</small>
                         </v-stepper-step>
-                        <v-divider></v-divider>
+                        <v-divider ></v-divider>
                         <v-stepper-step 
-                        editable step="4"
+                            editable 
+                            class="step-space"
+                            step="4"
                         :complete="e1 > 4"
                         >
                             <small>Home Security</small>
                         </v-stepper-step>
-                        <v-divider></v-divider>
+                        <v-divider ></v-divider>
                         <v-stepper-step 
-                        editable step="5"
+                            editable 
+                            class="step-space"
+                            step="5"
                         :complete="e1 > 5"
                         >
                             <small>Homeowners Insurance</small>
                         </v-stepper-step>
-                        <v-divider></v-divider>
+                        <v-divider ></v-divider>
                         <v-stepper-step 
-                        editable step="6"
+                            editable 
+                            class="step-space"
+                            step="6"
                         :complete="e1 > 6"
                         >
                             <small>PODS / Pro Movers</small>
                         </v-stepper-step>
-                        <v-divider></v-divider>
+                        <v-divider ></v-divider>
                         <v-stepper-step 
-                        editable step="7"
+                            editable 
+                            class="step-space"
+                            step="7"
                         :complete="e1 > 7">
                             <small>Electric</small>
                         </v-stepper-step>
-                        <v-divider></v-divider>
+                        <v-divider ></v-divider>
                         <v-stepper-step 
-                        editable step="8"
+                            editable 
+                            class="step-space"
+                            step="8"
                         :complete="e1 > 8"
                         >
                             <small>Water/Sewer/Trash</small>
@@ -279,5 +293,9 @@ export default {
     }
     .comic-sans-font{
         font-family: 'Comic Sans MS';
+    }
+    .step-space{
+        flex-basis:0 !important;
+        max-width: 100px !important;
     }
 </style>
