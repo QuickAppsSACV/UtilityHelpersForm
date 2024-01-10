@@ -417,7 +417,7 @@
                         </v-menu>
                 </v-col>
                 </v-row>
-                <v-row v-if="!(primaryDOBFormatedStore != '' || whosNameWillGas != 'Primary'|| this.$store.state.stepThree.primaryBirthDateFormattedStore !='')" dense class="mt-0">
+                <v-row v-if="!(primaryDOBFormatedStore != '' || whosNameWillGas != 'Primary'|| this.$store.state.stepThree.primaryBirthDateFormattedStore !='') && dobCRM" dense class="mt-0">
                     <v-col
                     cols="6"
                     lg="6"
@@ -465,7 +465,7 @@
                     </v-text-field>
                 </v-col>
                 </v-row>
-                <v-row v-if="!(secondaryDOBFormatedStore != ''|| whosNameWillGas != 'Secondary'||this.$store.state.stepThree.secondaryBirthDateFormattedStore!= '')" dense class="mt-0">
+                <v-row v-if="!(secondaryDOBFormatedStore != ''|| whosNameWillGas != 'Secondary'||this.$store.state.stepThree.secondaryBirthDateFormattedStore!= '')&& dobCRM" dense class="mt-0">
                     <v-col
                     cols="6"
                     lg="6"

@@ -425,6 +425,7 @@
                     Did you add/verify Secondary data?* 
                     <v-checkbox
                     label="Yes"
+                    :rules="[rules.required]"
                     v-model="someServicesWill"
                     ></v-checkbox>
                 </v-col>
@@ -931,14 +932,6 @@ export default {
             },
         },
         //step7-----------------------------------------
-        availableGasProviders: {
-            get() {
-                return this.$store.state.stepSeven.availableGasProviders;
-            },
-            set(value) {
-                this.$store.state.stepSeven.availableGasProviders = value;
-            },
-        },
         groupElectricProviderActived: {
             get() {
                 return this.$store.state.stepSeven.groupElectricProviderActived;
@@ -1060,10 +1053,10 @@ export default {
             if(lead.Available_Gas_Providers != null){
                 // if(lead.Available_Gas_Providers.length > 0){
             //this field is not multiselect
-                if((typeof lead.Available_Gas_Providers) == "Array"){
+                if((typeof lead.Available_Gas_Providers) == "array"){
                     this.availableGas = lead.Available_Gas_Providers.toString();
                     this.groupGasProviderActivated = [...lead.Available_Gas_Providers];
-                }else if((typeof lead.Available_Gas_Providers) == "String"){
+                }else if((typeof lead.Available_Gas_Providers) == "string"){
                     this.availableGas = lead.Available_Gas_Providers;
                     this.groupGasProviderActivated = lead.Available_Gas_Providers;
                 }

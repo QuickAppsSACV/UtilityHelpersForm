@@ -74,7 +74,17 @@ const stepThree = {
         secondaryBirthDateFormattedStore:"",
         phoneItems:[],
         internetItems:[],
-        tvItems:[]
+        tvItems:[],
+        completeOrder: false,
+        installTimeWindow : false,
+        itemsInstalTimeWindow : [],
+        ssnCRM:false,
+        last4CRM:false,
+        driverLicenseCRM:false,
+        dobCRM:false,
+        requiresPINCRM:false,
+        requiresQuestionCRM:false,
+
 
 
     },

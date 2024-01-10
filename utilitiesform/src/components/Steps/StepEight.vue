@@ -72,7 +72,7 @@
                 ></v-select>
             </v-col>
         </v-row>
-            <v-row v-if="avaiableWaterAux2.includes(availableWater)">
+            <v-row v-if="avaiableWaterAux2.includes(availableWater) && driverLicenseCRM">
                 <v-col cols="6">
                     <v-text-field
                     label="Driver's Licence Number (Primary)"
@@ -84,7 +84,7 @@
                     ></v-text-field> 
                 </v-col>
             </v-row>
-            <v-row v-if="avaiableWaterAux2.includes(availableWater)">
+            <v-row v-if="avaiableWaterAux2.includes(availableWater)&& driverLicenseCRM">
                 <v-col cols="6">
                     <v-text-field
                     label="Driver's Licence Number (Secondary)"
@@ -115,7 +115,7 @@
                     ></v-text-field> 
                 </v-col>
             </v-row>
-            <v-row  v-if="this.$store.state.stepSeven.primaryDOBFormatedStore == '' && this.$store.state.stepThree.primaryBirthDateFormattedStore == '' && whosNamewillWater =='Primary' && avaiableWaterAux.includes(availableWater)" dense class="mt-0">
+            <v-row  v-if="(this.$store.state.stepSeven.primaryDOBFormatedStore == '' && this.$store.state.stepThree.primaryBirthDateFormattedStore == '' && whosNamewillWater =='Primary' && avaiableWaterAux.includes(availableWater))&& dobCRM" dense class="mt-0">
                 <v-col
                 cols="6"
                 lg="6"
@@ -151,7 +151,7 @@
                     </v-menu>
                 </v-col>
             </v-row>
-            <v-row  v-if=" this.$store.state.stepThree.secondaryBirthDateFormattedStore == '' && whosNamewillWater =='Secondary' && avaiableWaterAux.includes(availableWater)"  dense class="mt-0">
+            <v-row  v-if="(this.$store.state.stepThree.secondaryBirthDateFormattedStore == '' && whosNamewillWater =='Secondary' && avaiableWaterAux.includes(availableWater)) && dobCRM"  dense class="mt-0">
                 <v-col
                 cols="6"
                 lg="6"
@@ -574,6 +574,14 @@ export default {
         },
     },
     computed: {
+        driverLicenseCRM: {
+            get() {
+                return this.$store.state.stepThree.driverLicenseCRM;
+            },
+            set(value) {
+                this.$store.state.stepThree.driverLicenseCRM = value;
+            },
+        },
         activatedWaterItems:{
             get() {
                 return this.$store.state.stepEight.activatedWaterItems;

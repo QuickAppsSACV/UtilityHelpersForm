@@ -172,6 +172,7 @@
                     clearable
                     outlined
                     dense
+                    @change="searchProvider()"
                     label="Selected Internet Provider"
                     :items="internetItems"
                     v-model="selectedInternetProvider">
@@ -471,13 +472,15 @@
                 </v-btn>
             </template>
         </v-snackbar>
-        <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Professional Install') && internetCheckbox">
+        <div v-if="completeOrder == true &&  lessThan30 && InstallationTypeInternet == 'Professional Install'" >
+        <!-- <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Professional Install') && internetCheckbox"> -->
             <p class="text-h5" style="text-align: center">
                 <b style="color:red">If requested install is within 30 days:</b> <br>
                 <mark>You must <u>complete the order in the portal </u>now with customer<br>
                     because they'll need to receive a confirmation text.</mark></p>
         </div>
-        <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Ship to Home') && internetCheckbox"  >
+        <!-- <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Ship to Home') && internetCheckbox"  > -->
+            <div v-if="completeOrder = true && lessthan7 && InstallationTypeInternet == 'Ship to Home' "     >
             <p class="text-h5" style="text-align: center">
                 <b style="color:red">If requested delivery is within 7 days:</b> <br>
                 <mark>You must <u>complete the order in the portal </u>now with customer<br>
@@ -579,22 +582,38 @@
                         v-model="internetInstallDate"
                         no-title
                         @input="internetInstallMenu = false"
+                        @change="islessThanthirty()"
                     ></v-date-picker>
                     </v-menu>
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row v-if="InstallationTypeInternet == 'Professional Install'  && internetCheckbox" dense class="mt-0 mb-2">
-            <v-col cols="6">
-                <v-text-field 
-                dense
-                outlined
-                v-model="internetInstallTime"
-                label="Internet Install Time Window"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row  v-if="internetCheckbox" dense class="mt-0">
+        <div v-if="installTimeWindow">
+            <v-row v-if="InstallationTypeInternet == 'Professional Install'  && internetCheckbox" dense class="mt-0 mb-2">
+                <v-col cols="6">
+                    <v-select 
+                    dense
+                    outlined
+                    :items="itemsInstalTimeWindow"
+                    v-model="internetInstallTime"
+                    label="Internet Install Time Window"
+                    ></v-select>
+                </v-col>
+            </v-row>
+        </div>
+        <div v-else>
+            <v-row v-if="InstallationTypeInternet == 'Professional Install'  && internetCheckbox" dense class="mt-0 mb-2">
+                <v-col cols="6">
+                    <v-text-field 
+                    dense
+                    outlined
+                    v-model="internetInstallTime"
+                    label="Internet Install Time Window"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+        </div>
+        <v-row  v-if="internetCheckbox && requiresQuestionCRM" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     clearable
@@ -606,7 +625,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row v-if="(selectedInternetProvider== 'AT&T'||selectedInternetProvider== 'COX'||selectedInternetProvider== 'United Communications')&& internetCheckbox"  dense class="mt-0 mb-4">
+        <v-row v-if="(selectedInternetProvider== 'AT&T'||selectedInternetProvider== 'COX'||selectedInternetProvider== 'United Communications')&& internetCheckbox && requiresQuestionCRM"  dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -616,7 +635,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="selectedInternetProvider == 'AT&T' && internetCheckbox|| selectedInternetProvider == 'COX' && internetCheckbox || selectedInternetProvider == 'WOW' && internetCheckbox ||selectedInternetProvider == 'United Communications' && internetCheckbox   " dense class="mt-0 mb-4">
+        <v-row v-if="(selectedInternetProvider == 'AT&T' && internetCheckbox|| selectedInternetProvider == 'COX' && internetCheckbox || selectedInternetProvider == 'WOW' && internetCheckbox ||selectedInternetProvider == 'United Communications') && internetCheckbox && requiresPINCRM   " dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1018,7 +1037,7 @@
         <v-row class="pt-10 pb-10">
             <h1 color="black" class="black--text">--REQUIRED INFO FOR ORDERS--</h1>
         </v-row>
-            <v-row v-if="(whosNameWillinternet == 'Primary'&& internetCheckbox || whosNameWillTv== 'Primary' && tvCheckbox || whosNameWillPhone== 'Primary' && phoneCheckbox)&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0">
+            <v-row v-if="(whosNameWillinternet == 'Primary'&& internetCheckbox || whosNameWillTv== 'Primary' && tvCheckbox || whosNameWillPhone== 'Primary' && phoneCheckbox)&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both') && dobCRM" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -1054,11 +1073,13 @@
                     </v-menu>
             </v-col>
         </v-row>
-        <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0">
+        <!-- <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0"> -->
+            <v-row v-if="(whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both') && ssnCRM" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
                 outlined
+
                 v-model="primarySSN"
                 label="Primary SSN for Cable (No Dashes)"
                 :rules="[
@@ -1068,7 +1089,8 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="selectedInternetProvider=='Viasat' && internetCheckbox" dense class="mt-0">
+        <!-- <v-row v-if="selectedInternetProvider=='Viasat' && internetCheckbox" dense class="mt-0"> -->
+            <v-row v-if="last4CRM && internetCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1078,7 +1100,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row  v-if="(whosNameWillinternet == 'Secondary'&& internetCheckbox || whosNameWillTv== 'Secondary' && tvCheckbox || whosNameWillPhone== 'Secondary' && phoneCheckbox)&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')" dense class="mt-0">
+        <v-row  v-if="(whosNameWillinternet == 'Secondary'&& internetCheckbox || whosNameWillTv== 'Secondary' && tvCheckbox || whosNameWillPhone== 'Secondary' && phoneCheckbox)&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')&& dobCRM" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -1115,7 +1137,8 @@
                     <!-- <p>Date in ISO format: <strong>{{ date }}</strong></p> -->
             </v-col>
         </v-row>
-        <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')" dense class="mt-0">
+        <!-- <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')" dense class="mt-0"> -->
+        <v-row  v-if="(whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both') && ssnCRM"  dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1129,18 +1152,21 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="(selectedInternetProvider== 'Frontier'||selectedInternetProvider== 'Spectrum' || selectedInternetProvider== 'Viasat') && internetCheckbox  " dense class="mt-0">
+        <!-- <v-row v-if="(selectedInternetProvider== 'Frontier'||selectedInternetProvider== 'Spectrum' || selectedInternetProvider== 'Viasat') && internetCheckbox  " dense class="mt-0"> -->
+            <v-row v-if="internetCheckbox">
             <v-col cols="6">
                 <v-select
                     clearable
                     v-model="collectCCInfo"
+                    :disabled="lockField"
                     label="Collect CC Info for AutoPay or Initial Payment"
                     :items="['Yes','No']"
                     outlined>
                 </v-select>
             </v-col>
         </v-row>
-        <div v-if="(selectedInternetProvider== 'Frontier'||selectedInternetProvider== 'Spectrum' || selectedInternetProvider== 'Viasat') && internetCheckbox && collectCCInfo=='Yes'  ">
+        <!-- <div v-if="(selectedInternetProvider== 'Frontier'||selectedInternetProvider== 'Spectrum' || selectedInternetProvider== 'Viasat') && internetCheckbox && collectCCInfo=='Yes'  "> -->
+            <div v-if="internetCheckbox && collectCCInfo == 'Yes'">
             <h2 color="black" class="black--text">--Payment Info--</h2>
             <br>
             <v-row dense class="mt-0">
@@ -1149,6 +1175,7 @@
                         clearable
                         label="Card Type"
                         dense
+                        :rules="[rules.required]"
                         v-model="cardType"
                         :items="['Visa', 'Mastercard', 'Discover', 'American Express']"
                         outlined>
@@ -1161,6 +1188,7 @@
                     v-model="CCNumber"
                     dense
                     outlined
+                    :rules="[rules.required]"
                     label="Credit Card Number"
                     ></v-text-field>
                 </v-col>
@@ -1170,6 +1198,7 @@
                     <v-text-field 
                     dense
                     v-model="expiration"
+                    :rules="[rules.required]"
                     outlined
                     label="Expiration"
                     hint="MM/YY"
@@ -1182,6 +1211,7 @@
                     <v-text-field 
                     dense
                     v-model="NameonCard"
+                    :rules="[rules.required]"
                     outlined
                     label="Name on Card"
                     ></v-text-field>
@@ -1192,6 +1222,7 @@
                     <v-text-field 
                     dense
                     v-model="billingZipCode"
+                    :rules="[rules.required]"
                     outlined
                     label="Billing Zip Code"
                     ></v-text-field>
@@ -1203,6 +1234,7 @@
                     dense
                     outlined
                     v-model="cardVerificationCode"
+                    :rules="[rules.required]"
                     label="Card Verification Code"
                     hint="3 or 4 Digit Code on the Back of the Card. (May be embossed on the front of some cards)"
                     persistent-hint
@@ -1210,7 +1242,7 @@
                 </v-col>
             </v-row>
         </div>
-        <div v-if="selectedInternetProvider != ''  && internetCheckbox || selectedTV != ''  && tvCheckbox">
+        <div v-if="(completeOrder != true &&  !lessThan30 && InstallationTypeInternet != 'Professional Install')&&(selectedInternetProvider != ''  && internetCheckbox || selectedTV != ''  && tvCheckbox)">
             <v-row justify="center">
                 <p class="text-h4" style="color:black">READ TO CUSTOMER:</p>
             </v-row>
@@ -1267,10 +1299,13 @@
     </div>
 </template>
 <script>
+const moment = require('moment'); 
 
 export default {
     data: vm=>( {
         snackbar: false,
+        lessThan30: false,
+        lessthan7: false,
         text: "",
         multiLine: true,
         groupChoiceATT : [
@@ -1357,7 +1392,12 @@ export default {
         "SuddenLink",
         "Verizon",
         "CenturyLink"
-        ]
+        ],
+        lockField: false,
+
+
+
+
         // secondaryBirthDateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
         
         
@@ -1931,6 +1971,78 @@ export default {
                 this.$store.state.stepThree.last4ofSSN = value;
             },
         },
+        completeOrder: {
+            get() {
+                return this.$store.state.stepThree.completeOrder;
+            },
+            set(value) {
+                this.$store.state.stepThree.completeOrder = value;
+            },
+        },
+        installTimeWindow: {
+            get() {
+                return this.$store.state.stepThree.installTimeWindow;
+            },
+            set(value) {
+                this.$store.state.stepThree.installTimeWindow = value;
+            },
+        },
+        itemsInstalTimeWindow: {
+            get() {
+                return this.$store.state.stepThree.itemsInstalTimeWindow;
+            },
+            set(value) {
+                this.$store.state.stepThree.itemsInstalTimeWindow = value;
+            },
+        },
+        ssnCRM: {
+            get() {
+                return this.$store.state.stepThree.ssnCRM;
+            },
+            set(value) {
+                this.$store.state.stepThree.ssnCRM = value;
+            },
+        },
+        last4CRM: {
+            get() {
+                return this.$store.state.stepThree.last4CRM;
+            },
+            set(value) {
+                this.$store.state.stepThree.last4CRM = value;
+            },
+        },
+        driverLicenseCRM: {
+            get() {
+                return this.$store.state.stepThree.driverLicenseCRM;
+            },
+            set(value) {
+                this.$store.state.stepThree.driverLicenseCRM = value;
+            },
+        },
+        dobCRM: {
+            get() {
+                return this.$store.state.stepThree.dobCRM;
+            },
+            set(value) {
+                this.$store.state.stepThree.dobCRM = value;
+            },
+        },
+        requiresPINCRM: {
+            get() {
+                return this.$store.state.stepThree.requiresPINCRM;
+            },
+            set(value) {
+                this.$store.state.stepThree.requiresPINCRM = value;
+            },
+        },
+        requiresQuestionCRM: {
+            get() {
+                return this.$store.state.stepThree.requiresQuestionCRM;
+            },
+            set(value) {
+                this.$store.state.stepThree.requiresQuestionCRM = value;
+            },
+        },
         secondarySSNforcable: {
             get() {
                 return this.$store.state.stepThree.secondarySSNforcable;
@@ -2030,6 +2142,60 @@ export default {
 
     },
     methods: {
+        islessThanthirty(){
+            if(moment(this.internetInstallDate) < moment().add(30,"days") ){
+                this.lessThan30 = true;
+                if(moment(this.internetInstallDate) < moment().add(7,"days") ){
+                    this.lessthan7 = true;
+                }else{
+                    this.lessthan7 =false;
+                }
+            }else{
+                this.lessThan30= false;
+            }
+        },
+
+        async searchProvider(){
+            if(this.internetInstallDate != ""){
+                if(moment(this.internetInstallDate) < moment().add(30,"days") ){
+                    this.lessThan30 = true;
+                }else{
+                    this.lessThan30= false;
+                }
+            }
+            const that = this;
+          await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedInternetProvider+")",delay:false})
+                .then(function(data){
+                that.completeOrder = data.data[0].Complete_Order_in_Portal_Less_Than_30_Days;
+                let installTime = data.data[0].Install_Time_Windows;
+                let collectCCInfo2 = data.data[0].CC_Number_or_Payment_Required;
+                that.ssnCRM = data.data[0].SSN_Required;
+                that.last4CRM = data.data[0].Last_4_Required;
+                that.driverLicenseCRM = data.data[0].Driver_License_Required;
+                that.dobCRM = data.data[0].DOB_Required;
+                that.requiresPINCRM = data.data[0].Requires_Security_Pin;
+                that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
+
+
+                if(collectCCInfo2 == true){
+                    that.collectCCInfo = "Yes";    
+                    that.lockField = true;
+                }else{
+                    that.collectCCInfo = false;
+                    that.lockField = false;
+                }
+
+                if(installTime != null){
+                    that.installTimeWindow = true;
+                    installTime = installTime.split(",");
+                    that.itemsInstalTimeWindow = [...installTime]
+                }else{
+                    that.installTimeWindow = false;
+                }
+
+            })
+
+        },
     showSnackbar(value){
         if(value == "Ship to Home"){
             this.snackbar = true;
