@@ -472,7 +472,7 @@
                 </v-btn>
             </template>
         </v-snackbar>
-        <div v-if="completeOrder == true &&  lessThan30 && InstallationTypeInternet == 'Professional Install'" >
+        <div v-if="(completeOrder &&  lessThan30 && InstallationTypeInternet == 'Professional Install')" >
         <!-- <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Professional Install') && internetCheckbox"> -->
             <p class="text-h5" style="text-align: center">
                 <b style="color:red">If requested install is within 30 days:</b> <br>
@@ -480,7 +480,7 @@
                     because they'll need to receive a confirmation text.</mark></p>
         </div>
         <!-- <div v-if="(selectedInternetProvider== 'Xfinity' || InstallationTypeInternet == 'Ship to Home') && internetCheckbox"  > -->
-            <div v-if="completeOrder = true && lessthan7 && InstallationTypeInternet == 'Ship to Home' "     >
+            <div v-if="completeOrder && lessthan7 && InstallationTypeInternet == 'Ship to Home' "     >
             <p class="text-h5" style="text-align: center">
                 <b style="color:red">If requested delivery is within 7 days:</b> <br>
                 <mark>You must <u>complete the order in the portal </u>now with customer<br>
@@ -2155,7 +2155,7 @@ export default {
             }
         },
 
-        async searchProvider(){
+      async searchProvider(){
             if(this.internetInstallDate != ""){
                 if(moment(this.internetInstallDate) < moment().add(30,"days") ){
                     this.lessThan30 = true;
@@ -2194,7 +2194,7 @@ export default {
                 }
 
             })
-
+            
         },
     showSnackbar(value){
         if(value == "Ship to Home"){
