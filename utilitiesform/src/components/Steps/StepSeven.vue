@@ -343,7 +343,6 @@
                         dense
                         disabled
                         outlined
-                        @change="searchProviderGas()"
                         v-model="availableGas"
                         label="Available Gas Provider(s)"
                         >
@@ -379,7 +378,7 @@
                         v-model="gasProviderActivated"
                         label="​Gas Provider Activated"
                         :items="groupGasProviderActivated"
-
+                        @change="searchProviderGas()"
                         ></v-select>
                     </v-col>
                 </v-row>
