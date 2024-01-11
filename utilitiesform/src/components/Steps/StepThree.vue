@@ -172,7 +172,7 @@
                     clearable
                     outlined
                     dense
-                    @change="searchProvider()"
+                    @change="searchProviderInternet()"
                     label="Selected Internet Provider"
                     :items="internetItems"
                     v-model="selectedInternetProvider">
@@ -613,7 +613,7 @@
                 </v-col>
             </v-row>
         </div>
-        <v-row  v-if="internetCheckbox && requiresQuestionCRM" dense class="mt-0">
+        <v-row  v-if="internetCheckbox && requiresQuestionCRMInternet" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     clearable
@@ -625,7 +625,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row v-if="(selectedInternetProvider== 'AT&T'||selectedInternetProvider== 'COX'||selectedInternetProvider== 'United Communications')&& internetCheckbox && requiresQuestionCRM"  dense class="mt-0 mb-4">
+        <v-row v-if="internetCheckbox && requiresQuestionCRMInternet"  dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -635,7 +635,8 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="(selectedInternetProvider == 'AT&T' && internetCheckbox|| selectedInternetProvider == 'COX' && internetCheckbox || selectedInternetProvider == 'WOW' && internetCheckbox ||selectedInternetProvider == 'United Communications') && internetCheckbox && requiresPINCRM   " dense class="mt-0 mb-4">
+        <!-- <v-row v-if="(selectedInternetProvider == 'AT&T' && internetCheckbox|| selectedInternetProvider == 'COX' && internetCheckbox || selectedInternetProvider == 'WOW' && internetCheckbox ||selectedInternetProvider == 'United Communications') && internetCheckbox && requiresPINCRMInternet   " dense class="mt-0 mb-4"> -->
+        <v-row v-if="internetCheckbox && requiresPINCRMInternet" dense class="mt-0 mb-4">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -736,6 +737,7 @@
                 <v-select
                     clearable
                     dense
+                    @change="searchProviderTV()"
                     v-model="selectedTV" 
                     label="Selected TV Provider"
                     :items="tvItems"
@@ -841,7 +843,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row  v-if="installationTypeSelectedTV != '' && tvCheckbox" dense class="mt-0">
+        <v-row  v-if="installationTypeSelectedTV != '' && tvCheckbox && requiresQuestionCRMTV" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                     clearable
@@ -854,7 +856,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row v-if="(selectedTV == 'COX'||selectedTV == 'DirecTV Stream') && tvCheckbox " dense class="mt-0">
+        <v-row v-if="installationTypeSelectedTV != '' && tvCheckbox && requiresQuestionCRMTV" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -864,7 +866,8 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="selectedTV == 'DirecTV Stream'|| selectedTV == 'DirecTV'|| selectedTV == 'COX'||selectedTV== 'WOW'" dense class="mt-0">
+        <!-- <v-row v-if="selectedTV == 'DirecTV Stream'|| selectedTV == 'DirecTV'|| selectedTV == 'COX'||selectedTV== 'WOW'" dense class="mt-0"> -->
+        <v-row v-if="installationTypeSelectedTV != '' && tvCheckbox && requiresPINCRMTV" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -891,6 +894,7 @@
                 <!-- :items="['','AT&T', 'Altice USA','Brightspeed', 'COX','CenturyLink','Frontier', 'Mediacom', 'Metronet', 'Optimum', 'Spectrum', 'SuddenLink', 'United Communications', 'Verizon', 'WOW', 'Xfinity', 'Other']" -->
                 <v-select
                     clearable
+                    @change="searchProviderPhone()"
                     v-model="selectedPhone"
                     label="Selected Phone Provider"
                     :items="phoneItems"
@@ -987,7 +991,7 @@
                 </v-text-field>
             </v-col>
         </v-row>
-        <v-row  v-if="phoneCheckbox && installationTypePhone != ''" dense class="mt-0">
+        <v-row  v-if="phoneCheckbox && installationTypePhone != '' && requiresQuestionCRMPhone" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                 clearable
@@ -999,7 +1003,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row v-if="phoneCheckbox" dense class="mt-0">
+        <v-row v-if="phoneCheckbox && installationTypePhone != '' && requiresQuestionCRMPhone" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1009,7 +1013,8 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="selectedPhone == 'AT&T'|| selectedPhone == 'COX'|| selectedPhone== 'WOW'" dense class="mt-0">
+        <!-- <v-row v-if="selectedPhone == 'AT&T'|| selectedPhone == 'COX'|| selectedPhone== 'WOW'" dense class="mt-0"> -->
+        <v-row v-if="phoneCheckbox && installationTypePhone != '' && requiresPINCRMPhone" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1019,7 +1024,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="installationTypePhone != ''" dense class="mt-0">
+        <v-row v-if="installationTypePhone != '' && phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                 v-model="phoneAccountNumber"
@@ -1037,7 +1042,7 @@
         <v-row class="pt-10 pb-10">
             <h1 color="black" class="black--text">--REQUIRED INFO FOR ORDERS--</h1>
         </v-row>
-            <v-row v-if="(whosNameWillinternet == 'Primary'&& internetCheckbox || whosNameWillTv== 'Primary' && tvCheckbox || whosNameWillPhone== 'Primary' && phoneCheckbox)&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both') && dobCRM" dense class="mt-0">
+            <v-row v-if="(whosNameWillinternet == 'Primary' && internetCheckbox && dobCRMInternet || whosNameWillTv== 'Primary' && tvCheckbox && dobCRMTV || whosNameWillPhone== 'Primary' && phoneCheckbox && dobCRMPhone) && (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -1074,7 +1079,7 @@
             </v-col>
         </v-row>
         <!-- <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0"> -->
-            <v-row v-if="(whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both') && ssnCRM" dense class="mt-0">
+        <v-row v-if="(whosNameWillinternet == 'Primary' && internetCheckbox && ssnCRMInternet || whosNameWillTv== 'Primary' && tvCheckbox && ssnCRMTV || whosNameWillPhone== 'Primary' && phoneCheckbox && ssnCRMPhone) &&  (whoamISpeaking == 'Primary' ||whoamISpeaking == 'Both')" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1090,7 +1095,7 @@
             </v-col>
         </v-row>
         <!-- <v-row v-if="selectedInternetProvider=='Viasat' && internetCheckbox" dense class="mt-0"> -->
-            <v-row v-if="last4CRM && internetCheckbox" dense class="mt-0">
+            <v-row v-if="(last4CRMInternet && internetCheckbox) || (last4CRMTV && tvCheckbox) || (last4CRMPhone && phoneCheckbox)" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1100,7 +1105,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row  v-if="(whosNameWillinternet == 'Secondary'&& internetCheckbox || whosNameWillTv== 'Secondary' && tvCheckbox || whosNameWillPhone== 'Secondary' && phoneCheckbox)&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')&& dobCRM" dense class="mt-0">
+        <v-row  v-if="(whosNameWillinternet == 'Secondary' && internetCheckbox && dobCRMInternet || whosNameWillTv== 'Secondary' && tvCheckbox && dobCRMTV || whosNameWillPhone== 'Secondary' && phoneCheckbox && dobCRMPhone) && (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')" dense class="mt-0">
             <v-col
                 cols="6"
                 lg="6"
@@ -1138,7 +1143,7 @@
             </v-col>
         </v-row>
         <!-- <v-row v-if="(internetProviderAux1.includes(selectedInternetProvider)||selectTVproviderAux.includes(selectedTV)|| selectPhoneProviderAux.includes(selectedPhone))&& (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')" dense class="mt-0"> -->
-        <v-row  v-if="(whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both') && ssnCRM"  dense class="mt-0">
+        <v-row  v-if="(whosNameWillinternet == 'Secondary' && internetCheckbox && ssnCRMInternet || whosNameWillTv== 'Secondary' && tvCheckbox && ssnCRMTV || whosNameWillPhone== 'Secondary' && phoneCheckbox && ssnCRMPhone) &&  (whoamISpeaking == 'Secondary' ||whoamISpeaking == 'Both')"  dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1995,52 +2000,148 @@ export default {
                 this.$store.state.stepThree.itemsInstalTimeWindow = value;
             },
         },
-        ssnCRM: {
+        ssnCRMInternet: {
             get() {
-                return this.$store.state.stepThree.ssnCRM;
+                return this.$store.state.stepThree.ssnCRMInternet;
             },
             set(value) {
-                this.$store.state.stepThree.ssnCRM = value;
+                this.$store.state.stepThree.ssnCRMInternet = value;
             },
         },
-        last4CRM: {
+        last4CRMInternet: {
             get() {
-                return this.$store.state.stepThree.last4CRM;
+                return this.$store.state.stepThree.last4CRMInternet;
             },
             set(value) {
-                this.$store.state.stepThree.last4CRM = value;
+                this.$store.state.stepThree.last4CRMInternet = value;
             },
         },
-        driverLicenseCRM: {
+        driverLicenseCRMInternet: {
             get() {
-                return this.$store.state.stepThree.driverLicenseCRM;
+                return this.$store.state.stepThree.driverLicenseCRMInternet;
             },
             set(value) {
-                this.$store.state.stepThree.driverLicenseCRM = value;
+                this.$store.state.stepThree.driverLicenseCRMInternet = value;
             },
         },
-        dobCRM: {
+        dobCRMInternet: {
             get() {
-                return this.$store.state.stepThree.dobCRM;
+                return this.$store.state.stepThree.dobCRMInternet;
             },
             set(value) {
-                this.$store.state.stepThree.dobCRM = value;
+                this.$store.state.stepThree.dobCRMInternet = value;
             },
         },
-        requiresPINCRM: {
+        requiresPINCRMInternet: {
             get() {
-                return this.$store.state.stepThree.requiresPINCRM;
+                return this.$store.state.stepThree.requiresPINCRMInternet;
             },
             set(value) {
-                this.$store.state.stepThree.requiresPINCRM = value;
+                this.$store.state.stepThree.requiresPINCRMInternet = value;
             },
         },
-        requiresQuestionCRM: {
+        requiresQuestionCRMInternet: {
             get() {
-                return this.$store.state.stepThree.requiresQuestionCRM;
+                return this.$store.state.stepThree.requiresQuestionCRMInternet;
             },
             set(value) {
-                this.$store.state.stepThree.requiresQuestionCRM = value;
+                this.$store.state.stepThree.requiresQuestionCRMInternet = value;
+            },
+        },
+        ssnCRMTV: {
+            get() {
+                return this.$store.state.stepThree.ssnCRMTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.ssnCRMTV = value;
+            },
+        },
+        last4CRMTV: {
+            get() {
+                return this.$store.state.stepThree.last4CRMTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.last4CRMTV = value;
+            },
+        },
+        driverLicenseCRMTV: {
+            get() {
+                return this.$store.state.stepThree.driverLicenseCRMTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.driverLicenseCRMTV = value;
+            },
+        },
+        dobCRMTV: {
+            get() {
+                return this.$store.state.stepThree.dobCRMTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.dobCRMTV = value;
+            },
+        },
+        requiresPINCRMTV: {
+            get() {
+                return this.$store.state.stepThree.requiresPINCRMTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.requiresPINCRMTV = value;
+            },
+        },
+        requiresQuestionCRMTV: {
+            get() {
+                return this.$store.state.stepThree.requiresQuestionCRMTV;
+            },
+            set(value) {
+                this.$store.state.stepThree.requiresQuestionCRMTV = value;
+            },
+        },
+        ssnCRMPhone: {
+            get() {
+                return this.$store.state.stepThree.ssnCRMPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.ssnCRMPhone = value;
+            },
+        },
+        last4CRMPhone: {
+            get() {
+                return this.$store.state.stepThree.last4CRMPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.last4CRMPhone = value;
+            },
+        },
+        driverLicenseCRMPhone: {
+            get() {
+                return this.$store.state.stepThree.driverLicenseCRMPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.driverLicenseCRMPhone = value;
+            },
+        },
+        dobCRMPhone: {
+            get() {
+                return this.$store.state.stepThree.dobCRMPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.dobCRMPhone = value;
+            },
+        },
+        requiresPINCRMPhone: {
+            get() {
+                return this.$store.state.stepThree.requiresPINCRMPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.requiresPINCRMPhone = value;
+            },
+        },
+        requiresQuestionCRMPhone: {
+            get() {
+                return this.$store.state.stepThree.requiresQuestionCRMPhone;
+            },
+            set(value) {
+                this.$store.state.stepThree.requiresQuestionCRMPhone = value;
             },
         },
         secondarySSNforcable: {
@@ -2155,7 +2256,7 @@ export default {
             }
         },
 
-      async searchProvider(){
+        async searchProviderInternet(){
             if(this.internetInstallDate != ""){
                 if(moment(this.internetInstallDate) < moment().add(30,"days") ){
                     this.lessThan30 = true;
@@ -2164,18 +2265,19 @@ export default {
                 }
             }
             const that = this;
-          await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedInternetProvider+")",delay:false})
+            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedInternetProvider+")",delay:false})
                 .then(function(data){
                 that.completeOrder = data.data[0].Complete_Order_in_Portal_Less_Than_30_Days;
                 let installTime = data.data[0].Install_Time_Windows;
                 let collectCCInfo2 = data.data[0].CC_Number_or_Payment_Required;
-                that.ssnCRM = data.data[0].SSN_Required;
-                that.last4CRM = data.data[0].Last_4_Required;
-                that.driverLicenseCRM = data.data[0].Driver_License_Required;
-                that.dobCRM = data.data[0].DOB_Required;
-                that.requiresPINCRM = data.data[0].Requires_Security_Pin;
-                that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
 
+                // Required fields
+                that.ssnCRMInternet = data.data[0].SSN_Required;
+                that.last4CRMInternet = data.data[0].Last_4_Required;
+                that.driverLicenseCRMInternet = data.data[0].Driver_License_Required;
+                that.dobCRMInternet = data.data[0].DOB_Required;
+                that.requiresPINCRMInternet = data.data[0].Requires_Security_Pin;
+                that.requiresQuestionCRMInternet = data.data[0].Requires_Security_Questions;
 
                 if(collectCCInfo2 == true){
                     that.collectCCInfo = "Yes";    
@@ -2196,27 +2298,56 @@ export default {
             })
             
         },
-    showSnackbar(value){
-        if(value == "Ship to Home"){
-            this.snackbar = true;
-            this.text="Enter on Phone - Ship to Home Message";
-        }else if(value == "Professional Install"){
-            this.snackbar = true;
-            this.text = "Enter on Phone - Pro Install Message";
+        async searchProviderTV (){
+            const that = this;
+            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedTV+")",delay:false})
+                .then(function(data){
+
+                // Required fields
+                that.ssnCRMTV = data.data[0].SSN_Required;
+                that.last4CRMTV = data.data[0].Last_4_Required;
+                that.driverLicenseCRMTV = data.data[0].Driver_License_Required;
+                that.dobCRMTV = data.data[0].DOB_Required;
+                that.requiresPINCRMTV = data.data[0].Requires_Security_Pin;
+                that.requiresQuestionCRMTV = data.data[0].Requires_Security_Questions;
+            })
+        },
+        async searchProviderPhone (){
+            const that = this;
+            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedPhone+")",delay:false})
+                .then(function(data){
+
+                // Required fields
+                that.ssnCRMPhone = data.data[0].SSN_Required;
+                that.last4CRMPhone = data.data[0].Last_4_Required;
+                that.driverLicenseCRMPhone = data.data[0].Driver_License_Required;
+                that.dobCRMPhone = data.data[0].DOB_Required;
+                that.requiresPINCRMPhone = data.data[0].Requires_Security_Pin;
+                that.requiresQuestionCRMPhone = data.data[0].Requires_Security_Questions;
+
+            })
+        },
+        showSnackbar(value){
+            if(value == "Ship to Home"){
+                this.snackbar = true;
+                this.text="Enter on Phone - Ship to Home Message";
+            }else if(value == "Professional Install"){
+                this.snackbar = true;
+                this.text = "Enter on Phone - Pro Install Message";
+            }
+        },
+        formatDate (date) {
+            if (!date) return null
+
+            const [year, month, day] = date.split('-')
+            return `${month}/${day}/${year}`
+        },
+        parseDate (date) {
+            if (!date) return null
+
+            const [month, day, year] = date.split('/')
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
         }
-    },
-    formatDate (date) {
-        if (!date) return null
-
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
-    },
-    parseDate (date) {
-        if (!date) return null
-
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    }
     }
 }
 </script>
