@@ -1111,7 +1111,7 @@ export default {
         const that = this;
         await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.electricProviderActived+")",delay:false})
         .then(function(data){
-            console.log(data);
+            //console.log(data);
             that.ssnCRM = data.data[0].SSN_Required;
             that.dobCRM = data.data[0].DOB_Required;
 
@@ -1124,9 +1124,9 @@ export default {
 
       async searchProviderGas(){
         const that = this;
-        await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.electricProviderActived+")",delay:false})
+        await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.availableGas+")",delay:false})
         .then(function(data){
-            console.log(data);
+            //console.log(data);
             that.ssnCRMGas = data.data[0].SSN_Required;
             that.dobCRMGas = data.data[0].DOB_Required;
 
