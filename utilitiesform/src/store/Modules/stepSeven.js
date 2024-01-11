@@ -29,6 +29,10 @@ const stepSeven = {
         secondDOBFormatedGasStore:'',
         groupElectricProviderActived:[],
         groupGasProviderActivated:[],
+        ssnCRM:false,
+        dobCRM:false,
+        ssnCRMGas:false,
+        dobCRMGas:false,
 
 
 

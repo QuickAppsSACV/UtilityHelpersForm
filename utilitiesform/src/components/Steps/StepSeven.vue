@@ -40,6 +40,7 @@
                         <v-select
                         clearable
                         dense
+                        @change="searchProvider()"
                         outlined
                         v-model="electricProviderActived"
                         label="Electric Provider Activated"
@@ -106,7 +107,8 @@
                         </v-menu>
                 </v-col>
                 </v-row>
-                <v-row v-if="this.$store.state.stepThree.primarySSN == '' && whoIsNameWillElectric == 'Primary'" dense>
+                <!-- ssn require -->
+                <v-row v-if="(this.$store.state.stepThree.primarySSN == '' && whoIsNameWillElectric == 'Primary') && ssnCRM" dense>
                     <!-- Power -->
                     <v-col class="" cols="6">
                         <v-text-field
@@ -118,7 +120,8 @@
                     </v-text-field>
                 </v-col>
                 </v-row>
-                <v-row v-if="this.$store.state.stepThree.secondaryBirthDateFormattedStore == '' && whoIsNameWillElectric == 'Secondary'" dense class="mt-0">
+                <!-- DOB require -->
+                <v-row v-if="(this.$store.state.stepThree.secondaryBirthDateFormattedStore == '' && whoIsNameWillElectric == 'Secondary') && dobCRM" dense class="mt-0">
                     <v-col
                     cols="6"
                     lg="6"
@@ -154,7 +157,8 @@
                         </v-menu>
                 </v-col>
                 </v-row>
-                <v-row v-if="this.$store.state.stepThree.secondarySSNforcable == '' &&  whoIsNameWillElectric == 'Secondary'"  dense>
+                <!-- ssn2 require -->
+                <v-row v-if="(this.$store.state.stepThree.secondarySSNforcable == '' &&  whoIsNameWillElectric == 'Secondary') && ssnCRM"  dense>
                     <v-col class="" cols="6">
                         <v-text-field
                         dense
@@ -339,6 +343,7 @@
                         dense
                         disabled
                         outlined
+                        @change="searchProviderGas()"
                         v-model="availableGas"
                         label="Available Gas Provider(s)"
                         >
@@ -417,7 +422,7 @@
                         </v-menu>
                 </v-col>
                 </v-row>
-                <v-row v-if="!(primaryDOBFormatedStore != '' || whosNameWillGas != 'Primary'|| this.$store.state.stepThree.primaryBirthDateFormattedStore !='') && dobCRM" dense class="mt-0">
+                <v-row v-if="!(primaryDOBFormatedStore != '' || whosNameWillGas != 'Primary'|| this.$store.state.stepThree.primaryBirthDateFormattedStore !='') && dobCRMGas" dense class="mt-0">
                     <v-col
                     cols="6"
                     lg="6"
@@ -453,7 +458,7 @@
                         </v-menu>
                 </v-col>
                 </v-row>
-                <v-row v-if="!(this.$store.state.stepThree.primarySSN != '' || whosNameWillGas != 'Primary'|| primarySSN!='')" dense>
+                <v-row v-if="!(this.$store.state.stepThree.primarySSN != '' || whosNameWillGas != 'Primary'|| primarySSN!='') && ssnCRMGas" dense>
                     <!-- Gas -->
                     <v-col class="" cols="6">
                         <v-text-field
@@ -465,7 +470,7 @@
                     </v-text-field>
                 </v-col>
                 </v-row>
-                <v-row v-if="!(secondaryDOBFormatedStore != ''|| whosNameWillGas != 'Secondary'||this.$store.state.stepThree.secondaryBirthDateFormattedStore!= '')&& dobCRM" dense class="mt-0">
+                <v-row v-if="!(secondaryDOBFormatedStore != ''|| whosNameWillGas != 'Secondary'||this.$store.state.stepThree.secondaryBirthDateFormattedStore!= '')&& dobCRMGas" dense class="mt-0">
                     <v-col
                     cols="6"
                     lg="6"
@@ -501,7 +506,7 @@
                         </v-menu>
                 </v-col>
                 </v-row>
-                <v-row v-if="!(this.$store.state.stepThree.secondarySSNforcable != '' || secondarySSNForPower != '' || whosNameWillGas != 'Secondary')" dense>
+                <v-row v-if="!(this.$store.state.stepThree.secondarySSNforcable != '' || secondarySSNForPower != '' || whosNameWillGas != 'Secondary') && ssnCRMGas" dense>
                     <v-col class="" cols="6">
                         <!-- Gas -->
                         <v-text-field
@@ -1055,7 +1060,38 @@ export default {
         //         this.$store.state.stepSeven.employerNameBussines = value;
         //     },
         // },
-        
+        ssnCRM: {
+            get() {
+                return this.$store.state.stepSeven.ssnCRM;
+            },
+            set(value) {
+                this.$store.state.stepSeven.ssnCRM = value;
+            },
+        },
+        dobCRM: {
+            get() {
+                return this.$store.state.stepSeven.dobCRM;
+            },
+            set(value) {
+                this.$store.state.stepSeven.dobCRM = value;
+            },
+        },
+        ssnCRMGas: {
+            get() {
+                return this.$store.state.stepSeven.ssnCRMGas;
+            },
+            set(value) {
+                this.$store.state.stepSeven.ssnCRMGas = value;
+            },
+        },
+        dobCRMGas: {
+            get() {
+                return this.$store.state.stepSeven.dobCRMGas;
+            },
+            set(value) {
+                this.$store.state.stepSeven.dobCRMGas = value;
+            },
+        },
     },
     methods: {
         formatDate (date) {
@@ -1069,7 +1105,37 @@ export default {
 
         const [month, day, year] = date.split('/')
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      }
+      },
+
+      async searchProvider(){
+        const that = this;
+        await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.electricProviderActived+")",delay:false})
+        .then(function(data){
+            //console.log(data);
+            that.ssnCRM = data.data[0].SSN_Required;
+            that.dobCRM = data.data[0].DOB_Required;
+
+            // that.last4CRM = data.data[0].Last_4_Required;
+            // that.driverLicenseCRM = data.data[0].Driver_License_Required;
+            // that.requiresPINCRM = data.data[0].Requires_Security_Pin;
+            // that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
+        })
+      },
+
+      async searchProviderGas(){
+        const that = this;
+        await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.availableGas+")",delay:false})
+        .then(function(data){
+            //console.log(data);
+            that.ssnCRMGas = data.data[0].SSN_Required;
+            that.dobCRMGas = data.data[0].DOB_Required;
+
+            // that.last4CRM = data.data[0].Last_4_Required;
+            // that.driverLicenseCRM = data.data[0].Driver_License_Required;
+            // that.requiresPINCRM = data.data[0].Requires_Security_Pin;
+            // that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
+        })
+      },
     }
 }
 </script>
