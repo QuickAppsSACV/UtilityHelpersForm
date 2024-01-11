@@ -1158,7 +1158,7 @@ export default {
                 that.groupGasProviderActivated = [...lead.Available_Gas_Providers];
             }else if((typeof lead.Available_Gas_Providers) == "string"){
                 that.availableGas = lead.Available_Gas_Providers;
-                that.groupGasProviderActivated = lead.Available_Gas_Providers;
+                that.groupGasProviderActivated = [lead.Available_Gas_Providers];
             }
         }
         //this field is not multiselect

@@ -2264,68 +2264,107 @@ export default {
                     this.lessThan30= false;
                 }
             }
-            const that = this;
-            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedInternetProvider+")",delay:false})
-                .then(function(data){
-                that.completeOrder = data.data[0].Complete_Order_in_Portal_Less_Than_30_Days;
-                let installTime = data.data[0].Install_Time_Windows;
-                let collectCCInfo2 = data.data[0].CC_Number_or_Payment_Required;
+
+            if(this.selectedInternetProvider == ""){
+
+                this.completeOrder = false;
 
                 // Required fields
-                that.ssnCRMInternet = data.data[0].SSN_Required;
-                that.last4CRMInternet = data.data[0].Last_4_Required;
-                that.driverLicenseCRMInternet = data.data[0].Driver_License_Required;
-                that.dobCRMInternet = data.data[0].DOB_Required;
-                that.requiresPINCRMInternet = data.data[0].Requires_Security_Pin;
-                that.requiresQuestionCRMInternet = data.data[0].Requires_Security_Questions;
+                this.ssnCRMInternet = false;
+                this.last4CRMInternet = false;
+                this.driverLicenseCRMInternet = false;
+                this.dobCRMInternet = false;
+                this.requiresPINCRMInternet = false;
+                this.requiresQuestionCRMInternet = false;
 
-                if(collectCCInfo2 == true){
-                    that.collectCCInfo = "Yes";    
-                    that.lockField = true;
-                }else{
-                    that.collectCCInfo = false;
-                    that.lockField = false;
-                }
+                this.collectCCInfo = "";
+                this.lockField = false;
 
-                if(installTime != null){
-                    that.installTimeWindow = true;
-                    installTime = installTime.split(",");
-                    that.itemsInstalTimeWindow = [...installTime]
-                }else{
-                    that.installTimeWindow = false;
-                }
+            }else{
+                const that = this;
+                await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedInternetProvider+")",delay:false})
+                    .then(function(data){
+                    that.completeOrder = data.data[0].Complete_Order_in_Portal_Less_Than_30_Days;
+                    let installTime = data.data[0].Install_Time_Windows;
+                    let collectCCInfo2 = data.data[0].CC_Number_or_Payment_Required;
 
-            })
+                    // Required fields
+                    that.ssnCRMInternet = data.data[0].SSN_Required;
+                    that.last4CRMInternet = data.data[0].Last_4_Required;
+                    that.driverLicenseCRMInternet = data.data[0].Driver_License_Required;
+                    that.dobCRMInternet = data.data[0].DOB_Required;
+                    that.requiresPINCRMInternet = data.data[0].Requires_Security_Pin;
+                    that.requiresQuestionCRMInternet = data.data[0].Requires_Security_Questions;
+
+                    if(collectCCInfo2 == true){
+                        that.collectCCInfo = "Yes";    
+                        that.lockField = true;
+                    }else{
+                        that.collectCCInfo = false;
+                        that.lockField = false;
+                    }
+
+                    if(installTime != null){
+                        that.installTimeWindow = true;
+                        installTime = installTime.split(",");
+                        that.itemsInstalTimeWindow = [...installTime]
+                    }else{
+                        that.installTimeWindow = false;
+                    }
+
+                })
+            }
             
         },
         async searchProviderTV (){
-            const that = this;
-            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedTV+")",delay:false})
-                .then(function(data){
+            if(this.selectedTV == ""){
+                this.ssnCRMTV = false;
+                this.last4CRMTV = false;
+                this.driverLicenseCRMTV = false;
+                this.dobCRMTV = false;
+                this.requiresPINCRMTV = false;
+                this.requiresQuestionCRMTV = false;
+            
+            }else{
+                const that = this;
+                await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedTV+")",delay:false})
+                    .then(function(data){
 
-                // Required fields
-                that.ssnCRMTV = data.data[0].SSN_Required;
-                that.last4CRMTV = data.data[0].Last_4_Required;
-                that.driverLicenseCRMTV = data.data[0].Driver_License_Required;
-                that.dobCRMTV = data.data[0].DOB_Required;
-                that.requiresPINCRMTV = data.data[0].Requires_Security_Pin;
-                that.requiresQuestionCRMTV = data.data[0].Requires_Security_Questions;
-            })
+                    // Required fields
+                    that.ssnCRMTV = data.data[0].SSN_Required;
+                    that.last4CRMTV = data.data[0].Last_4_Required;
+                    that.driverLicenseCRMTV = data.data[0].Driver_License_Required;
+                    that.dobCRMTV = data.data[0].DOB_Required;
+                    that.requiresPINCRMTV = data.data[0].Requires_Security_Pin;
+                    that.requiresQuestionCRMTV = data.data[0].Requires_Security_Questions;
+                })
+            }
+            
         },
         async searchProviderPhone (){
-            const that = this;
-            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedPhone+")",delay:false})
-                .then(function(data){
+            if(this.selectedPhone == ""){
+                this.ssnCRMPhone = false;
+                this.last4CRMPhone = false;
+                this.driverLicenseCRMPhone = false;
+                this.dobCRMPhone = false;
+                this.requiresPINCRMPhone = false;
+                this.requiresQuestionCRMPhone = false;
 
-                // Required fields
-                that.ssnCRMPhone = data.data[0].SSN_Required;
-                that.last4CRMPhone = data.data[0].Last_4_Required;
-                that.driverLicenseCRMPhone = data.data[0].Driver_License_Required;
-                that.dobCRMPhone = data.data[0].DOB_Required;
-                that.requiresPINCRMPhone = data.data[0].Requires_Security_Pin;
-                that.requiresQuestionCRMPhone = data.data[0].Requires_Security_Questions;
+            }else{
+                const that = this;
+                await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.selectedPhone+")",delay:false})
+                    .then(function(data){
 
-            })
+                    // Required fields
+                    that.ssnCRMPhone = data.data[0].SSN_Required;
+                    that.last4CRMPhone = data.data[0].Last_4_Required;
+                    that.driverLicenseCRMPhone = data.data[0].Driver_License_Required;
+                    that.dobCRMPhone = data.data[0].DOB_Required;
+                    that.requiresPINCRMPhone = data.data[0].Requires_Security_Pin;
+                    that.requiresQuestionCRMPhone = data.data[0].Requires_Security_Questions;
+
+                })
+            }
         },
         showSnackbar(value){
             if(value == "Ship to Home"){

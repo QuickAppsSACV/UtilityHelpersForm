@@ -1107,33 +1107,44 @@ export default {
       },
 
       async searchProvider(){
-        const that = this;
-        await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.electricProviderActived+")",delay:false})
-        .then(function(data){
-            //console.log(data);
-            that.ssnCRM = data.data[0].SSN_Required;
-            that.dobCRM = data.data[0].DOB_Required;
+        if(this.electricProviderActived == "" || this.electricProviderActived == null){
+            this.ssnCRM = false;
+            this.dobCRM = false;
+        }else{
+            const that = this;
+            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.electricProviderActived+")",delay:false})
+            .then(function(data){
+                //console.log(data);
+                that.ssnCRM = data.data[0].SSN_Required;
+                that.dobCRM = data.data[0].DOB_Required;
 
-            // that.last4CRM = data.data[0].Last_4_Required;
-            // that.driverLicenseCRM = data.data[0].Driver_License_Required;
-            // that.requiresPINCRM = data.data[0].Requires_Security_Pin;
-            // that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
-        })
+                // that.last4CRM = data.data[0].Last_4_Required;
+                // that.driverLicenseCRM = data.data[0].Driver_License_Required;
+                // that.requiresPINCRM = data.data[0].Requires_Security_Pin;
+                // that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
+            })
+        }
+        
       },
 
       async searchProviderGas(){
-        const that = this;
-        await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.availableGas+")",delay:false})
-        .then(function(data){
-            //console.log(data);
-            that.ssnCRMGas = data.data[0].SSN_Required;
-            that.dobCRMGas = data.data[0].DOB_Required;
+        if(this.gasProviderActivated == "" || this.gasProviderActivated == null){
+            this.ssnCRMGas = false;
+            this.dobCRMGas = false;
+        }else{
+            const that = this;
+            await  ZOHO.CRM.API.searchRecord({Entity:"Providers",Type:"criteria",Query:"(Name:equals:"+that.gasProviderActivated+")",delay:false})
+            .then(function(data){
+                //console.log(data);
+                that.ssnCRMGas = data.data[0].SSN_Required;
+                that.dobCRMGas = data.data[0].DOB_Required;
 
-            // that.last4CRM = data.data[0].Last_4_Required;
-            // that.driverLicenseCRM = data.data[0].Driver_License_Required;
-            // that.requiresPINCRM = data.data[0].Requires_Security_Pin;
-            // that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
-        })
+                // that.last4CRM = data.data[0].Last_4_Required;
+                // that.driverLicenseCRM = data.data[0].Driver_License_Required;
+                // that.requiresPINCRM = data.data[0].Requires_Security_Pin;
+                // that.requiresQuestionCRM = data.data[0].Requires_Security_Questions;
+            })
+        }
       },
     }
 }
