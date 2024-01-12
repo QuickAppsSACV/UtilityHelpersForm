@@ -991,7 +991,7 @@
                 </v-text-field>
             </v-col>
         </v-row>
-        <v-row  v-if="phoneCheckbox && installationTypePhone != '' && requiresQuestionCRMPhone" dense class="mt-0">
+        <v-row  v-if="phoneCheckbox && (installationTypePhone != '' && installationTypePhone != null) && requiresQuestionCRMPhone" dense class="mt-0">
             <v-col cols="6">
                 <v-select
                 clearable
@@ -1003,7 +1003,7 @@
                 </v-select>
             </v-col>
         </v-row>
-        <v-row v-if="phoneCheckbox && installationTypePhone != '' && requiresQuestionCRMPhone" dense class="mt-0">
+        <v-row v-if="phoneCheckbox && (installationTypePhone != '' && installationTypePhone != null) && requiresQuestionCRMPhone" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1014,7 +1014,7 @@
             </v-col>
         </v-row>
         <!-- <v-row v-if="selectedPhone == 'AT&T'|| selectedPhone == 'COX'|| selectedPhone== 'WOW'" dense class="mt-0"> -->
-        <v-row v-if="phoneCheckbox && installationTypePhone != '' && requiresPINCRMPhone" dense class="mt-0">
+        <v-row v-if="phoneCheckbox && installationTypePhone && requiresPINCRMPhone" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field 
                 dense
@@ -1024,7 +1024,7 @@
                 ></v-text-field>
             </v-col>
         </v-row>
-        <v-row v-if="installationTypePhone != '' && phoneCheckbox" dense class="mt-0">
+        <v-row v-if="installationTypePhone && phoneCheckbox" dense class="mt-0">
             <v-col cols="6">
                 <v-text-field
                 v-model="phoneAccountNumber"
@@ -1289,7 +1289,7 @@
                     ></v-textarea>
                 </v-col>
         </v-row>
-        <v-row v-if="selectedInternetProvider != ''&& selectedTV!= ''  && internetCheckbox  && tvCheckbox " dense class="mt-0">
+        <v-row v-if="selectedInternetProvider != '' && selectedTV!= ''  && internetCheckbox  && tvCheckbox " dense class="mt-0">
             <v-col cols="6">
                 <v-checkbox
                 v-model="ihaveReviewed"
@@ -2257,7 +2257,7 @@ export default {
         },
 
         async searchProviderInternet(){
-            if(this.internetInstallDate != ""){
+            if(this.internetInstallDate != "" ){
                 if(moment(this.internetInstallDate) < moment().add(30,"days") ){
                     this.lessThan30 = true;
                 }else{
@@ -2265,7 +2265,7 @@ export default {
                 }
             }
 
-            if(this.selectedInternetProvider == ""){
+            if(!this.selectedInternetProvider){
 
                 this.completeOrder = false;
 
@@ -2317,7 +2317,7 @@ export default {
             
         },
         async searchProviderTV (){
-            if(this.selectedTV == ""){
+            if(!this.selectedTV){
                 this.ssnCRMTV = false;
                 this.last4CRMTV = false;
                 this.driverLicenseCRMTV = false;
@@ -2342,7 +2342,7 @@ export default {
             
         },
         async searchProviderPhone (){
-            if(this.selectedPhone == ""){
+            if(!this.selectedPhone){
                 this.ssnCRMPhone = false;
                 this.last4CRMPhone = false;
                 this.driverLicenseCRMPhone = false;
